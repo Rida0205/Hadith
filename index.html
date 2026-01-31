@@ -262,14 +262,8 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            transition: opacity 0.8s ease, transform 0.8s ease;
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hero.fade-out {
-            opacity: 0;
-            transform: translateY(-20px);
+            transition: opacity 0.3s ease;
         }
 
         .hero.hidden {
@@ -565,6 +559,8 @@
             color: var(--gray-color);
             font-style: italic;
             text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 20px;
         }
 
         .hadith-text {
@@ -574,7 +570,6 @@
             font-family: 'El Messiri', 'Tajawal', serif;
             color: var(--dark-color);
             padding-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .hadith-details {
@@ -832,6 +827,11 @@
             color: var(--gray-color);
             max-width: 600px;
             margin: 0 auto 30px;
+        }
+
+        /* Sitemap container مخفي */
+        .sitemap-container {
+            display: none;
         }
 
         /* التجاوب مع الشاشات */
@@ -1192,6 +1192,163 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
+    <!-- محتوى Sitemap مخفي -->
+    <div class="sitemap-container" id="sitemapContent">
+        <?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    <!-- الصفحة الرئيسية -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- صفحة عن المشروع -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#about</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- صفحة الأقسام -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#categories</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- صفحة الاتصال -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#contact</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- قسم صحيح البخاري -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/bukhari</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث البخاري -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/bukhari/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/bukhari/2</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/bukhari/3</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم صحيح مسلم -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/muslim</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث مسلم -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/muslim/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/muslim/2</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن الترمذي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/tirmidhi</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث الترمذي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/tirmidhi/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن أبي داود -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/abu-dawud</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث أبي داود -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/abu-dawud/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن النسائي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/nasai</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث النسائي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/nasai/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن ابن ماجه -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/ibn-majah</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث ابن ماجه -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/ibn-majah/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+</urlset>
+    </div>
+
     <script>
         // بيانات الموقع (الأحاديث)
         const hadithsData = {
@@ -1342,21 +1499,22 @@
         };
 
         // متغيرات حالة
-        let isHeroVisible = true;
-        let heroFadedOut = false;
         let currentCategory = '';
         let visibleHadiths = 2;
 
         // تهيئة الموقع
         document.addEventListener('DOMContentLoaded', function() {
+            // التحقق مما إذا كان المستخدم يطلب sitemap.xml
+            if (window.location.pathname === '/sitemap.xml' || window.location.href.includes('/sitemap.xml')) {
+                showSitemap();
+                return;
+            }
+            
             // إعداد زر العودة للأعلى
             setupBackToTop();
             
             // إعداد تأثير التمرير على الهيدر
             setupHeaderScroll();
-            
-            // إعداد تأثير التمرير على Hero Section
-            setupHeroScroll();
             
             // إعداد زر الاستكشاف
             setupExploreButton();
@@ -1369,19 +1527,15 @@
             
             // إضافة حدث لتغيير الهاش
             window.addEventListener('hashchange', processHash);
-            
-            // إعادة إظهار Hero عند العودة للصفحة الرئيسية
-            window.addEventListener('popstate', function() {
-                if (!window.location.hash || window.location.hash === '#') {
-                    showHero();
-                }
-            });
-            
-            // معالجة طلبات sitemap.xml
-            if (window.location.pathname.endsWith('/sitemap.xml')) {
-                generateSitemap();
-            }
         });
+        
+        // إظهار Sitemap
+        function showSitemap() {
+            const sitemapContent = document.getElementById('sitemapContent').textContent;
+            document.open();
+            document.write(sitemapContent);
+            document.close();
+        }
         
         // إعداد زر العودة للأعلى
         function setupBackToTop() {
@@ -1413,29 +1567,6 @@
             });
         }
         
-        // إعداد تأثير التمرير على Hero Section
-        function setupHeroScroll() {
-            const heroSection = document.getElementById('heroSection');
-            const heroHeight = heroSection.offsetHeight;
-            
-            window.addEventListener('scroll', function() {
-                if (!isHeroVisible || heroFadedOut) return;
-                
-                const scrollPosition = window.scrollY;
-                const opacity = Math.max(0, 1 - (scrollPosition / (heroHeight * 0.7)));
-                
-                heroSection.style.opacity = opacity;
-                
-                if (scrollPosition > heroHeight * 0.5) {
-                    heroSection.classList.add('fade-out');
-                    setTimeout(() => {
-                        heroSection.classList.add('hidden');
-                        heroFadedOut = true;
-                    }, 800);
-                }
-            });
-        }
-        
         // إعداد زر الاستكشاف
         function setupExploreButton() {
             const exploreBtn = document.getElementById('exploreBtn');
@@ -1443,22 +1574,13 @@
             exploreBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                const heroSection = document.getElementById('heroSection');
                 const targetSection = document.getElementById('categories');
                 
-                // إخفاء Hero Section بسلاسة
-                heroSection.classList.add('fade-out');
-                setTimeout(() => {
-                    heroSection.classList.add('hidden');
-                    isHeroVisible = false;
-                    heroFadedOut = true;
-                    
-                    // التمرير إلى قسم الأقسام
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }, 500);
+                // التمرير إلى قسم الأقسام
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
             });
         }
         
@@ -1468,23 +1590,6 @@
                 visibleHadiths += 2;
                 loadCategoryHadiths(currentCategory, visibleHadiths);
             });
-        }
-        
-        // إظهار Hero Section
-        function showHero() {
-            const heroSection = document.getElementById('heroSection');
-            heroSection.classList.remove('fade-out', 'hidden');
-            heroSection.style.opacity = '1';
-            isHeroVisible = true;
-            heroFadedOut = false;
-        }
-        
-        // إخفاء Hero Section
-        function hideHero() {
-            const heroSection = document.getElementById('heroSection');
-            heroSection.classList.add('hidden');
-            isHeroVisible = false;
-            heroFadedOut = true;
         }
         
         // معالجة الهاش وتحميل المحتوى المناسب
@@ -1497,16 +1602,19 @@
             }
             
             if (hash === '#categories') {
+                showMainPage();
                 scrollToSection('categories');
                 return;
             }
             
             if (hash === '#about') {
+                showMainPage();
                 scrollToSection('about');
                 return;
             }
             
             if (hash === '#contact') {
+                showMainPage();
                 scrollToSection('contact');
                 return;
             }
@@ -1534,6 +1642,7 @@
             // إذا كان الهاش يشير إلى قسم معين
             const section = document.querySelector(hash);
             if (section) {
+                showMainPage();
                 scrollToSection(hash.substring(1));
             } else {
                 showMainPage();
@@ -1559,11 +1668,9 @@
             // إخفاء الأقسام الأخرى وإظهار قائمة الأحاديث
             document.querySelector('.categories-section').style.display = 'none';
             document.querySelector('.about-section').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'block';
-            
-            // إخفاء Hero Section
-            hideHero();
             
             // تحميل الأحاديث
             loadCategoryHadiths(categorySlug, visibleHadiths);
@@ -1666,11 +1773,9 @@
             // إخفاء الأقسام الأخرى وإظهار التفاصيل
             document.querySelector('.categories-section').style.display = 'none';
             document.querySelector('.about-section').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'block';
-            
-            // إخفاء Hero Section
-            hideHero();
             
             // التمرير للأعلى
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1680,11 +1785,9 @@
         function showMainPage() {
             document.querySelector('.categories-section').style.display = 'block';
             document.querySelector('.about-section').style.display = 'block';
+            document.getElementById('heroSection').style.display = 'block';
             document.getElementById('hadiths-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'none';
-            
-            // إظهار Hero Section
-            showHero();
             
             // التمرير للأعلى
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1699,105 +1802,6 @@
                     behavior: 'smooth'
                 });
             }
-            
-            // إخفاء Hero Section عند التمرير لأي قسم
-            hideHero();
-            
-            // إظهار الأقسام المناسبة
-            if (sectionId === 'categories' || sectionId === 'about' || sectionId === 'contact') {
-                document.querySelector('.categories-section').style.display = 'block';
-                document.querySelector('.about-section').style.display = 'block';
-                document.getElementById('hadiths-container').style.display = 'none';
-                document.getElementById('hadith-detail-container').style.display = 'none';
-            }
-        }
-        
-        // دالة إنشاء Sitemap تعمل مع GitHub Pages
-        function generateSitemap() {
-            // إذا كان المستخدم يطلب sitemap.xml
-            if (window.location.pathname.endsWith('/sitemap.xml') || 
-                window.location.pathname === '/sitemap.xml' ||
-                window.location.search.includes('sitemap')) {
-                
-                let sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-    
-    <!-- الصفحة الرئيسية -->
-    <url>
-        <loc>https://hadiths.ondeenway.org/</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    
-    <!-- صفحة عن المشروع -->
-    <url>
-        <loc>https://hadiths.ondeenway.org/#about</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <!-- صفحة الأقسام -->
-    <url>
-        <loc>https://hadiths.ondeenway.org/#categories</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    
-    <!-- صفحة الاتصال -->
-    <url>
-        <loc>https://hadiths.ondeenway.org/#contact</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>`;
-                
-                // إضافة جميع الأقسام
-                for (const categorySlug in hadithsData) {
-                    const category = hadithsData[categorySlug];
-                    
-                    sitemapContent += `
-    
-    <!-- قسم ${category.title} -->
-    <url>
-        <loc>https://hadiths.ondeenway.org/#category/${categorySlug}</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>`;
-                    
-                    // إضافة جميع الأحاديث في القسم
-                    category.hadiths.forEach(hadith => {
-                        sitemapContent += `
-    
-    <!-- حديث: ${hadith.title} -->
-    <url>
-        <loc>https://hadiths.ondeenway.org/#hadith/${categorySlug}/${hadith.id}</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>`;
-                    });
-                }
-                
-                sitemapContent += '\n</urlset>';
-                
-                // تعيين نوع المحتوى إلى XML
-                document.write(sitemapContent);
-                document.close();
-                return;
-            }
-        }
-        
-        // إنشاء ملف sitemap.xml عند الطلب
-        if (window.location.pathname.endsWith('/sitemap.xml') || 
-            window.location.search.includes('sitemap')) {
-            generateSitemap();
         }
     </script>
 </body>
