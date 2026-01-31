@@ -834,151 +834,6 @@
             display: none;
         }
 
-        /* ============ قسم إدارة مخفي ============ */
-        
-        /* قسم إدارة مخفي */
-        .admin-section {
-            display: none;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 50px 0;
-            min-height: 100vh;
-        }
-
-        .admin-panel {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .login-form {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .admin-controls {
-            display: none;
-        }
-
-        .admin-controls.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            text-align: right;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--light-gray);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Cairo', sans-serif;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(44, 120, 108, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .btn-admin {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .btn-admin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(44, 120, 108, 0.3);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
-        }
-
-        .hadith-list-admin {
-            margin: 30px 0;
-            max-height: 400px;
-            overflow-y: auto;
-            border: 2px solid var(--light-gray);
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .hadith-item-admin {
-            background: #f8f9fa;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-right: 4px solid var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .hadith-item-admin:hover {
-            background: #e9ecef;
-            transform: translateX(-5px);
-        }
-
-        .hadith-item-admin h4 {
-            margin-bottom: 8px;
-            color: var(--dark-color);
-        }
-
-        .hadith-item-admin p {
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            color: var(--gray-color);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .btn-small {
-            padding: 5px 12px;
-            font-size: 0.85rem;
-        }
-
-        /* رابط الإدارة المخفي في الفوتر */
-        .admin-link {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         /* التجاوب مع الشاشات */
         @media (max-width: 1200px) {
             .container {
@@ -1047,6 +902,14 @@
                 grid-template-columns: 1fr;
             }
             
+            .development-icon {
+                font-size: 3rem;
+            }
+            
+            .development-message h3 {
+                font-size: 1.7rem;
+            }
+            
             .hadith-meta-detail {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1056,10 +919,6 @@
             .hadith-text {
                 font-size: 1.4rem;
                 line-height: 1.9;
-            }
-            
-            .admin-panel {
-                padding: 20px;
             }
         }
 
@@ -1123,7 +982,7 @@
                 <div class="logo">
                     <a href="/" style="color: inherit; text-decoration: none;">
                         <h1>DEENWAY – <span class="logo-highlight">Hadiths</span></h1>
-                        <p class="tagline">الأحاديث النبوية مصنفة حسب الكتب المعتمدة</p>
+                        <p class="tagline">One Truth · Eight Languages</p>
                     </a>
                 </div>
             </div>
@@ -1238,107 +1097,6 @@
         </div>
     </section>
 
-    <!-- قسم إدارة الأحاديث (مخفي) -->
-    <section class="admin-section" id="adminSection">
-        <div class="container">
-            <div class="admin-panel">
-                <div class="login-form" id="loginForm">
-                    <h2 style="color: var(--primary-color); margin-bottom: 30px;">لوحة إدارة الأحاديث</h2>
-                    <div class="form-group">
-                        <input type="password" id="adminPassword" class="form-control" placeholder="أدخل كلمة المرور">
-                    </div>
-                    <button class="btn btn-admin" onclick="checkAdminPassword()">دخول</button>
-                    <p id="loginError" style="color: #dc3545; margin-top: 15px; display: none;">كلمة المرور غير صحيحة</p>
-                </div>
-                
-                <div class="admin-controls" id="adminControls">
-                    <h2 style="color: var(--primary-color); margin-bottom: 30px;">
-                        <i class="fas fa-cogs"></i> إدارة الأحاديث
-                    </h2>
-                    
-                    <!-- إضافة حديث جديد -->
-                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
-                        <h3 style="color: var(--secondary-color); margin-bottom: 20px;">
-                            <i class="fas fa-plus-circle"></i> إضافة حديث جديد
-                        </h3>
-                        
-                        <div class="form-group">
-                            <label for="newBook">اختر الكتاب:</label>
-                            <select id="newBook" class="form-control">
-                                <option value="bukhari">صحيح البخاري</option>
-                                <option value="muslim">صحيح مسلم</option>
-                                <option value="tirmidhi">سنن الترمذي</option>
-                                <option value="abu-dawud">سنن أبي داود</option>
-                                <option value="nasai">سنن النسائي</option>
-                                <option value="ibn-majah">سنن ابن ماجه</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newTitle">عنوان الحديث:</label>
-                            <input type="text" id="newTitle" class="form-control" placeholder="مثال: حديث النية">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newText">نص الحديث:</label>
-                            <textarea id="newText" class="form-control form-textarea" placeholder="اكتب نص الحديث هنا..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newNarrator">الراوي:</label>
-                            <input type="text" id="newNarrator" class="form-control" placeholder="مثال: أبو هريرة رضي الله عنه">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newChain">سند الحديث:</label>
-                            <textarea id="newChain" class="form-control" placeholder="حدثنا..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newChapter">الباب:</label>
-                            <input type="text" id="newChapter" class="form-control" placeholder="مثال: كتاب الإيمان">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newGrade">درجة الحديث:</label>
-                            <select id="newGrade" class="form-control">
-                                <option value="صحيح">صحيح</option>
-                                <option value="حسن">حسن</option>
-                                <option value="ضعيف">ضعيف</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="newExplanation">شرح الحديث:</label>
-                            <textarea id="newExplanation" class="form-control form-textarea" placeholder="اكتب شرح الحديث هنا..."></textarea>
-                        </div>
-                        
-                        <button class="btn btn-admin btn-success" onclick="addNewHadith()">
-                            <i class="fas fa-save"></i> إضافة الحديث
-                        </button>
-                    </div>
-                    
-                    <!-- قائمة الأحاديث الحالية -->
-                    <div>
-                        <h3 style="color: var(--secondary-color); margin-bottom: 20px;">
-                            <i class="fas fa-list"></i> الأحاديث الحالية
-                        </h3>
-                        
-                        <div class="hadith-list-admin" id="hadithListAdmin">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--light-gray);">
-                        <button class="btn btn-admin btn-danger" onclick="logoutAdmin()">
-                            <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- قسم يعرض الأحاديث حسب الكتاب -->
     <section id="hadiths-container" class="section hadiths-page" style="display: none;">
         <div class="container">
@@ -1406,7 +1164,7 @@
                 <div class="footer-section">
                     <div class="footer-logo">
                         <h3>DEENWAY – <span class="logo-highlight">Hadiths</span></h3>
-                        <p class="tagline">الأحاديث النبوية مصنفة حسب الكتب المعتمدة</p>
+                        <p class="tagline">One Truth · Eight Languages</p>
                     </div>
                     <div class="social-links">
                         <a href="https://www.instagram.com/ondeenwayorg" aria-label="انستغرام" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -1592,9 +1350,7 @@
     </div>
 
     <script>
-        // ============================================
         // بيانات الموقع (الأحاديث)
-        // ============================================
         const hadithsData = {
             'bukhari': {
                 title: "صحيح البخاري",
@@ -1742,21 +1498,11 @@
             }
         };
 
-        // ============================================
-        // إعدادات النظام الإداري
-        // ============================================
-        
-        // كلمة مرور الإدارة (يمكنك تغييرها هنا)
-        const ADMIN_PASSWORD = "DEENWAY123";
-        
         // متغيرات حالة
         let currentCategory = '';
         let visibleHadiths = 2;
-        let isAdminLoggedIn = false;
 
-        // ============================================
         // تهيئة الموقع
-        // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             // التحقق مما إذا كان المستخدم يطلب sitemap.xml
             if (window.location.pathname === '/sitemap.xml' || window.location.href.includes('/sitemap.xml')) {
@@ -1776,22 +1522,12 @@
             // إعداد زر عرض المزيد
             setupLoadMoreButton();
             
-            // التحقق من رابط الإدارة الخاص
-            checkAdminAccess();
-            
-            // التحقق من جلسة الإدارة
-            checkAdminSession();
-            
             // معالجة الروابط الأولية
             processHash();
             
             // إضافة حدث لتغيير الهاش
             window.addEventListener('hashchange', processHash);
         });
-        
-        // ============================================
-        // وظائف عامة
-        // ============================================
         
         // إظهار Sitemap
         function showSitemap() {
@@ -1856,270 +1592,9 @@
             });
         }
         
-        // ============================================
-        // وظائف نظام الإدارة
-        // ============================================
-        
-        // التحقق من رابط الإدارة الخاص
-        function checkAdminAccess() {
-            // رابط الإدارة الخاص - فقط أنت تعرفه
-            // الموقع العادي: https://hadith.ondeenway.org
-            // رابط الإدارة: https://hadith.ondeenway.org#manage-deenway123
-            
-            const hash = window.location.hash;
-            
-            // إذا كان الرابط يحتوي على الكلمة السرية
-            if (hash === '#manage-deenway123') {
-                // إخفاء الكلمة السرية من شريط العنوان
-                window.history.replaceState(null, null, window.location.pathname + '#admin');
-                
-                // إظهار قسم الإدارة مباشرة
-                showAdminSection();
-            }
-        }
-        
-        // إظهار قسم الإدارة
-        function showAdminSection() {
-            // إخفاء كل الأقسام
-            document.getElementById('heroSection').style.display = 'none';
-            document.querySelector('.about-section').style.display = 'none';
-            document.querySelector('.categories-section').style.display = 'none';
-            document.getElementById('hadiths-container').style.display = 'none';
-            document.getElementById('hadith-detail-container').style.display = 'none';
-            
-            // إظهار قسم الإدارة
-            document.getElementById('adminSection').style.display = 'block';
-            
-            // التمرير للأعلى
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // التحقق من كلمة المرور
-        function checkAdminPassword() {
-            const password = document.getElementById('adminPassword').value;
-            const errorMsg = document.getElementById('loginError');
-            
-            if (password === ADMIN_PASSWORD) {
-                // تسجيل الدخول الناجح
-                isAdminLoggedIn = true;
-                
-                // حفظ الجلسة
-                localStorage.setItem('adminSession', 'true');
-                
-                // إظهار لوحة التحكم
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('adminControls').classList.add('active');
-                
-                // تحميل قائمة الأحاديث
-                loadHadithsForAdmin();
-                
-                errorMsg.style.display = 'none';
-            } else {
-                errorMsg.style.display = 'block';
-                document.getElementById('adminPassword').value = '';
-                document.getElementById('adminPassword').focus();
-            }
-        }
-        
-        // التحقق من جلسة الإدارة
-        function checkAdminSession() {
-            const session = localStorage.getItem('adminSession');
-            if (session === 'true') {
-                isAdminLoggedIn = true;
-                showAdminSection();
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('adminControls').classList.add('active');
-                loadHadithsForAdmin();
-            }
-        }
-        
-        // تحميل الأحاديث للإدارة
-        function loadHadithsForAdmin() {
-            const container = document.getElementById('hadithListAdmin');
-            container.innerHTML = '';
-            
-            Object.keys(hadithsData).forEach(bookSlug => {
-                const book = hadithsData[bookSlug];
-                const bookTitle = book.title;
-                
-                // إضافة عنوان الكتاب
-                const bookHeader = document.createElement('div');
-                bookHeader.className = 'hadith-item-admin';
-                bookHeader.innerHTML = `
-                    <h4 style="color: var(--primary-color);">
-                        <i class="fas fa-book"></i> ${bookTitle}
-                        <span style="font-size: 0.8rem; color: var(--gray-color);">
-                            (${book.hadiths.length} حديث)
-                        </span>
-                    </h4>
-                `;
-                container.appendChild(bookHeader);
-                
-                // إضافة أحاديث الكتاب
-                book.hadiths.forEach(hadith => {
-                    const hadithItem = document.createElement('div');
-                    hadithItem.className = 'hadith-item-admin';
-                    hadithItem.innerHTML = `
-                        <h4>${hadith.title}</h4>
-                        <p><strong>الراوي:</strong> ${hadith.narrator}</p>
-                        <p><strong>الباب:</strong> ${hadith.chapter}</p>
-                        <p><strong>الدرجة:</strong> ${hadith.grade}</p>
-                        <div class="action-buttons">
-                            <button class="btn btn-admin btn-small" onclick="editHadith('${bookSlug}', ${hadith.id})">
-                                <i class="fas fa-edit"></i> تعديل
-                            </button>
-                            <button class="btn btn-admin btn-small btn-danger" onclick="deleteHadith('${bookSlug}', ${hadith.id})">
-                                <i class="fas fa-trash"></i> حذف
-                            </button>
-                        </div>
-                    `;
-                    container.appendChild(hadithItem);
-                });
-            });
-        }
-        
-        // إضافة حديث جديد
-        function addNewHadith() {
-            if (!isAdminLoggedIn) {
-                alert('يرجى تسجيل الدخول أولاً');
-                return;
-            }
-            
-            const bookSlug = document.getElementById('newBook').value;
-            const title = document.getElementById('newTitle').value;
-            const text = document.getElementById('newText').value;
-            const narrator = document.getElementById('newNarrator').value;
-            const chain = document.getElementById('newChain').value;
-            const chapter = document.getElementById('newChapter').value;
-            const grade = document.getElementById('newGrade').value;
-            const explanation = document.getElementById('newExplanation').value;
-            
-            // التحقق من البيانات
-            if (!title || !text || !narrator || !chapter || !explanation) {
-                alert('يرجى ملء جميع الحقول المطلوبة');
-                return;
-            }
-            
-            // إنشاء رقم تسلسلي جديد
-            const book = hadithsData[bookSlug];
-            const newId = book.hadiths.length > 0 ? 
-                Math.max(...book.hadiths.map(h => h.id)) + 1 : 1;
-            const newNumber = book.hadiths.length > 0 ? 
-                Math.max(...book.hadiths.map(h => h.number)) + 1 : 1;
-            
-            // إضافة الحديث الجديد
-            const newHadith = {
-                id: newId,
-                number: newNumber,
-                title: title,
-                text: text,
-                narrator: narrator,
-                chain: chain,
-                book: book.title,
-                chapter: chapter,
-                grade: grade,
-                explanation: explanation
-            };
-            
-            book.hadiths.push(newHadith);
-            
-            // إعادة تحميل القائمة
-            loadHadithsForAdmin();
-            
-            // مسح الحقول
-            document.getElementById('newTitle').value = '';
-            document.getElementById('newText').value = '';
-            document.getElementById('newNarrator').value = '';
-            document.getElementById('newChain').value = '';
-            document.getElementById('newChapter').value = '';
-            document.getElementById('newExplanation').value = '';
-            
-            alert('✓ تمت إضافة الحديث بنجاح');
-        }
-        
-        // تعديل حديث
-        function editHadith(bookSlug, hadithId) {
-            if (!isAdminLoggedIn) {
-                alert('يرجى تسجيل الدخول أولاً');
-                return;
-            }
-            
-            const book = hadithsData[bookSlug];
-            const hadith = book.hadiths.find(h => h.id === hadithId);
-            
-            if (!hadith) {
-                alert('الحديث غير موجود');
-                return;
-            }
-            
-            // عرض نموذج التعديل
-            const newTitle = prompt('عنوان الحديث الجديد:', hadith.title);
-            if (newTitle !== null) {
-                hadith.title = newTitle;
-            }
-            
-            const newText = prompt('نص الحديث الجديد:', hadith.text);
-            if (newText !== null) {
-                hadith.text = newText;
-            }
-            
-            const newExplanation = prompt('شرح الحديث الجديد:', hadith.explanation);
-            if (newExplanation !== null) {
-                hadith.explanation = newExplanation;
-            }
-            
-            loadHadithsForAdmin();
-            alert('✓ تم تعديل الحديث بنجاح');
-        }
-        
-        // حذف حديث
-        function deleteHadith(bookSlug, hadithId) {
-            if (!isAdminLoggedIn) {
-                alert('يرجى تسجيل الدخول أولاً');
-                return;
-            }
-            
-            if (!confirm('هل أنت متأكد من حذف هذا الحديث؟')) {
-                return;
-            }
-            
-            const book = hadithsData[bookSlug];
-            const index = book.hadiths.findIndex(h => h.id === hadithId);
-            
-            if (index !== -1) {
-                book.hadiths.splice(index, 1);
-                loadHadithsForAdmin();
-                alert('✓ تم حذف الحديث بنجاح');
-            }
-        }
-        
-        // تسجيل الخروج
-        function logoutAdmin() {
-            isAdminLoggedIn = false;
-            localStorage.removeItem('adminSession');
-            
-            // إعادة تعيين واجهة الإدارة
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('adminControls').classList.remove('active');
-            document.getElementById('adminPassword').value = '';
-            
-            // العودة للصفحة الرئيسية
-            window.location.hash = '';
-            window.location.reload();
-        }
-        
-        // ============================================
-        // وظائف التنقل وعرض المحتوى
-        // ============================================
-        
         // معالجة الهاش وتحميل المحتوى المناسب
         function processHash() {
             const hash = window.location.hash;
-            
-            if (hash === '#admin') {
-                showAdminSection();
-                return;
-            }
             
             if (!hash || hash === '#') {
                 showMainPage();
@@ -2194,7 +1669,6 @@
             document.querySelector('.categories-section').style.display = 'none';
             document.querySelector('.about-section').style.display = 'none';
             document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('adminSection').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'block';
             
@@ -2300,7 +1774,6 @@
             document.querySelector('.categories-section').style.display = 'none';
             document.querySelector('.about-section').style.display = 'none';
             document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('adminSection').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'block';
             
@@ -2310,10 +1783,9 @@
         
         // عرض الصفحة الرئيسية
         function showMainPage() {
-            document.querySelector('.about-section').style.display = 'block';
             document.querySelector('.categories-section').style.display = 'block';
+            document.querySelector('.about-section').style.display = 'block';
             document.getElementById('heroSection').style.display = 'block';
-            document.getElementById('adminSection').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'none';
             
