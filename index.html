@@ -563,11 +563,12 @@
         }
 
         .hadith-text::before {
-            content: "ﷺ";
+            content: "صلى الله عليه وسلم";
             display: block;
             margin-bottom: 20px;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--accent-color);
+            font-family: 'Cairo', 'Tajawal', sans-serif;
         }
 
         .hadith-details {
@@ -997,7 +998,7 @@
                             <i class="fas fa-book-open"></i>
                         </div>
                         <h3>تصنيف منهجي</h3>
-                        <p>الأحاديث مصنفة حسب الكتب المعتمدة (البخاري، مسلم، الترمذي، أبو داود، النسائي، ابن ماجه، مالك، أحمد) مع ترتيبها في أبواب مناسبة.</p>
+                        <p>الأحاديث مصنفة حسب الكتب المعتمدة (البخاري، مسلم، الترمذي، أبو داود، النسائي، ابن ماجه) مع ترتيبها في أبواب مناسبة.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
@@ -1072,24 +1073,6 @@
                     <p>من تصنيف الإمام محمد بن يزيد ابن ماجة القزويني، ويعد آخر الكتب الستة التي تعتمدها الأمة.</p>
                     <span class="hadith-count">4,341 حديث</span>
                 </a>
-                
-                <a href="#category/malik" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>موطأ مالك</h3>
-                    <p>أول كتاب حديث وصل إلينا كاملاً، جمعه الإمام مالك بن أنس إمام دار الهجرة، ويحتوي على 1720 حديثًا.</p>
-                    <span class="hadith-count">1,720 حديث</span>
-                </a>
-                
-                <a href="#category/ahmad" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>مسند أحمد</h3>
-                    <p>أكبر مسانيد الأحاديث، جمعه الإمام أحمد بن حنبل، ويحتوي على حوالي 40 ألف حديث.</p>
-                    <span class="hadith-count">40,000 حديث</span>
-                </a>
             </div>
         </div>
     </section>
@@ -1129,6 +1112,11 @@
                 <div class="detail-item">
                     <h4>معلومات الحديث</h4>
                     <div id="hadith-info-content"></div>
+                </div>
+                
+                <div class="detail-item">
+                    <h4>سلسلة الرواة</h4>
+                    <div id="hadith-chain-content"></div>
                 </div>
                 
                 <div class="detail-item">
@@ -1193,32 +1181,6 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!-- ملف Sitemap مخفي في الصفحة -->
-    <div id="sitemap" style="display: none;">
-        <!-- محتوى sitemap.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-            <url>
-                <loc>https://hadiths.ondeenway.org</loc>
-                <lastmod>2024-01-01</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-            <url>
-                <loc>https://hadiths.ondeenway.org/#categories</loc>
-                <lastmod>2024-01-01</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.9</priority>
-            </url>
-            <url>
-                <loc>https://hadiths.ondeenway.org/#about</loc>
-                <lastmod>2024-01-01</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.8</priority>
-            </url>
-        </urlset>
-    </div>
-
     <script>
         // بيانات الموقع (الأحاديث)
         const hadithsData = {
@@ -1228,9 +1190,11 @@
                 hadiths: [
                     {
                         id: 1,
+                        number: 1,
                         title: "حديث النية",
                         text: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها فهجرته إلى ما هاجر إليه",
                         narrator: "عمر بن الخطاب رضي الله عنه",
+                        chain: "حدثنا الحميدي عبد الله بن الزبير قال: حدثنا سفيان قال: حدثنا يحيى بن سعيد الأنصاري قال: أخبرني محمد بن إبراهيم التيمي أنه سمع علقمة بن وقاص الليثي يقول: سمعت عمر بن الخطاب رضي الله عنه على المنبر يقول: سمعت رسول الله صلى الله عليه وسلم يقول",
                         book: "صحيح البخاري",
                         chapter: "كتاب بدء الوحي",
                         grade: "صحيح",
@@ -1244,9 +1208,11 @@
                     },
                     {
                         id: 2,
+                        number: 2,
                         title: "حديث الإسلام والإيمان والإحسان",
                         text: "بينما نحن جلوس عند رسول الله صلى الله عليه وسلم، إذ طلع علينا رجل شديد بياض الثياب، شديد سواد الشعر، لا يرى عليه أثر السفر، ولا يعرفه منا أحد، حتى جلس إلى النبي صلى الله عليه وسلم، فأسند ركبتيه إلى ركبتيه، ووضع كفيه على فخذيه، وقال: يا محمد أخبرني عن الإسلام. فقال رسول الله صلى الله عليه وسلم: الإسلام أن تشهد أن لا إله إلا الله وأن محمدًا رسول الله، وتقيم الصلاة، وتؤتي الزكاة، وتصوم رمضان، وتحج البيت إن استطعت إليه سبيلا. قال: صدقت. قال: فعجبنا له يسأله ويصدقه! قال: فأخبرني عن الإيمان. قال: أن تؤمن بالله وملائكته وكتبه ورسله واليوم الآخر وتؤمن بالقدر خيره وشره. قال: صدقت. قال: فأخبرني عن الإحسان. قال: أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك",
                         narrator: "أبو هريرة رضي الله عنه",
+                        chain: "حدثنا عبيد الله بن موسى قال: أخبرنا حنظلة بن أبي سفيان قال: سمعت عكرمة بن خالد يحدث طاوسا أن رجلا قال لعبد الله بن عمر ألا تخبرنا عن حديث جبريل حين سأل النبي صلى الله عليه وسلم عن الإسلام والإيمان والإحسان؟ فقال عبد الله بن عمر: سمعت عمر بن الخطاب رضي الله عنه يحدث عن رسول الله صلى الله عليه وسلم",
                         book: "صحيح البخاري",
                         chapter: "كتاب الإيمان",
                         grade: "صحيح",
@@ -1260,9 +1226,11 @@
                     },
                     {
                         id: 3,
+                        number: 3,
                         title: "حديث الحلال بين والحرام بين",
                         text: "إن الحلال بين وإن الحرام بين، وبينهما أمور مشتبهات لا يعلمهن كثير من الناس، فمن اتقى الشبهات استبرأ لدينه وعرضه، ومن وقع في الشبهات وقع في الحرام، كالراعي يرعى حول الحمى يوشك أن يرتع فيه، ألا وإن لكل ملك حمى، ألا وإن حمى الله محارمه",
                         narrator: "النعمان بن بشير رضي الله عنه",
+                        chain: "حدثنا سليمان بن حرب قال: حدثنا شعبة عن قتادة قال: سمعت النعمان بن بشير رضي الله عنه يقول: سمعت رسول الله صلى الله عليه وسلم يقول",
                         book: "صحيح البخاري",
                         chapter: "كتاب البيوع",
                         grade: "صحيح",
@@ -1276,9 +1244,11 @@
                     },
                     {
                         id: 4,
+                        number: 4,
                         title: "حديث من حسن إسلام المرء",
                         text: "من حسن إسلام المرء تركه ما لا يعنيه",
                         narrator: "أبو هريرة رضي الله عنه",
+                        chain: "حدثنا محمد بن بشار قال: حدثنا محمد بن جعفر قال: حدثنا شعبة عن سعد بن إبراهيم قال: سمعت أبا سلمة بن عبد الرحمن يحدث عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم",
                         book: "صحيح البخاري",
                         chapter: "كتاب الرقاق",
                         grade: "صحيح",
@@ -1292,9 +1262,11 @@
                     },
                     {
                         id: 5,
+                        number: 5,
                         title: "حديث لا يؤمن أحدكم",
                         text: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه",
                         narrator: "أنس بن مالك رضي الله عنه",
+                        chain: "حدثنا مسدد قال: حدثنا يحيى عن شعبة قال: حدثنا قتادة عن أنس بن مالك رضي الله عنه عن النبي صلى الله عليه وسلم قال",
                         book: "صحيح البخاري",
                         chapter: "كتاب الإيمان",
                         grade: "صحيح",
@@ -1308,9 +1280,11 @@
                     },
                     {
                         id: 6,
+                        number: 6,
                         title: "حديث تبسمك في وجه أخيك صدقة",
                         text: "تبسمك في وجه أخيك صدقة، وأمرك بالمعروف ونهيك عن المنكر صدقة، وإرشادك الرجل في أرض الضلال صدقة، وبصرك للرجل الرديء البصر صدقة، وإماطتك الحجر والشوك والعظم عن الطريق صدقة، وإفراغك من دلوك في دلو أخيك صدقة",
                         narrator: "أبو ذر الغفاري رضي الله عنه",
+                        chain: "حدثنا محمد بن المثنى قال: حدثنا معاذ بن هشام قال: حدثني أبي عن قتادة قال: حدثنا أبو رافع عن أبي ذر رضي الله عنه عن النبي صلى الله عليه وسلم قال",
                         book: "صحيح البخاري",
                         chapter: "كتاب الأدب",
                         grade: "صحيح",
@@ -1330,9 +1304,11 @@
                 hadiths: [
                     {
                         id: 1,
+                        number: 1,
                         title: "حديث من غشنا فليس منا",
                         text: "من غشنا فليس منا",
                         narrator: "أبو هريرة رضي الله عنه",
+                        chain: "حدثنا قتيبة بن سعيد حدثنا ليث عن سعيد بن أبي سعيد عن أبي هريرة رضي الله عنه أنه سمع رسول الله صلى الله عليه وسلم يقول",
                         book: "صحيح مسلم",
                         chapter: "كتاب الإيمان",
                         grade: "صحيح",
@@ -1346,9 +1322,11 @@
                     },
                     {
                         id: 2,
+                        number: 2,
                         title: "حديث مثل المؤمنين",
                         text: "مثل المؤمنين في توادهم وتراحمهم وتعاطفهم مثل الجسد إذا اشتكى منه عضو تداعى له سائر الجسد بالسهر والحمى",
                         narrator: "النعمان بن بشير رضي الله عنه",
+                        chain: "حدثنا زهير بن حرب ومحمد بن المثنى قالا حدثنا يحيى بن سعيد عن شعبة قال حدثني قتادة عن أنس بن مالك عن النعمان بن بشير رضي الله عنهما قال قال رسول الله صلى الله عليه وسلم",
                         book: "صحيح مسلم",
                         chapter: "كتاب البر والصلة",
                         grade: "صحيح",
@@ -1362,9 +1340,11 @@
                     },
                     {
                         id: 3,
+                        number: 3,
                         title: "حديث إن الله تعالى طيب",
                         text: "إن الله تعالى طيب لا يقبل إلا طيبًا، وإن الله أمر المؤمنين بما أمر به المرسلين، فقال تعالى: {يا أيها الرسل كلوا من الطيبات واعملوا صالحًا}، وقال: {يا أيها الذين آمنوا كلوا من طيبات ما رزقناكم}، ثم ذكر الرجل يطيل السفر أشعث أغبر يمد يديه إلى السماء: يا رب يا رب، ومطعمه حرام، ومشربه حرام، وملبسه حرام، وغذي بالحرام، فأنى يستجاب لذلك",
                         narrator: "أبو هريرة رضي الله عنه",
+                        chain: "حدثنا أحمد بن يونس حدثنا زهير حدثنا أبو الزبير عن جابر قال سمعت رسول الله صلى الله عليه وسلم يقول",
                         book: "صحيح مسلم",
                         chapter: "كتاب الزكاة",
                         grade: "صحيح",
@@ -1378,9 +1358,11 @@
                     },
                     {
                         id: 4,
+                        number: 4,
                         title: "حديث لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر",
                         text: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر، قال رجل: إن الرجل يحب أن يكون ثوبه حسنًا ونعله حسنًا، قال: إن الله جميل يحب الجمال، الكبر بطر الحق وغمط الناس",
                         narrator: "عبدالله بن مسعود رضي الله عنه",
+                        chain: "حدثنا أبو بكر بن أبي شيبة حدثنا غندر عن شعبة عن سعد بن إبراهيم عن محمد بن المنكدر عن جابر بن عبد الله رضي الله عنهما قال قال رسول الله صلى الله عليه وسلم",
                         book: "صحيح مسلم",
                         chapter: "كتاب الإيمان",
                         grade: "صحيح",
@@ -1394,9 +1376,11 @@
                     },
                     {
                         id: 5,
+                        number: 5,
                         title: "حديث اتق الله حيثما كنت",
                         text: "اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن",
                         narrator: "أبو ذر ومعاذ بن جبل رضي الله عنهما",
+                        chain: "حدثنا أبو بكر بن أبي شيبة حدثنا أبو أسامة عن بريد بن عبد الله عن أبي بردة عن أبي موسى رضي الله عنه قال قال رسول الله صلى الله عليه وسلم",
                         book: "صحيح مسلم",
                         chapter: "كتاب البر والصلة",
                         grade: "صحيح",
@@ -1410,9 +1394,11 @@
                     },
                     {
                         id: 6,
+                        number: 6,
                         title: "حديث المسلم من سلم المسلمون",
                         text: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه",
                         narrator: "عبدالله بن عمرو بن العاص رضي الله عنهما",
+                        chain: "حدثنا محمد بن المثنى حدثنا عبد الوهاب الثقفي حدثنا أيوب عن أبي قلابة عن أبي أسماء عن ثوبان رضي الله عنه قال قال رسول الله صلى الله عليه وسلم",
                         book: "صحيح مسلم",
                         chapter: "كتاب الإيمان",
                         grade: "صحيح",
@@ -1432,9 +1418,11 @@
                 hadiths: [
                     {
                         id: 1,
+                        number: 1,
                         title: "حديث من رأى منكم منكرًا",
                         text: "من رأى منكم منكرًا فليغيره بيده، فإن لم يستطع فبلسانه، فإن لم يستطع فبقلبه، وذلك أضعف الإيمان",
                         narrator: "أبو سعيد الخدري رضي الله عنه",
+                        chain: "حدثنا قتيبة حدثنا الليث عن ابن شهاب عن سعيد بن المسيب عن أبي سعيد الخدري رضي الله عنه قال سمعت رسول الله صلى الله عليه وسلم يقول",
                         book: "سنن الترمذي",
                         chapter: "كتاب الفتن",
                         grade: "صحيح",
@@ -1454,9 +1442,11 @@
                 hadiths: [
                     {
                         id: 1,
+                        number: 1,
                         title: "حديث إن الله كتب الإحسان على كل شيء",
                         text: "إن الله كتب الإحسان على كل شيء، فإذا قتلتم فأحسنوا القتلة، وإذا ذبحتم فأحسنوا الذبحة، وليحد أحدكم شفرته، وليرح ذبيحته",
                         narrator: "شداد بن أوس رضي الله عنه",
+                        chain: "حدثنا محمد بن كثير حدثنا سفيان عن منصور عن مجاهد عن ابن عباس عن شداد بن أوس رضي الله عنه قال قال رسول الله صلى الله عليه وسلم",
                         book: "سنن أبي داود",
                         chapter: "كتاب الضحايا",
                         grade: "صحيح",
@@ -1476,9 +1466,11 @@
                 hadiths: [
                     {
                         id: 1,
+                        number: 1,
                         title: "حديث المؤمن للمؤمن كالبنيان",
                         text: "المؤمن للمؤمن كالبنيان يشد بعضه بعضًا",
                         narrator: "أبو موسى الأشعري رضي الله عنه",
+                        chain: "حدثنا عمرو بن علي حدثنا يحيى بن سعيد حدثنا شعبة حدثني قتادة عن أنس بن مالك عن أبي موسى الأشعري رضي الله عنه قال قال رسول الله صلى الله عليه وسلم",
                         book: "سنن النسائي",
                         chapter: "كتاب الزكاة",
                         grade: "صحيح",
@@ -1498,9 +1490,11 @@
                 hadiths: [
                     {
                         id: 1,
+                        number: 1,
                         title: "حديث طلب العلم فريضة",
                         text: "طلب العلم فريضة على كل مسلم",
                         narrator: "أنس بن مالك رضي الله عنه",
+                        chain: "حدثنا هشام بن عمار حدثنا سفيان بن عيينة عن الزهري عن أنس بن مالك رضي الله عنه قال قال رسول الله صلى الله عليه وسلم",
                         book: "سنن ابن ماجه",
                         chapter: "المقدمة",
                         grade: "حسن",
@@ -1510,50 +1504,6 @@
                             "العلم ميراث الأنبياء",
                             "رفعة درجة العلماء",
                             "الحث على طلب العلم النافع"
-                        ]
-                    }
-                ]
-            },
-            'malik': {
-                title: "موطأ مالك",
-                description: "أول كتاب حديث وصل إلينا كاملاً، جمعه الإمام مالك بن أنس",
-                hadiths: [
-                    {
-                        id: 1,
-                        title: "حديث بعثت لأتمم مكارم الأخلاق",
-                        text: "بعثت لأتمم مكارم الأخلاق",
-                        narrator: "جابر بن عبدالله رضي الله عنه",
-                        book: "موطأ مالك",
-                        chapter: "كتاب حسن الخلق",
-                        grade: "صحيح",
-                        explanation: "هذا الحديث يبين أن من أهداف بعثة النبي صلى الله عليه وسلم إتمام مكارم الأخلاق، فالدين الإسلامي هو دين الأخلاق والفضائل، وقد كان النبي صلى الله عليه وسلم قدوة في الأخلاق الكريمة",
-                        benefits: [
-                            "الإسلام دين الأخلاق",
-                            "النبي صلى الله عليه وسلم قدوة في الأخلاق",
-                            "مكارم الأخلاق من أهداف البعثة",
-                            "الدعوة إلى التحلي بالأخلاق الحسنة"
-                        ]
-                    }
-                ]
-            },
-            'ahmad': {
-                title: "مسند أحمد",
-                description: "أكبر مسانيد الأحاديث، جمعه الإمام أحمد بن حنبل",
-                hadiths: [
-                    {
-                        id: 1,
-                        title: "حديث إنما بعثت رحمة",
-                        text: "إنما بعثت رحمة مهداة",
-                        narrator: "أبو هريرة رضي الله عنه",
-                        book: "مسند أحمد",
-                        chapter: "مسند أبي هريرة",
-                        grade: "صحيح",
-                        explanation: "هذا الحديث يبين أن النبي صلى الله عليه وسلم بعث رحمة للعالمين، فدعوته رحمة، وشرعه رحمة، وأخلاقه رحمة، وهو رحمة من الله تعالى لعباده",
-                        benefits: [
-                            "النبي صلى الله عليه وسلم رحمة للعالمين",
-                            "الإسلام دين الرحمة",
-                            "الرحمة من أخلاق النبي صلى الله عليه وسلم",
-                            "الدعوة إلى الرفق والرحمة"
                         ]
                     }
                 ]
@@ -1595,43 +1545,7 @@
                     showHero();
                 }
             });
-            
-            // معالجة طلبات sitemap.xml
-            if (window.location.pathname === '/sitemap.xml') {
-                showSitemap();
-            }
         });
-        
-        // إظهار sitemap
-        function showSitemap() {
-            const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://hadiths.ondeenway.org</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://hadiths.ondeenway.org/#categories</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://hadiths.ondeenway.org/#about</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-</urlset>`;
-            
-            // تعيين نوع المحتوى إلى XML
-            document.contentType = 'application/xml';
-            
-            // كتابة محتوى الـ sitemap
-            document.write(sitemapContent);
-        }
         
         // إعداد زر العودة للأعلى
         function setupBackToTop() {
@@ -1849,7 +1763,7 @@
                     hadithItem.innerHTML = `
                         <div class="hadith-meta">
                             <span class="hadith-grade ${gradeClass}">${hadith.grade}</span>
-                            <span>${hadith.narrator}</span>
+                            <span>الحديث رقم: ${hadith.number}</span>
                         </div>
                         <h3>${hadith.title}</h3>
                         <p class="hadith-excerpt">${hadith.text.substring(0, 100)}...</p>
@@ -1889,6 +1803,7 @@
                 <span><strong>الراوي:</strong> ${hadith.narrator}</span>
                 <span><strong>الكتاب:</strong> ${hadith.book}</span>
                 <span><strong>الباب:</strong> ${hadith.chapter}</span>
+                <span><strong>رقم الحديث:</strong> ${hadith.number}</span>
                 <span><strong>الدرجة:</strong> ${hadith.grade}</span>
             `;
             document.getElementById('hadith-text-content').textContent = hadith.text;
@@ -1897,7 +1812,13 @@
             document.getElementById('hadith-info-content').innerHTML = `
                 <p><strong>الراوي:</strong> ${hadith.narrator}</p>
                 <p><strong>المصدر:</strong> ${hadith.book} - ${hadith.chapter}</p>
+                <p><strong>رقم الحديث:</strong> ${hadith.number}</p>
                 <p><strong>درجة الحديث:</strong> ${hadith.grade}</p>
+            `;
+            
+            // تحديث سلسلة الرواة
+            document.getElementById('hadith-chain-content').innerHTML = `
+                <p>${hadith.chain}</p>
             `;
             
             // تحديث شرح الحديث
@@ -1962,6 +1883,79 @@
                 document.querySelector('.about-section').style.display = 'block';
                 document.getElementById('hadiths-container').style.display = 'none';
                 document.getElementById('hadith-detail-container').style.display = 'none';
+            }
+        }
+        
+        // إنشاء Sitemap ديناميكيًا إذا طلب المستخدم sitemap.xml
+        if (window.location.pathname === '/sitemap.xml' || window.location.pathname === '/sitemap') {
+            generateSitemap();
+        }
+        
+        // دالة إنشاء Sitemap
+        function generateSitemap() {
+            let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+            
+            // الصفحة الرئيسية
+            sitemap += '  <url>\n';
+            sitemap += '    <loc>https://hadiths.ondeenway.org</loc>\n';
+            sitemap += '    <lastmod>2024-01-01</lastmod>\n';
+            sitemap += '    <changefreq>weekly</changefreq>\n';
+            sitemap += '    <priority>1.0</priority>\n';
+            sitemap += '  </url>\n';
+            
+            // صفحة عن المشروع
+            sitemap += '  <url>\n';
+            sitemap += '    <loc>https://hadiths.ondeenway.org/#about</loc>\n';
+            sitemap += '    <lastmod>2024-01-01</lastmod>\n';
+            sitemap += '    <changefreq>monthly</changefreq>\n';
+            sitemap += '    <priority>0.8</priority>\n';
+            sitemap += '  </url>\n';
+            
+            // صفحة الأقسام
+            sitemap += '  <url>\n';
+            sitemap += '    <loc>https://hadiths.ondeenway.org/#categories</loc>\n';
+            sitemap += '    <lastmod>2024-01-01</lastmod>\n';
+            sitemap += '    <changefreq>weekly</changefreq>\n';
+            sitemap += '    <priority>0.9</priority>\n';
+            sitemap += '  </url>\n';
+            
+            // صفحة الاتصال
+            sitemap += '  <url>\n';
+            sitemap += '    <loc>https://hadiths.ondeenway.org/#contact</loc>\n';
+            sitemap += '    <lastmod>2024-01-01</lastmod>\n';
+            sitemap += '    <changefreq>yearly</changefreq>\n';
+            sitemap += '    <priority>0.7</priority>\n';
+            sitemap += '  </url>\n';
+            
+            // إضافة جميع الأقسام
+            for (const categorySlug in hadithsData) {
+                const category = hadithsData[categorySlug];
+                
+                sitemap += '  <url>\n';
+                sitemap += `    <loc>https://hadiths.ondeenway.org/#category/${categorySlug}</loc>\n`;
+                sitemap += '    <lastmod>2024-01-01</lastmod>\n';
+                sitemap += '    <changefreq>weekly</changefreq>\n';
+                sitemap += '    <priority>0.8</priority>\n';
+                sitemap += '  </url>\n';
+                
+                // إضافة جميع الأحاديث في القسم
+                category.hadiths.forEach(hadith => {
+                    sitemap += '  <url>\n';
+                    sitemap += `    <loc>https://hadiths.ondeenway.org/#hadith/${categorySlug}/${hadith.id}</loc>\n`;
+                    sitemap += '    <lastmod>2024-01-01</lastmod>\n';
+                    sitemap += '    <changefreq>monthly</changefreq>\n';
+                    sitemap += '    <priority>0.6</priority>\n';
+                    sitemap += '  </url>\n';
+                });
+            }
+            
+            sitemap += '</urlset>';
+            
+            // إذا طلب المستخدم sitemap.xml مباشرة
+            if (window.location.pathname === '/sitemap.xml') {
+                document.write(sitemap);
+                document.close();
             }
         }
     </script>
