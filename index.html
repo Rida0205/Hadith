@@ -1498,13 +1498,7 @@
             }
         };
 
-        // متغيرات حالة
-               // بيانات الموقع (الأحاديث)
-        const hadithsData = {
-            // ... البيانات الحالية (اتركها كما هي)
-        };
-
-        // ========== الكود الجديد ==========
+              // ========== الكود الجديد ==========
         // بيانات تعريف الكتب (لتحديد bookId لكل كتاب)
         const BOOKS_CONFIG = {
             'bukhari': { id: 1, title: "صحيح البخاري" },
@@ -1971,8 +1965,8 @@
             // إعداد زر الاستكشاف
             setupExploreButton();
             
-            // إعداد زر عرض المزيد
-            setupLoadMoreButton();
+            // تحديث: إعداد زر عرض المزيد باستخدام الدالة الجديدة
+            document.getElementById('load-more-btn').addEventListener('click', loadMoreHadiths);
             
             // معالجة الروابط الأولية
             processHash();
@@ -2036,14 +2030,6 @@
             });
         }
         
-        // إعداد زر عرض المزيد
-        function setupLoadMoreButton() {
-            document.getElementById('load-more-btn').addEventListener('click', function() {
-                visibleHadiths += 2;
-                loadCategoryHadiths(currentCategory, visibleHadiths);
-            });
-        }
-        
         // معالجة الهاش وتحميل المحتوى المناسب
         function processHash() {
             const hash = window.location.hash;
@@ -2099,138 +2085,6 @@
             } else {
                 showMainPage();
             }
-        }
-        
-        // تحميل قسم معين
-        function loadCategory(categorySlug) {
-            if (!hadithsData[categorySlug]) {
-                alert('هذا القسم غير متوفر حالياً.');
-                window.location.hash = '#categories';
-                return;
-            }
-            
-            const categoryData = hadithsData[categorySlug];
-            currentCategory = categorySlug;
-            visibleHadiths = 2;
-            
-            // تحديث العنوان والوصف
-            document.getElementById('category-title').textContent = categoryData.title;
-            document.getElementById('category-description').textContent = categoryData.description;
-            
-            // إخفاء الأقسام الأخرى وإظهار قائمة الأحاديث
-            document.querySelector('.categories-section').style.display = 'none';
-            document.querySelector('.about-section').style.display = 'none';
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('hadith-detail-container').style.display = 'none';
-            document.getElementById('hadiths-container').style.display = 'block';
-            
-            // تحميل الأحاديث
-            loadCategoryHadiths(categorySlug, visibleHadiths);
-            
-            // التمرير للأعلى
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // تحميل أحاديث القسم
-        function loadCategoryHadiths(categorySlug, count) {
-            const categoryData = hadithsData[categorySlug];
-            if (!categoryData) return;
-            
-            const hadithsList = document.getElementById('hadiths-list');
-            const loadMoreContainer = document.getElementById('load-more-container');
-            
-            // إعادة تعيين القائمة
-            if (count === 2) {
-                hadithsList.innerHTML = '';
-            }
-            
-            // إضافة الأحاديث
-            const hadithsToShow = categoryData.hadiths.slice(0, count);
-            
-            hadithsToShow.forEach(hadith => {
-                // التحقق من عدم إضافة الحديث مسبقاً
-                if (!document.getElementById(`hadith-${hadith.id}`)) {
-                    const gradeClass = `grade-${hadith.grade === 'صحيح' ? 'sahih' : hadith.grade === 'حسن' ? 'hasan' : 'daif'}`;
-                    
-                    const hadithItem = document.createElement('div');
-                    hadithItem.className = 'hadith-item';
-                    hadithItem.id = `hadith-${hadith.id}`;
-                    hadithItem.innerHTML = `
-                        <div class="hadith-meta">
-                            <span class="hadith-grade ${gradeClass}">${hadith.grade}</span>
-                            <span>الحديث رقم: ${hadith.number}</span>
-                        </div>
-                        <h3>${hadith.title}</h3>
-                        <p class="hadith-excerpt">${hadith.text.substring(0, 100)}...</p>
-                        <a href="#hadith/${categorySlug}/${hadith.id}" class="read-more">
-                            قراءة الحديث <i class="fas fa-arrow-left"></i>
-                        </a>
-                    `;
-                    hadithsList.appendChild(hadithItem);
-                }
-            });
-            
-            // إظهار أو إخفاء زر "عرض المزيد"
-            if (categoryData.hadiths.length > count) {
-                loadMoreContainer.style.display = 'block';
-            } else {
-                loadMoreContainer.style.display = 'none';
-            }
-        }
-        
-        // تحميل حديث مفصل
-        function loadHadithDetail(categorySlug, hadithId) {
-            const categoryData = hadithsData[categorySlug];
-            if (!categoryData) {
-                window.location.hash = '#categories';
-                return;
-            }
-            
-            const hadith = categoryData.hadiths.find(h => h.id === hadithId);
-            if (!hadith) {
-                window.location.hash = `#category/${categorySlug}`;
-                return;
-            }
-            
-            // تحديث محتوى الحديث
-            document.getElementById('hadith-detail-title').textContent = hadith.title;
-            document.getElementById('hadith-meta-detail').innerHTML = `
-                <span><strong>الراوي:</strong> ${hadith.narrator}</span>
-                <span><strong>الكتاب:</strong> ${hadith.book}</span>
-                <span><strong>الباب:</strong> ${hadith.chapter}</span>
-                <span><strong>رقم الحديث:</strong> ${hadith.number}</span>
-                <span><strong>الدرجة:</strong> ${hadith.grade}</span>
-            `;
-            
-            // تحديث سلسلة الرواة والنص
-            document.getElementById('hadith-chain-content').textContent = hadith.chain;
-            document.getElementById('hadith-text-content').textContent = hadith.text;
-            
-            // تحديث معلومات الحديث
-            document.getElementById('hadith-info-content').innerHTML = `
-                <p><strong>الراوي:</strong> ${hadith.narrator}</p>
-                <p><strong>المصدر:</strong> ${hadith.book} - ${hadith.chapter}</p>
-                <p><strong>رقم الحديث:</strong> ${hadith.number}</p>
-                <p><strong>درجة الحديث:</strong> ${hadith.grade}</p>
-            `;
-            
-            // تحديث شرح الحديث
-            document.getElementById('hadith-explanation-content').innerHTML = `
-                <p>${hadith.explanation}</p>
-            `;
-            
-            // إعداد زر العودة
-            document.getElementById('back-to-hadiths').href = `#category/${categorySlug}`;
-            
-            // إخفاء الأقسام الأخرى وإظهار التفاصيل
-            document.querySelector('.categories-section').style.display = 'none';
-            document.querySelector('.about-section').style.display = 'none';
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('hadiths-container').style.display = 'none';
-            document.getElementById('hadith-detail-container').style.display = 'block';
-            
-            // التمرير للأعلى
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         // عرض الصفحة الرئيسية
