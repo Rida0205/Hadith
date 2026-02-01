@@ -1499,8 +1499,460 @@
         };
 
         // متغيرات حالة
+               // بيانات الموقع (الأحاديث)
+        const hadithsData = {
+            // ... البيانات الحالية (اتركها كما هي)
+        };
+
+        // ========== الكود الجديد ==========
+        // بيانات تعريف الكتب (لتحديد bookId لكل كتاب)
+        const BOOKS_CONFIG = {
+            'bukhari': { id: 1, title: "صحيح البخاري" },
+            'muslim': { id: 2, title: "صحيح مسلم" },
+            'tirmidhi': { id: 3, title: "سنن الترمذي" },
+            'abu-dawud': { id: 4, title: "سنن أبي داود" },
+            'nasai': { id: 5, title: "سنن النسائي" },
+            'ibn-majah': { id: 6, title: "سنن ابن ماجه" }
+        };
+
+        // مسار ملف JSON
+        const JSON_FILE_PATH = 'hadiths.json';
+
+        // متغيرات حالة
+        let isLoading = false;
         let currentCategory = '';
         let visibleHadiths = 2;
+        let hadithsIndex = {};
+
+        // دالة لقراءة ملف JSON بشكل تدريجي
+        async function loadHadithsFromJSON(bookSlug, limit = 2, offset = 0) {
+            const bookConfig = BOOKS_CONFIG[bookSlug];
+            if (!bookConfig) {
+                console.error('الكتاب غير معروف:', bookSlug);
+                return [];
+            }
+
+            // إذا كان bookId = 6 (سنن ابن ماجه)، تأكد من عدم خلطه مع غيره
+            if (bookConfig.id === 6) {
+                console.log('جاري تحميل أحاديث سنن ابن ماجه فقط...');
+            }
+
+            // إذا كانت الأحاديث مخزنة بالفعل، استرجعها
+            if (hadithsIndex[bookConfig.id] && hadithsIndex[bookConfig.id].length > 0) {
+                return hadithsIndex[bookConfig.id].slice(offset, offset + limit);
+            }
+
+            // إذا كان الجاري تحميله، انتظر
+            if (isLoading) {
+                console.log('جاري التحميل، يرجى الانتظار...');
+                return [];
+            }
+
+            isLoading = true;
+            
+            try {
+                // بدء طلب AJAX لقراءة الملف
+                const response = await fetch(JSON_FILE_PATH);
+                
+                if (!response.ok) {
+                    throw new Error(`فشل في تحميل الملف: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let buffer = '';
+                let inHadithsArray = false;
+                let braceDepth = 0;
+                let currentObject = '';
+                let hadithsLoaded = 0;
+                
+                // تهيئة الفهرس
+                hadithsIndex[bookConfig.id] = [];
+                
+                console.log(`بدء تحميل أحاديث الكتاب ID: ${bookConfig.id} (${bookConfig.title})`);
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    
+                    if (done) {
+                        // معالجة الباقي في buffer
+                        if (buffer && inHadithsArray) {
+                            buffer.split('\n').forEach(line => {
+                                processLine(line, bookConfig.id);
+                            });
+                        }
+                        break;
+                    }
+
+                    buffer += decoder.decode(value, { stream: true });
+                    
+                    // معالجة الأسطر
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+                    
+                    for (const line of lines) {
+                        if (!inHadithsArray) {
+                            // البحث عن بدء مصفوفة hadiths
+                            if (line.includes('"hadiths":')) {
+                                inHadithsArray = true;
+                                braceDepth = 0;
+                            }
+                            continue;
+                        }
+
+                        // نحن داخل مصفوفة hadiths
+                        if (line.includes('{')) {
+                            braceDepth++;
+                        }
+                        if (line.includes('}')) {
+                            braceDepth--;
+                        }
+
+                        currentObject += line;
+
+                        // إذا اكتمل كائن حديث (توازن الأقواس)
+                        if (braceDepth === 0 && currentObject.includes('}')) {
+                            try {
+                                // تنظيف النص لتكوين JSON صالح
+                                let jsonStr = currentObject.trim();
+                                
+                                if (jsonStr.endsWith(',')) {
+                                    jsonStr = jsonStr.slice(0, -1);
+                                }
+                                
+                                if (jsonStr.startsWith(',')) {
+                                    jsonStr = jsonStr.slice(1);
+                                }
+                                
+                                if (jsonStr.startsWith('{') && jsonStr.endsWith('}')) {
+                                    const hadith = JSON.parse(jsonStr);
+                                    
+                                    // التصفية حسب bookId - هام جداً: سنن ابن ماجه فقط بـ bookId = 6
+                                    if (hadith.bookId === bookConfig.id) {
+                                        // تنسيق الحديث للعرض
+                                        const formattedHadith = {
+                                            id: hadith.id || hadithsLoaded + 1,
+                                            number: hadith.idInBook || hadithsLoaded + 1,
+                                            title: `حديث رقم ${hadith.idInBook || hadithsLoaded + 1}`,
+                                            text: hadith.arabic || '',
+                                            english: hadith.english?.text || '',
+                                            narrator: hadith.english?.narrator || '',
+                                            chain: hadith.arabic ? (hadith.arabic.split('،').slice(0, 3).join('،') + '...') : '',
+                                            book: bookConfig.title,
+                                            chapter: getChapterName(hadith.chapterId, hadith.bookId),
+                                            grade: "حسن",
+                                            explanation: "هذا الحديث من " + bookConfig.title + " ويحتاج إلى شرح مفصل."
+                                        };
+                                        
+                                        // تخزين الحديث في الفهرس
+                                        hadithsIndex[bookConfig.id].push(formattedHadith);
+                                        hadithsLoaded++;
+                                    }
+                                }
+                            } catch (parseError) {
+                                console.warn('خطأ في تحليل كائن الحديث:', parseError.message);
+                            }
+                            
+                            currentObject = '';
+                            
+                            // إذا انتهت مصفوفة hadiths
+                            if (line.includes(']') && braceDepth === 0) {
+                                inHadithsArray = false;
+                                console.log(`انتهى تحميل أحاديث ${bookConfig.title}`);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // إذا حصلنا على عدد كافٍ من الأحاديث، توقف
+                    if (hadithsLoaded >= 50 && hadithsIndex[bookConfig.id].length >= 50) {
+                        console.log(`تم تحميل 50 حديث لـ ${bookConfig.title}`);
+                        break;
+                    }
+                }
+                
+                reader.releaseLock();
+                
+                // إرجاع الأحاديث المحملة
+                const result = hadithsIndex[bookConfig.id].slice(offset, offset + limit);
+                console.log(`إرجاع ${result.length} حديث لـ ${bookConfig.title}`);
+                return result;
+                
+            } catch (error) {
+                console.error('خطأ في تحميل الأحاديث:', error);
+                // العودة للبيانات الافتراضية في حالة الفشل
+                return hadithsData[bookSlug]?.hadiths.slice(offset, offset + limit) || [];
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        // دالة مساعدة لمعالجة السطر
+        function processLine(line, targetBookId) {
+            line = line.trim();
+            if (!line || line === '[' || line === ']' || line === '},' || line === '}') {
+                return;
+            }
+        }
+
+        // دالة للحصول على اسم الباب
+        function getChapterName(chapterId, bookId) {
+            const chapters = {
+                6: {
+                    1: "كتاب الطهارة وسننها",
+                    2: "كتاب الصلاة",
+                    3: "كتاب الأذان والسنة فيها",
+                    0: "كتاب المقدمة"
+                }
+            };
+            
+            return chapters[bookId]?.[chapterId] || `الباب ${chapterId}`;
+        }
+
+        // تعديل دالة loadCategory لدعم التحميل من JSON
+        async function loadCategory(categorySlug) {
+            if (!hadithsData[categorySlug] && !BOOKS_CONFIG[categorySlug]) {
+                alert('هذا القسم غير متوفر حالياً.');
+                window.location.hash = '#categories';
+                return;
+            }
+
+            const categoryData = hadithsData[categorySlug] || {
+                title: BOOKS_CONFIG[categorySlug].title,
+                description: `أحاديث ${BOOKS_CONFIG[categorySlug].title}`
+            };
+            
+            currentCategory = categorySlug;
+            visibleHadiths = 2;
+
+            // تحديث العنوان والوصف
+            document.getElementById('category-title').textContent = categoryData.title;
+            document.getElementById('category-description').textContent = categoryData.description;
+
+            // إخفاء الأقسام الأخرى وإظهار قائمة الأحاديث
+            document.querySelector('.categories-section').style.display = 'none';
+            document.querySelector('.about-section').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('hadith-detail-container').style.display = 'none';
+            document.getElementById('hadiths-container').style.display = 'block';
+
+            // إظهار مؤشر تحميل
+            const hadithsList = document.getElementById('hadiths-list');
+            hadithsList.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <p>جاري تحميل الأحاديث...</p>
+                </div>
+            `;
+
+            // تحميل الأحاديث من JSON أو البيانات الافتراضية
+            let hadithsToShow;
+            
+            if (categorySlug === 'ibn-majah') {
+                // لسنن ابن ماجه، احمل من JSON
+                console.log('تحميل أحاديث سنن ابن ماجه من ملف JSON...');
+                hadithsToShow = await loadHadithsFromJSON(categorySlug, visibleHadiths, 0);
+            } else {
+                // للكتب الأخرى، استخدم البيانات الافتراضية مؤقتاً
+                console.log(`تحميل أحاديث ${categoryData.title} من البيانات الافتراضية`);
+                hadithsToShow = categoryData.hadiths?.slice(0, visibleHadiths) || [];
+            }
+
+            // عرض الأحاديث
+            displayHadithsList(hadithsToShow, categorySlug);
+
+            // التحكم بزر "عرض المزيد"
+            const loadMoreContainer = document.getElementById('load-more-container');
+            const totalHadiths = categoryData.hadiths?.length || 0;
+            
+            if ((categorySlug === 'ibn-majah' && hadithsIndex[6]?.length > visibleHadiths) || 
+                (categorySlug !== 'ibn-majah' && totalHadiths > visibleHadiths)) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+
+            // التمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // دالة لعرض قائمة الأحاديث
+        function displayHadithsList(hadiths, categorySlug) {
+            const hadithsList = document.getElementById('hadiths-list');
+            
+            if (!hadiths || hadiths.length === 0) {
+                hadithsList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                        <i class="fas fa-book-open fa-3x" style="color: var(--gray-color); margin-bottom: 20px;"></i>
+                        <p>لا توجد أحاديث متاحة حالياً.</p>
+                        <a href="#categories" class="btn btn-primary" style="margin-top: 20px;">العودة إلى الكتب</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            hadithsList.innerHTML = '';
+            
+            hadiths.forEach(hadith => {
+                const gradeClass = `grade-${hadith.grade === 'صحيح' ? 'sahih' : hadith.grade === 'حسن' ? 'hasan' : 'daif'}`;
+                
+                // استخراج مقتطف من النص العربي
+                let excerpt = hadith.text;
+                if (excerpt.length > 150) {
+                    excerpt = excerpt.substring(0, 150) + '...';
+                }
+                
+                const hadithItem = document.createElement('div');
+                hadithItem.className = 'hadith-item';
+                hadithItem.id = `hadith-${hadith.id}`;
+                hadithItem.innerHTML = `
+                    <div class="hadith-meta">
+                        <span class="hadith-grade ${gradeClass}">${hadith.grade}</span>
+                        <span>الحديث رقم: ${hadith.number}</span>
+                    </div>
+                    <h3>${hadith.title}</h3>
+                    <p class="hadith-excerpt">${excerpt}</p>
+                    <a href="#hadith/${categorySlug}/${hadith.id}" class="read-more">
+                        قراءة الحديث <i class="fas fa-arrow-left"></i>
+                    </a>
+                `;
+                hadithsList.appendChild(hadithItem);
+            });
+        }
+
+        // دالة لعرض المزيد من الأحاديث
+        async function loadMoreHadiths() {
+            if (!currentCategory) return;
+            
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+            loadMoreBtn.disabled = true;
+            
+            visibleHadiths += 2;
+            
+            let additionalHadiths;
+            
+            if (currentCategory === 'ibn-majah') {
+                // لسنن ابن ماجه، احمل المزيد من JSON
+                additionalHadiths = await loadHadithsFromJSON(currentCategory, 2, visibleHadiths - 2);
+            } else {
+                // للكتب الأخرى، استخدم البيانات الافتراضية
+                const categoryData = hadithsData[currentCategory];
+                additionalHadiths = categoryData.hadiths.slice(visibleHadiths - 2, visibleHadiths);
+            }
+            
+            // إضافة الأحاديث الجديدة
+            displayAdditionalHadiths(additionalHadiths, currentCategory);
+            
+            // تحديث حالة زر "عرض المزيد"
+            const loadMoreContainer = document.getElementById('load-more-container');
+            const totalHadiths = currentCategory === 'ibn-majah' ? 
+                (hadithsIndex[6]?.length || 0) : 
+                (hadithsData[currentCategory]?.hadiths?.length || 0);
+            
+            if (visibleHadiths < totalHadiths) {
+                loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> عرض المزيد من الأحاديث';
+                loadMoreBtn.disabled = false;
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // دالة لإضافة أحاديث إضافية للقائمة
+        function displayAdditionalHadiths(hadiths, categorySlug) {
+            const hadithsList = document.getElementById('hadiths-list');
+            
+            hadiths.forEach(hadith => {
+                // التحقق من عدم وجود الحديث مسبقاً
+                if (!document.getElementById(`hadith-${hadith.id}`)) {
+                    const gradeClass = `grade-${hadith.grade === 'صحيح' ? 'sahih' : hadith.grade === 'حسن' ? 'hasan' : 'daif'}`;
+                    
+                    // استخراج مقتطف من النص العربي
+                    let excerpt = hadith.text;
+                    if (excerpt.length > 150) {
+                        excerpt = excerpt.substring(0, 150) + '...';
+                    }
+                    
+                    const hadithItem = document.createElement('div');
+                    hadithItem.className = 'hadith-item';
+                    hadithItem.id = `hadith-${hadith.id}`;
+                    hadithItem.innerHTML = `
+                        <div class="hadith-meta">
+                            <span class="hadith-grade ${gradeClass}">${hadith.grade}</span>
+                            <span>الحديث رقم: ${hadith.number}</span>
+                        </div>
+                        <h3>${hadith.title}</h3>
+                        <p class="hadith-excerpt">${excerpt}</p>
+                        <a href="#hadith/${categorySlug}/${hadith.id}" class="read-more">
+                            قراءة الحديث <i class="fas fa-arrow-left"></i>
+                        </a>
+                    `;
+                    hadithsList.appendChild(hadithItem);
+                }
+            });
+        }
+
+        // تعديل دالة loadHadithDetail لدعم الأحاديث المحملة من JSON
+        function loadHadithDetail(categorySlug, hadithId) {
+            let hadith = null;
+            
+            if (categorySlug === 'ibn-majah') {
+                // البحث في الأحاديث المحملة من JSON
+                hadith = hadithsIndex[6]?.find(h => h.id === hadithId);
+            } else {
+                // البحث في البيانات الافتراضية
+                const categoryData = hadithsData[categorySlug];
+                hadith = categoryData?.hadiths?.find(h => h.id === hadithId);
+            }
+            
+            if (!hadith) {
+                window.location.hash = `#category/${categorySlug}`;
+                return;
+            }
+            
+            // تحديث محتوى الحديث
+            document.getElementById('hadith-detail-title').textContent = hadith.title;
+            document.getElementById('hadith-meta-detail').innerHTML = `
+                <span><strong>الراوي:</strong> ${hadith.narrator}</span>
+                <span><strong>الكتاب:</strong> ${hadith.book}</span>
+                <span><strong>الباب:</strong> ${hadith.chapter}</span>
+                <span><strong>رقم الحديث:</strong> ${hadith.number}</span>
+                <span><strong>الدرجة:</strong> ${hadith.grade}</span>
+            `;
+            
+            // تحديث سلسلة الرواة والنص
+            document.getElementById('hadith-chain-content').textContent = hadith.chain;
+            document.getElementById('hadith-text-content').textContent = hadith.text;
+            
+            // تحديث معلومات الحديث
+            document.getElementById('hadith-info-content').innerHTML = `
+                <p><strong>الراوي:</strong> ${hadith.narrator}</p>
+                <p><strong>المصدر:</strong> ${hadith.book} - ${hadith.chapter}</p>
+                <p><strong>رقم الحديث:</strong> ${hadith.number}</p>
+                <p><strong>درجة الحديث:</strong> ${hadith.grade}</p>
+                ${hadith.english ? `<p><strong>النص الإنجليزي:</strong> ${hadith.english}</p>` : ''}
+            `;
+            
+            // تحديث شرح الحديث
+            document.getElementById('hadith-explanation-content').innerHTML = `
+                <p>${hadith.explanation}</p>
+            `;
+            
+            // إعداد زر العودة
+            document.getElementById('back-to-hadiths').href = `#category/${categorySlug}`;
+            
+            // إخفاء الأقسام الأخرى وإظهار التفاصيل
+            document.querySelector('.categories-section').style.display = 'none';
+            document.querySelector('.about-section').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('hadiths-container').style.display = 'none';
+            document.getElementById('hadith-detail-container').style.display = 'block';
+            
+            // التمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ========== نهاية الكود الجديد ==========
 
         // تهيئة الموقع
         document.addEventListener('DOMContentLoaded', function() {
