@@ -435,7 +435,7 @@
         }
         
         /* ---------------------------------------------------------
-           NEW STYLES: CHAPTERS ACCORDION
+           STYLES: CHAPTERS ACCORDION
            --------------------------------------------------------- */
         
         /* حاوية الباب */
@@ -520,8 +520,7 @@
         }
 
         .chapter-accordion.active .chapter-accordion-body {
-            /* سيتم ضبط الارتفاع بواسطة الجافاسكريبت */
-            max-height: 2000px; /* قيمة افتراضية كبيرة للانيميشن، يتم ضبطها في الـ JS */
+            max-height: 2000px; /* قيمة افتراضية كبيرة */
             transition: max-height 0.5s ease-in-out;
         }
         
@@ -530,7 +529,7 @@
         }
 
         /* ---------------------------------------------------------
-           ORIGINAL STYLES: HADITH ITEMS (Grid inside Accordion)
+           STYLES: HADITH ITEMS (Grid inside Accordion)
            --------------------------------------------------------- */
         .hadiths-grid-inner {
             display: grid;
@@ -631,17 +630,6 @@
             border-radius: var(--border-radius);
             margin-bottom: 45px;
             border-right: 5px solid var(--primary-color);
-        }
-
-        .hadith-chain {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: var(--gray-color);
-            font-style: italic;
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding-bottom: 20px;
         }
 
         .hadith-text {
@@ -1293,9 +1281,9 @@
 
         // متغيرات حالة
         let currentCategory = '';
-        let groupedChapters = []; // سيحوي الأبواب مع أحاديثها
-        let currentChapterIndex = 0; // للتعامل مع زر "عرض المزيد"
-        const CHAPTERS_PER_BATCH = 5; // عدد الأبواب التي تظهر دفعة واحدة (أسماء الأبواب فقط)
+        let groupedChapters = []; 
+        let currentChapterIndex = 0; 
+        const CHAPTERS_PER_BATCH = 5; // عدد الأبواب التي تظهر دفعة واحدة
 
         // ==========================================
         // تهيئة الموقع
@@ -1422,11 +1410,11 @@
 
             // إعداد الواجهة
             showSection('hadiths-container');
-            listContainer.innerHTML = ''; // مسح القائمة عند دخول كتاب جديد
+            listContainer.innerHTML = ''; 
             errorMsg.style.display = 'none';
             loader.style.display = 'block';
             currentCategory = categorySlug;
-            currentChapterIndex = 0; // إعادة تعيين العداد
+            currentChapterIndex = 0; 
 
             // جلب وتجهيز البيانات
             const processedData = await fetchBookData(categorySlug);
@@ -1507,11 +1495,6 @@
                 header.addEventListener('click', () => {
                     const isOpen = chapterElement.classList.contains('active');
                     
-                    // إغلاق جميع الأبواب الأخرى (اختياري: إذا أردت باباً واحداً مفتوحاً في كل مرة)
-                    // document.querySelectorAll('.chapter-accordion.active').forEach(acc => {
-                    //     acc.classList.remove('active');
-                    // });
-
                     if (!isOpen) {
                         chapterElement.classList.add('active');
                         body.style.maxHeight = body.scrollHeight + "px";
@@ -1542,13 +1525,16 @@
         function createHadithCard(hadith, categorySlug) {
             const textSnippet = hadith.arabic ? hadith.arabic.substring(0, 100) + '...' : 'نص غير متوفر';
             
+            // إصلاح الأرقام: استخدام idInBook فقط
+            const displayNumber = hadith.idInBook ? hadith.idInBook : 'بدون رقم';
+            
             const card = document.createElement('div');
             card.className = 'hadith-item';
             card.innerHTML = `
                 <div class="hadith-meta">
-                    <span><strong>رقم الحديث:</strong> ${hadith.idInBook || hadith.id}</span>
+                    <span><strong>رقم الحديث:</strong> ${displayNumber}</span>
                 </div>
-                <h3>حديث رقم ${hadith.idInBook || hadith.id}</h3>
+                <h3>حديث رقم ${displayNumber}</h3>
                 <p class="hadith-excerpt">${textSnippet}</p>
                 <a href="#hadith/${categorySlug}/${hadith.id}" class="read-more">
                     قراءة الحديث <i class="fas fa-arrow-left"></i>
@@ -1595,8 +1581,11 @@
             }
 
             const bookTitle = data.metadata?.arabic?.title || getDefaultTitle(categorySlug);
+            
+            // إصلاح الأرقام: استخدام idInBook فقط
+            const displayNumber = foundHadith.idInBook ? foundHadith.idInBook : 'غير محدد';
 
-            document.getElementById('hadith-detail-title').textContent = `حديث رقم ${foundHadith.idInBook || foundHadith.id}`;
+            document.getElementById('hadith-detail-title').textContent = `حديث رقم ${displayNumber}`;
             
             document.getElementById('hadith-meta-detail').innerHTML = `
                 <span><strong>الكتاب:</strong> ${bookTitle}</span>
@@ -1606,7 +1595,7 @@
             
             document.getElementById('hadith-info-content').innerHTML = `
                 <p><strong>المصدر:</strong> ${bookTitle}</p>
-                <p><strong>رقم الحديث في الكتاب:</strong> ${foundHadith.idInBook || foundHadith.id}</p>
+                <p><strong>رقم الحديث في الكتاب:</strong> ${displayNumber}</p>
             `;
             
             document.getElementById('back-to-hadiths').href = `#category/${categorySlug}`;
