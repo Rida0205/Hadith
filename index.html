@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlElement">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +42,7 @@
     <!-- رابط الموقع الأم -->
     <link rel="canonical" href="https://hadiths.ondeenway.org">
     <link rel="alternate" hreflang="ar" href="https://hadiths.ondeenway.org">
+    <link rel="alternate" hreflang="en" href="https://hadiths.ondeenway.org/en">
     
     <!-- الخطوط -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,22 +87,17 @@
             overflow-x: hidden;
         }
 
-        /* تنسيق اللغة الإنجليزية عند التفعيل */
-        body[dir="ltr"] {
+        body.english {
+            direction: ltr;
             text-align: left;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        body[dir="ltr"] .logo h1, 
-        body[dir="ltr"] .section-title, 
-        body[dir="ltr"] .hadith-title { font-family: 'Georgia', serif; }
-        body[dir="ltr"] .category-card::before { right: auto; left: 0; background: linear-gradient(-90deg, var(--primary-color), var(--accent-color)); }
-        body[dir="ltr"] .hadith-item { border-right: 1px solid var(--light-gray); border-left: 4px solid var(--primary-color); }
-        body[dir="ltr"] .read-more i { margin-right: 0; margin-left: 8px; transform: translateX(0); }
-        body[dir="ltr"] .read-more:hover i { transform: translateX(8px); }
-        body[dir="ltr"] .back-link { transform: translateX(5px); }
-        body[dir="ltr"] .back-link:hover { transform: translateX(-5px); }
-        body[dir="ltr"] .hadith-text-container { border-right: none; border-left: 5px solid var(--primary-color); }
-        body[dir="ltr"] .section-title::after { right: auto; left: 50%; transform: translateX(-50%); }
+
+        body.english .section-title::after,
+        body.english .footer-section h4::after {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+        }
 
         .container {
             width: 100%;
@@ -110,10 +106,25 @@
             padding: 0 20px;
         }
 
-        a { text-decoration: none; color: var(--primary-color); transition: var(--transition); }
-        a:hover { color: var(--secondary-color); }
-        ul { list-style: none; }
-        img { max-width: 100%; height: auto; }
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
         h1, h2, h3, h4 {
             font-family: 'Tajawal', sans-serif;
             font-weight: 700;
@@ -121,221 +132,955 @@
             margin-bottom: 1rem;
             color: var(--dark-color);
         }
-        p { margin-bottom: 1.5rem; line-height: 1.8; }
-        .section { padding: 100px 0; }
-        .section-header { text-align: center; margin-bottom: 70px; }
-        .section-title { font-size: 2.8rem; position: relative; display: inline-block; margin-bottom: 1.5rem; }
+
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
         .section-title::after {
-            content: ''; position: absolute; width: 80px; height: 5px;
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 5px;
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            bottom: -15px; right: 50%; transform: translateX(50%); border-radius: 5px;
+            bottom: -15px;
+            right: 50%;
+            transform: translateX(50%);
+            border-radius: 5px;
         }
-        .section-subtitle { font-size: 1.3rem; color: var(--gray-color); max-width: 700px; margin: 0 auto; line-height: 1.6; }
-        .highlight { color: var(--primary-color); font-weight: 700; }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
         .btn {
-            display: inline-block; padding: 14px 35px; border-radius: var(--border-radius);
-            font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: var(--transition);
-            border: none; text-align: center;
+            display: inline-block;
+            padding: 14px 35px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
         }
+
         .btn-primary {
-            background: rgba(255, 255, 255, 0.15); color: white; backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        .btn-primary:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
 
         /* الهيدر */
         .main-header {
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            padding: 15px 0; backdrop-filter: blur(10px);
-            transform: translateY(0); transition: transform 0.3s ease, background-color 0.3s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
-        .main-header.scrolled { background-color: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1); }
-        .header-content { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-        .logo { display: flex; flex-direction: column; }
-        .logo h1 { font-size: 2.2rem; margin-bottom: 5px; color: var(--dark-color); }
-        .logo-highlight { color: var(--primary-color); position: relative; }
-        .logo-highlight::after {
-            content: ''; position: absolute; width: 100%; height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), transparent);
-            bottom: -2px; right: 0;
-        }
-        .tagline { font-size: 1rem; color: var(--gray-color); margin-bottom: 0; font-style: italic; }
 
-        /* أدوات الهيدر (بحث + لغة) */
-        .header-tools { display: flex; align-items: center; gap: 15px; }
-        
-        /* زر اللغة */
-        .lang-switch {
-            background: var(--light-gray); border: 1px solid #ddd; padding: 8px 15px;
-            border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 5px; color: var(--dark-color);
+        .main-header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .logo-highlight {
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .logo-highlight::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            bottom: -2px;
+            right: 0;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: var(--gray-color);
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        /* زر تغيير اللغة */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-btn {
+            background: var(--light-gray);
+            border: 1px solid var(--gray-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .language-btn:hover,
+        .language-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* شريط البحث */
+        .search-container {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--light-gray);
+            border-radius: 25px;
+            padding: 8px 20px;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            margin-top: 5px;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
             transition: var(--transition);
         }
-        .lang-switch:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        
-        /* شريط البحث */
-        .search-container { position: relative; }
-        .search-input {
-            padding: 8px 40px 8px 15px; border-radius: 20px; border: 1px solid #ddd;
-            font-family: inherit; width: 200px; transition: var(--transition); outline: none;
+
+        .search-result-item:hover {
+            background: var(--light-gray);
         }
-        .search-input:focus { border-color: var(--primary-color); width: 250px; }
-        .search-icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gray-color); }
-        body[dir="ltr"] .search-input { padding: 8px 15px 8px 40px; }
-        body[dir="ltr"] .search-icon { right: auto; left: 12px; }
+
+        .search-result-item h4 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .search-result-item p {
+            font-size: 14px;
+            color: var(--gray-color);
+            margin-bottom: 5px;
+        }
 
         /* البانر الرئيسي (Hero Section) */
         .hero {
-            background: var(--hero-gradient); color: white; padding: 180px 0 150px;
-            text-align: center; position: relative; overflow: hidden;
-            min-height: 100vh; display: flex; align-items: center; opacity: 1; transition: opacity 0.3s ease;
+            background: var(--hero-gradient);
+            color: white;
+            padding: 180px 0 150px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
+
+        .hero.hidden {
+            display: none;
+        }
+
         .hero::before {
-            content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
             background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
-        .hero-content { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
-        .hero-title {
-            font-family: 'El Messiri', 'Tajawal', sans-serif; font-size: 3.2rem; color: white;
-            margin-bottom: 3rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-weight: 600; line-height: 1.4; padding: 0 20px;
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* قسم الحديث المختار (بدلاً من عن دينواي) */
-        .random-hadith-section {
-            background-color: var(--light-color);
-            border-top: 1px solid #eee;
+        .hero-title {
+            font-family: 'El Messiri', 'Tajawal', sans-serif;
+            font-size: 3.2rem;
+            color: white;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            line-height: 1.4;
+            padding: 0 20px;
+        }
+
+        /* قسم الحديث المختار */
+        .featured-hadith {
+            background: linear-gradient(135deg, rgba(44, 120, 108, 0.1) 0%, rgba(0, 68, 69, 0.1) 100%);
             padding: 60px 0;
         }
-        .random-hadith-card {
-            background: white; border-radius: var(--border-radius); padding: 40px;
-            box-shadow: var(--box-shadow); text-align: center; max-width: 800px; margin: 0 auto;
-            border: 1px solid var(--light-gray); border-right: 5px solid var(--primary-color);
+
+        .featured-hadith-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 50px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        body[dir="ltr"] .random-hadith-card { border-right: 1px solid var(--light-gray); border-left: 5px solid var(--primary-color); }
-        .rh-text { font-size: 1.4rem; font-family: 'El Messiri', 'Tajawal', serif; line-height: 2; margin-bottom: 20px; color: var(--dark-color); }
-        .rh-meta { font-size: 0.9rem; color: var(--gray-color); font-weight: 600; }
-        .rh-loader { color: var(--gray-color); font-style: italic; }
+
+        .featured-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .featured-hadith-text {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            font-family: 'El Messiri', 'Tajawal', serif;
+        }
+
+        .featured-hadith-narrator {
+            color: var(--gray-color);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .refresh-hadith {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .refresh-hadith:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
 
         /* أقسام الكتب الحديثية */
-        .categories-section { background-color: var(--light-gray); }
-        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .category-card {
-            background-color: white; border-radius: var(--border-radius); padding: 35px;
-            box-shadow: var(--box-shadow); transition: var(--transition); display: block;
-            color: var(--dark-color); border: 2px solid transparent; height: 100%; position: relative; overflow: hidden;
+        .categories-section {
+            background-color: var(--light-gray);
         }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: block;
+            color: var(--dark-color);
+            border: 2px solid transparent;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
         .category-card::before {
-            content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 5px;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
-        .category-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); border-color: var(--light-gray); }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--light-gray);
+        }
+
         .category-icon {
             background: linear-gradient(135deg, rgba(44, 120, 108, 0.1) 0%, rgba(0, 68, 69, 0.1) 100%);
-            width: 70px; height: 70px; border-radius: 18px; display: flex; align-items: center; justify-content: center;
-            margin-bottom: 25px; color: var(--primary-color); font-size: 1.8rem;
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
         }
-        .category-card h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--dark-color); }
-        .category-card p { color: var(--gray-color); margin-bottom: 25px; font-size: 1.05rem; }
-        .hadith-count { display: inline-block; background-color: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; margin-top: 10px; }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .category-card p {
+            color: var(--gray-color);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .hadith-count {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
 
         /* صفحات الأحاديث */
-        .hadiths-page { padding: 80px 0; min-height: 70vh; }
-        .page-header { margin-bottom: 50px; }
-        .hadiths-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 25px; }
-        .hadith-item {
-            background-color: white; border-radius: var(--border-radius); padding: 30px;
-            box-shadow: var(--box-shadow); transition: var(--transition); border: 1px solid var(--light-gray); border-right: 4px solid var(--primary-color);
+        .hadiths-page {
+            padding: 80px 0;
+            min-height: 70vh;
         }
-        .hadith-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); border-color: var(--primary-color); }
-        .hadith-item h3 { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 15px; line-height: 1.4; }
-        .hadith-excerpt { color: var(--gray-color); font-size: 1.05rem; margin-bottom: 20px; line-height: 1.6; font-style: italic; }
-        .hadith-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; color: var(--gray-color); }
-        .hadith-grade { display: inline-block; padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; }
-        .grade-sahih { background-color: rgba(40, 167, 69, 0.1); color: #28a745; }
-        .grade-hasan { background-color: rgba(255, 193, 7, 0.1); color: #ffc107; }
-        .grade-daif { background-color: rgba(220, 53, 69, 0.1); color: #dc3545; }
-        .read-more { display: inline-flex; align-items: center; color: var(--primary-color); font-weight: 600; font-size: 1rem; }
-        .read-more i { margin-right: 8px; transition: var(--transition); }
-        .read-more:hover i { transform: translateX(-8px); }
+
+        .page-header {
+            margin-bottom: 50px;
+        }
+
+        .hadiths-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+        }
+
+        .hadith-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+        }
+
+        .hadith-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary-color);
+        }
+
+        .hadith-item h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .hadith-excerpt {
+            color: var(--gray-color);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .hadith-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+
+        .hadith-grade {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .grade-sahih {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .grade-hasan {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .grade-daif {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .read-more i {
+            margin-right: 8px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover i {
+            transform: translateX(-8px);
+        }
 
         /* صفحة حديث مفرد */
-        .hadith-detail-page { padding: 80px 0; min-height: 70vh; }
-        .hadith-title { font-size: 2.5rem; color: var(--dark-color); margin-bottom: 25px; line-height: 1.3; }
-        .hadith-meta-detail { color: var(--gray-color); font-size: 1.05rem; margin-bottom: 40px; padding-bottom: 25px; border-bottom: 1px solid var(--light-gray); display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
-        .hadith-text-container { background-color: #f8f5e6; padding: 40px; border-radius: var(--border-radius); margin-bottom: 45px; border-right: 5px solid var(--primary-color); }
-        .hadith-chain { font-size: 1.1rem; line-height: 1.8; margin-bottom: 25px; color: var(--gray-color); font-style: italic; text-align: center; border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 20px; }
-        .hadith-text { font-size: 1.8rem; line-height: 2.2; text-align: center; font-family: 'El Messiri', 'Tajawal', serif; color: var(--dark-color); padding-top: 20px; }
-        .hadith-details { background-color: white; padding: 40px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); line-height: 1.9; font-size: 1.15rem; border: 1px solid var(--light-gray); }
-        .detail-item { margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid var(--light-gray); }
-        .detail-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .detail-item h4 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.4rem; }
-        .back-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 50px; color: var(--primary-color); font-weight: 600; background-color: var(--light-gray); padding: 12px 25px; border-radius: var(--border-radius); transition: var(--transition); }
-        .back-link:hover { background-color: var(--primary-color); color: white; transform: translateX(-5px); }
-        .share-btn { background: #25d366; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; margin-top: 5px; display: inline-flex; align-items: center; gap: 5px; }
+        .hadith-detail-page {
+            padding: 80px 0;
+            min-height: 70vh;
+        }
+
+        .hadith-title {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .hadith-meta-detail {
+            color: var(--gray-color);
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hadith-text-container {
+            background-color: #f8f5e6;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin-bottom: 45px;
+            border-right: 5px solid var(--primary-color);
+        }
+
+        .hadith-chain {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: var(--gray-color);
+            font-style: italic;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .hadith-text {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            text-align: center;
+            font-family: 'El Messiri', 'Tajawal', serif;
+            color: var(--dark-color);
+            padding-top: 20px;
+        }
+
+        .hadith-details {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            line-height: 1.9;
+            font-size: 1.15rem;
+            border: 1px solid var(--light-gray);
+        }
+
+        .detail-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .detail-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            background-color: var(--light-gray);
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateX(-5px);
+        }
 
         /* زر عرض المزيد */
-        .load-more-container { text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--light-gray); }
+        .load-more-container {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
         .load-more-btn {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white; border: none; padding: 12px 35px; border-radius: var(--border-radius);
-            font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        .load-more-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3); }
 
-        /* الكتب الداخلية (Internal Books Grid) */
-        .internal-books-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px;
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3);
         }
-        .internal-book-card {
-            background: white; padding: 20px; border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow); transition: var(--transition); border: 1px solid var(--light-gray);
-            cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; min-height: 120px;
-        }
-        .internal-book-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-        .internal-book-title { font-size: 1.1rem; font-weight: 600; color: var(--dark-color); margin-bottom: 10px; line-height: 1.4; }
-        .internal-book-meta { font-size: 0.9rem; color: var(--gray-color); margin-top: auto; }
-        .range-badge { background: var(--light-gray); padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; }
 
         /* الفوتر */
-        .main-footer { background-color: var(--dark-color); color: white; padding: 80px 0 30px; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; margin-bottom: 40px; }
-        .footer-logo h3 { color: white; margin-bottom: 10px; font-size: 1.8rem; }
-        .footer-logo .tagline { color: rgba(255, 255, 255, 0.7); }
-        .footer-section p { color: rgba(255, 255, 255, 0.8); line-height: 1.6; }
-        .footer-section h4 { color: white; font-size: 1.4rem; margin-bottom: 25px; position: relative; padding-bottom: 12px; }
-        .footer-section h4::after { content: ''; position: absolute; width: 60px; height: 3px; background: linear-gradient(90deg, var(--accent-color), transparent); bottom: 0; right: 0; }
-        .footer-links li { margin-bottom: 15px; }
-        .footer-links a { color: rgba(255, 255, 255, 0.8); display: flex; align-items: center; gap: 10px; transition: var(--transition); }
-        .footer-links a:hover { color: white; padding-right: 10px; }
-        .footer-links a i { font-size: 0.9rem; }
-        .contact-email { background-color: rgba(255, 255, 255, 0.1); padding: 15px 25px; border-radius: var(--border-radius); display: inline-block; margin: 15px 0; font-family: 'Courier New', monospace; direction: ltr; text-align: left; font-size: 1.1rem; font-weight: 600; color: white; border: 1px solid rgba(255, 255, 255, 0.2); letter-spacing: 1px; }
-        .social-links { display: flex; gap: 15px; margin-top: 25px; }
-        .social-links a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; color: white; transition: var(--transition); }
-        .social-links a:hover { background-color: var(--primary-color); transform: translateY(-5px); }
-        .footer-bottom { padding-top: 35px; text-align: center; color: rgba(255, 255, 255, 0.7); font-size: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-style: italic; }
+        .main-footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo h3 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .footer-logo .tagline {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            bottom: 0;
+            right: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-right: 10px;
+        }
+
+        .footer-links a i {
+            font-size: 0.9rem;
+        }
+
+        .contact-email {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            padding-top: 35px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-style: italic;
+        }
 
         /* زر العودة للأعلى */
         .back-to-top {
-            position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; font-size: 1.3rem; cursor: pointer; transition: var(--transition);
-            opacity: 0; visibility: hidden; z-index: 999; box-shadow: 0 5px 20px rgba(44, 120, 108, 0.3);
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(44, 120, 108, 0.3);
         }
-        .back-to-top.show { opacity: 1; visibility: visible; }
-        .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(44, 120, 108, 0.4); }
-        .header-spacer { height: 80px; }
 
-        /* التجاوب */
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(44, 120, 108, 0.4);
+        }
+
+        /* تأثير التمرير على الهيدر */
+        .header-spacer {
+            height: 80px;
+        }
+
+        /* Sitemap container مخفي */
+        .sitemap-container {
+            display: none;
+        }
+
+        /* التجاوب مع الشاشات */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.7rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .hadith-title {
+                font-size: 2.2rem;
+            }
+            
+            .hadith-text {
+                font-size: 1.5rem;
+                line-height: 2;
+            }
+            
+            .hadith-text-container {
+                padding: 30px;
+            }
+            
+            .header-content {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .search-container {
+                order: 3;
+                width: 100%;
+                margin: 15px 0 0 0;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.2rem; padding: 0 15px; }
-            .section-title { font-size: 2rem; }
-            .logo h1 { font-size: 1.8rem; }
-            .header-tools { gap: 10px; }
-            .search-input { width: 150px; }
-            .search-input:focus { width: 180px; }
-            .hadiths-list { grid-template-columns: 1fr; }
+            .hero {
+                padding: 150px 0 100px;
+                min-height: 90vh;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                padding: 0 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.15rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                left: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .hadiths-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .hadith-meta-detail {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .hadith-text {
+                font-size: 1.4rem;
+                line-height: 1.9;
+            }
+            
+            .featured-hadith-card {
+                padding: 30px 20px;
+            }
+            
+            .featured-hadith-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .features-grid, .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 130px 0 80px;
+                min-height: 80vh;
+            }
+            
+            .hero-title {
+                font-size: 1.9rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .feature-card, .category-card {
+                padding: 25px;
+            }
+            
+            .hadith-details, .hadith-text-container {
+                padding: 25px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .contact-email {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+            
+            .hadith-text {
+                font-size: 1.3rem;
+                line-height: 1.8;
+            }
+            
+            .language-switcher {
+                order: 2;
+            }
         }
     </style>
 </head>
@@ -345,147 +1090,179 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="#home" style="color: inherit; text-decoration: none;">
+                    <a href="/" style="color: inherit; text-decoration: none;">
                         <h1>DEENWAY – <span class="logo-highlight">Hadiths</span></h1>
-                        <p class="tagline" data-key="tagline">الأحاديث النبوية مصنفة حسب الكتب المعتمدة</p>
+                        <p class="tagline">الأحاديث النبوية مصنفة حسب الكتب المعتمدة</p>
                     </a>
                 </div>
-                <div class="header-tools">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" id="globalSearch" placeholder="بحث...">
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="ابحث في الأحاديث...">
+                        <button id="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <button class="lang-switch" onclick="app.toggleLanguage()">
-                        <i class="fas fa-globe"></i> <span id="langText">English</span>
-                    </button>
+                    <div class="search-results" id="search-results"></div>
+                </div>
+                
+                <div class="language-switcher">
+                    <button class="language-btn active" data-lang="ar">العربية</button>
+                    <button class="language-btn" data-lang="en">English</button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- مسافة للهيدر الثابت -->
     <div class="header-spacer"></div>
 
-    <!-- البانر الرئيسي -->
+    <!-- البانر الرئيسي (يظهر فقط في الصفحة الرئيسية) -->
     <section class="hero" id="heroSection">
         <div class="container">
             <div class="hero-content">
-                <h2 class="hero-title" data-key="heroTitle">مشروع متخصص في عرض الأحاديث النبوية مصنفة حسب كتب السنة المعتمدة</h2>
-                <a href="#categories" class="btn btn-primary" id="exploreBtn" data-key="exploreBtn">استكشاف كتب الأحاديث</a>
+                <h2 class="hero-title" id="hero-title">مشروع متخصص في عرض الأحاديث النبوية مصنفة حسب كتب السنة المعتمدة</h2>
+                <a href="#categories" class="btn btn-primary" id="exploreBtn">استكشاف كتب الأحاديث</a>
             </div>
         </div>
     </section>
 
-    <!-- قسم الحديث المختار -->
-    <section id="random-hadith" class="random-hadith-section">
+    <!-- الحديث المختار -->
+    <section id="featured-hadith" class="section featured-hadith">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title" data-key="randomTitle">حديث مختار</h2>
+                <h2 class="section-title" id="featured-title">حديث اليوم</h2>
+                <p class="section-subtitle" id="featured-subtitle">حديث نبوي مختار مع كل زيارة</p>
             </div>
-            <div class="random-hadith-card">
-                <div id="rh-content">
-                    <p class="rh-loader"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</p>
+            <div class="featured-hadith-card">
+                <div class="featured-icon">
+                    <i class="fas fa-quote-right"></i>
                 </div>
-                <div class="rh-meta" id="rh-meta"></div>
+                <p class="featured-hadith-text" id="featured-hadith-text"></p>
+                <p class="featured-hadith-narrator" id="featured-hadith-narrator"></p>
+                <button class="refresh-hadith" id="refresh-hadith">
+                    <i class="fas fa-sync-alt"></i> <span id="refresh-text">تغيير الحديث</span>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- أقسام الكتب الحديثية -->
+    <!-- أقسام كتب الأحاديث -->
     <section id="categories" class="section categories-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title" data-key="catsTitle">كتب الأحاديث النبوية</h2>
-                <p class="section-subtitle" data-key="catsSub">اختر الكتاب الذي تريد استعراض أحاديثه</p>
+                <h2 class="section-title" id="categories-title">كتب الأحاديث النبوية</h2>
+                <p class="section-subtitle" id="categories-subtitle">اختر الكتاب الذي تريد استعراض أحاديثه</p>
             </div>
             <div class="categories-grid">
-                <a href="#book/bukhari" class="category-card">
-                    <div class="category-icon"><i class="fas fa-book"></i></div>
-                    <h3 data-key="bukhari">صحيح البخاري</h3>
-                    <p data-key="bukhariDesc">أصح كتاب بعد كتاب الله تعالى، جمعه الإمام محمد بن إسماعيل البخاري.</p>
-                    <span class="hadith-count">7,275 حديث</span>
+                <a href="#category/bukhari" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="bukhari-title">صحيح البخاري</h3>
+                    <p id="bukhari-desc">أصح كتاب بعد كتاب الله تعالى، جمعه الإمام محمد بن إسماعيل البخاري، ويحتوي على 7275 حديثًا.</p>
+                    <span class="hadith-count"><span id="bukhari-count">0</span> حديث</span>
                 </a>
-                <a href="#book/muslim" class="category-card">
-                    <div class="category-icon"><i class="fas fa-book"></i></div>
-                    <h3 data-key="muslim">صحيح مسلم</h3>
-                    <p data-key="muslimDesc">ثاني أصح الكتب بعد البخاري، جمعه الإمام مسلم بن الحجاج النيسابوري.</p>
-                    <span class="hadith-count">4,000 حديث</span>
+                
+                <a href="#category/muslim" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="muslim-title">صحيح مسلم</h3>
+                    <p id="muslim-desc">ثاني أصح الكتب بعد البخاري، جمعه الإمام مسلم بن الحجاج النيسابوري، ويحتوي على نحو 4000 حديث.</p>
+                    <span class="hadith-count"><span id="muslim-count">0</span> حديث</span>
                 </a>
-                <a href="#book/tirmidhi" class="category-card">
-                    <div class="category-icon"><i class="fas fa-book"></i></div>
-                    <h3 data-key="tirmidhi">سنن الترمذي</h3>
-                    <p data-key="tirmidhiDesc">جامع الترمذي أو سنن الترمذي، من تصنيف الإمام محمد بن عيسى الترمذي.</p>
-                    <span class="hadith-count">3,956 حديث</span>
+                
+                <a href="#category/tirmidhi" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="tirmidhi-title">سنن الترمذي</h3>
+                    <p id="tirmidhi-desc">جامع الترمذي أو سنن الترمذي، من تصنيف الإمام محمد بن عيسى الترمذي، وهو أحد الكتب الستة.</p>
+                    <span class="hadith-count"><span id="tirmidhi-count">0</span> حديث</span>
                 </a>
-                <a href="#book/abu-dawud" class="category-card">
-                    <div class="category-icon"><i class="fas fa-book"></i></div>
-                    <h3 data-key="abudawud">سنن أبي داود</h3>
-                    <p data-key="abudawudDesc">من تصنيف الإمام أبو داود سليمان بن الأشعث السجستاني.</p>
-                    <span class="hadith-count">4,800 حديث</span>
+                
+                <a href="#category/abu-dawud" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="abudawud-title">سنن أبي داود</h3>
+                    <p id="abudawud-desc">من تصنيف الإمام أبو داود سليمان بن الأشعث السجستاني، ويعد من كتب الأحاديث الستة المشهورة.</p>
+                    <span class="hadith-count"><span id="abudawud-count">0</span> حديث</span>
                 </a>
-                <a href="#book/nasai" class="category-card">
-                    <div class="category-icon"><i class="fas fa-book"></i></div>
-                    <h3 data-key="nasai">سنن النسائي</h3>
-                    <p data-key="nasaiDesc">المجتبى من السنن للنسائي، جمعه الإمام أحمد بن شعيب النسائي.</p>
-                    <span class="hadith-count">5,270 حديث</span>
+                
+                <a href="#category/nasai" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="nasai-title">سنن النسائي</h3>
+                    <p id="nasai-desc">المجتبى من السنن للنسائي، جمعه الإمام أحمد بن شعيب النسائي، وهو أحد الكتب الستة المعتمدة.</p>
+                    <span class="hadith-count"><span id="nasai-count">0</span> حديث</span>
                 </a>
-                <a href="#book/ibn-majah" class="category-card">
-                    <div class="category-icon"><i class="fas fa-book"></i></div>
-                    <h3 data-key="ibnmajah">سنن ابن ماجه</h3>
-                    <p data-key="ibnmajahDesc">من تصنيف الإمام محمد بن يزيد ابن ماجة القزويني.</p>
-                    <span class="hadith-count">4,341 حديث</span>
+                
+                <a href="#category/ibn-majah" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="ibnmajah-title">سنن ابن ماجه</h3>
+                    <p id="ibnmajah-desc">من تصنيف الإمام محمد بن يزيد ابن ماجة القزويني، ويعد آخر الكتب الستة التي تعتمدها الأمة.</p>
+                    <span class="hadith-count"><span id="ibnmajah-count">0</span> حديث</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- عرض الكتب الداخلية -->
-    <section id="internal-books-view" class="section hadiths-page" style="display: none;">
+    <!-- قسم يعرض الأحاديث حسب الكتاب -->
+    <section id="hadiths-container" class="section hadiths-page" style="display: none;">
         <div class="container">
             <div class="page-header">
-                <a href="#home" class="back-link"><i class="fas fa-arrow-right"></i> <span data-key="backBooks">عودة للكتب</span></a>
+                <h2 id="category-title" class="section-title"></h2>
+                <p class="section-subtitle" id="category-description"></p>
             </div>
-            <div class="section-header">
-                <h2 id="current-book-title" class="section-title"></h2>
-                <p class="section-subtitle" id="book-subtitle" data-key="chooseBook">اختر الكتاب الداخلي لعرض الأحاديث</p>
+            <div class="hadiths-list" id="hadiths-list">
+                <!-- سيتم ملؤها بالجافاسكريبت -->
             </div>
-            <div id="loading-books" class="loader-wrapper" style="display: none; text-align: center;">
-                <i class="fas fa-spinner fa-spin fa-3x" style="color:var(--primary-color)"></i>
-                <p data-key="loadingData">جاري معالجة البيانات...</p>
+            <div id="load-more-container" class="load-more-container" style="display: none;">
+                <button id="load-more-btn" class="load-more-btn">
+                    <i class="fas fa-plus"></i> <span id="load-more-text">عرض المزيد من الأحاديث</span>
+                </button>
             </div>
-            <div class="internal-books-grid" id="internal-books-grid"></div>
+            <a href="#categories" class="back-link">
+                <i class="fas fa-arrow-right"></i> <span id="back-to-categories">العودة إلى كتب الأحاديث</span>
+            </a>
         </div>
     </section>
 
-    <!-- عرض الأحاديث -->
-    <section id="hadiths-view" class="section hadiths-page" style="display: none;">
-        <div class="container">
-            <div class="page-header">
-                <a href="#" id="back-to-books" class="back-link"><i class="fas fa-arrow-right"></i> <span data-key="backInternal">عودة لكتب</span> <span id="parent-book-name"></span></a>
-            </div>
-            <div class="section-header">
-                <h2 id="internal-book-title" class="section-title"></h2>
-            </div>
-            <div class="hadiths-list" id="hadiths-list"></div>
-        </div>
-    </section>
-
-    <!-- صفحة تفاصيل الحديث -->
-    <section id="hadith-detail-view" class="section hadith-detail-page" style="display: none;">
+    <!-- صفحة عرض حديث مفرد -->
+    <section id="hadith-detail-container" class="section hadith-detail-page" style="display: none;">
         <div class="container">
             <h1 id="hadith-detail-title" class="hadith-title"></h1>
             <div class="hadith-meta-detail" id="hadith-meta-detail"></div>
+            
             <div class="hadith-text-container">
                 <div class="hadith-chain" id="hadith-chain-content"></div>
                 <p class="hadith-text" id="hadith-text-content"></p>
             </div>
+            
             <div class="hadith-details">
                 <div class="detail-item">
-                    <h4 data-key="info">معلومات الحديث</h4>
+                    <h4 id="hadith-info-title">معلومات الحديث</h4>
                     <div id="hadith-info-content"></div>
-                    <button class="share-btn" onclick="app.shareHadith()"><i class="fab fa-whatsapp"></i> <span data-key="share">مشاركة</span></button>
                 </div>
             </div>
-            <a href="#" class="back-link" id="back-to-list"><i class="fas fa-arrow-right"></i> <span data-key="backList">عودة للقائمة</span></a>
+            
+            <div class="share-buttons" style="margin-top: 30px;">
+                <button class="btn" onclick="shareHadith()" style="margin-left: 10px;">
+                    <i class="fas fa-share-alt"></i> <span id="share-text">مشاركة الحديث</span>
+                </button>
+                <button class="btn" onclick="copyHadithLink()">
+                    <i class="fas fa-copy"></i> <span id="copy-link-text">نسخ الرابط</span>
+                </button>
+            </div>
+            
+            <a href="#" class="back-link" id="back-to-hadiths">
+                <i class="fas fa-arrow-right"></i> <span id="back-to-list">العودة إلى قائمة الأحاديث</span>
+            </a>
         </div>
     </section>
 
@@ -494,421 +1271,1012 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4 data-key="quickLinks">روابط سريعة</h4>
+                    <h4 id="quick-links">روابط سريعة</h4>
                     <ul class="footer-links">
                         <li><a href="https://www.ondeenway.org" target="_blank"><i class="fas fa-external-link-alt"></i> DEENWAY</a></li>
-                        <li><a href="https://ebook.ondeenway.org" target="_blank"><i class="fas fa-external-link-alt"></i> مكتبة DEENWAY</a></li>
+                        <li><a href="https://ebook.ondeenway.org" target="_blank"><i class="fas fa-external-link-alt"></i> <span id="library-text">مكتبة DEENWAY</span></a></li>
+                        <li><a href="https://quran.ondeenway.org" target="_blank"><i class="fas fa-external-link-alt"></i> DEENWAY Quran</a></li>
+                        <li><a href="https://fiqh.ondeenway.org" target="_blank"><i class="fas fa-external-link-alt"></i> DEENWAY Fiqh</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
                     <div class="footer-logo">
                         <h3>DEENWAY – <span class="logo-highlight">Hadiths</span></h3>
-                        <p class="tagline" data-key="footerTagline">الأحاديث النبوية مصنفة حسب الكتب المعتمدة</p>
+                        <p class="tagline" id="footer-tagline">الأحاديث النبوية مصنفة حسب الكتب المعتمدة</p>
                     </div>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/ondeenwayorg" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/ondeenwayorg" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/ondeenwayorg" aria-label="انستغرام" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/ondeenwayorg" aria-label="فيسبوك" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@ondeenwayorg" aria-label="تيكتوك" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/212649106356" aria-label="واتساب" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
+                
                 <div class="footer-section">
-                    <h4 data-key="contactUs">اتصل بنا</h4>
-                    <p data-key="contactText">للمساهمة في إضافة أحاديث أو للاستفسارات:</p>
+                    <h4 id="contact-us">اتصل بنا</h4>
+                    <p id="contact-desc">للمساهمة في إضافة أحاديث أو للاستفسارات:</p>
                     <p class="contact-email">contact@ondeenway.org</p>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>إن أصبت فمن الله، وإن أخطأت فمن نفسي والشيطان</p>
+                <p id="footer-bottom-text">إن أصبت فمن الله، وإن أخطأت فمن نفسي والشيطان</p>
             </div>
         </div>
     </footer>
 
-    <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
+    <!-- زر العودة للأعلى -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- محتوى Sitemap مخفي -->
+    <div class="sitemap-container" id="sitemapContent">
+        <?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    <!-- الصفحة الرئيسية -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- صفحة عن المشروع -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#about</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- صفحة الأقسام -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#categories</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- صفحة الاتصال -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#contact</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- قسم صحيح البخاري -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/bukhari</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث البخاري -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/bukhari/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/bukhari/2</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/bukhari/3</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم صحيح مسلم -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/muslim</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث مسلم -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/muslim/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/muslim/2</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن الترمذي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/tirmidhi</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث الترمذي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/tirmidhi/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن أبي داود -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/abu-dawud</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث أبي داود -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/abu-dawud/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن النسائي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/nasai</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث النسائي -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/nasai/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- قسم سنن ابن ماجه -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#category/ibn-majah</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- أحاديث ابن ماجه -->
+    <url>
+        <loc>https://hadiths.ondeenway.org/#hadith/ibn-majah/1</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+</urlset>
+    </div>
 
     <script>
-        const TRANSLATIONS = {
+        // إعدادات اللغة
+        const translations = {
             ar: {
-                tagline: "الأحاديث النبوية مصنفة حسب الكتب المعتمدة",
+                siteTitle: "DEENWAY – Hadiths | الأحاديث النبوية",
                 heroTitle: "مشروع متخصص في عرض الأحاديث النبوية مصنفة حسب كتب السنة المعتمدة",
                 exploreBtn: "استكشاف كتب الأحاديث",
-                randomTitle: "حديث مختار",
-                loadingData: "جاري معالجة البيانات...",
-                catsTitle: "كتب الأحاديث النبوية",
-                catsSub: "اختر الكتاب الذي تريد استعراض أحاديثه",
-                chooseBook: "اختر الكتاب الداخلي لعرض الأحاديث",
-                backBooks: "عودة للكتب",
-                backInternal: "عودة لكتب",
-                backList: "عودة للقائمة",
-                info: "معلومات الحديث",
-                share: "مشاركة",
-                footerTagline: "الأحاديث النبوية مصنفة حسب الكتب المعتمدة",
+                featuredTitle: "حديث اليوم",
+                featuredSubtitle: "حديث نبوي مختار مع كل زيارة",
+                refreshText: "تغيير الحديث",
+                categoriesTitle: "كتب الأحاديث النبوية",
+                categoriesSubtitle: "اختر الكتاب الذي تريد استعراض أحاديثه",
+                bukhariTitle: "صحيح البخاري",
+                bukhariDesc: "أصح كتاب بعد كتاب الله تعالى، جمعه الإمام محمد بن إسماعيل البخاري",
+                muslimTitle: "صحيح مسلم",
+                muslimDesc: "ثاني أصح الكتب بعد البخاري، جمعه الإمام مسلم بن الحجاج النيسابوري",
+                tirmidhiTitle: "سنن الترمذي",
+                tirmidhiDesc: "جامع الترمذي أو سنن الترمذي، من تصنيف الإمام محمد بن عيسى الترمذي",
+                abudawudTitle: "سنن أبي داود",
+                abudawudDesc: "من تصنيف الإمام أبو داود سليمان بن الأشعث السجستاني",
+                nasaiTitle: "سنن النسائي",
+                nasaiDesc: "المجتبى من السنن للنسائي، جمعه الإمام أحمد بن شعيب النسائي",
+                ibnmajahTitle: "سنن ابن ماجه",
+                ibnmajahDesc: "من تصنيف الإمام محمد بن يزيد ابن ماجة القزويني",
+                loadMoreText: "عرض المزيد من الأحاديث",
+                backToCategories: "العودة إلى كتب الأحاديث",
+                hadithInfoTitle: "معلومات الحديث",
+                shareText: "مشاركة الحديث",
+                copyLinkText: "نسخ الرابط",
+                backToList: "العودة إلى قائمة الأحاديث",
                 quickLinks: "روابط سريعة",
+                libraryText: "مكتبة DEENWAY",
+                footerTagline: "الأحاديث النبوية مصنفة حسب الكتب المعتمدة",
                 contactUs: "اتصل بنا",
-                contactText: "للمساهمة في إضافة أحاديث أو للاستفسارات:",
-                hadithNum: "الحديث رقم",
-                book: "الكتاب",
-                source: "المصدر",
-                grade: "الدرجة",
-                searchPlaceholder: "بحث...",
+                contactDesc: "للمساهمة في إضافة أحاديث أو للاستفسارات:",
+                footerBottomText: "إن أصبت فمن الله، وإن أخطأت فمن نفسي والشيطان",
+                searchPlaceholder: "ابحث في الأحاديث...",
+                noResults: "لم يتم العثور على نتائج",
                 searchResults: "نتائج البحث",
-                noResults: "لا توجد نتائج"
+                narrator: "الراوي",
+                book: "الكتاب",
+                chapter: "الباب",
+                hadithNumber: "رقم الحديث",
+                grade: "الدرجة",
+                copySuccess: "تم نسخ الرابط بنجاح",
+                copyError: "فشل نسخ الرابط",
+                shareSuccess: "تم مشاركة الحديث بنجاح",
+                shareError: "فشل مشاركة الحديث"
             },
             en: {
-                tagline: "Hadiths classified according to the approved books",
-                heroTitle: "A project dedicated to displaying the Prophet's Hadiths classified according to the approved Sunnah books",
+                siteTitle: "DEENWAY – Hadiths | Prophetic Traditions",
+                heroTitle: "A specialized project for displaying Prophetic Hadiths classified according to the approved books of Sunnah",
                 exploreBtn: "Explore Hadith Books",
-                randomTitle: "Featured Hadith",
-                loadingData: "Processing data...",
-                catsTitle: "Books of Hadith",
-                catsSub: "Choose the book you want to browse",
-                chooseBook: "Select an internal book to view hadiths",
-                backBooks: "Back to Books",
-                backInternal: "Back to books",
-                backList: "Back to list",
-                info: "Hadith Information",
-                share: "Share",
-                footerTagline: "Hadiths classified according to the approved books",
+                featuredTitle: "Hadith of the Day",
+                featuredSubtitle: "A selected Prophetic Hadith with each visit",
+                refreshText: "Change Hadith",
+                categoriesTitle: "Hadith Books",
+                categoriesSubtitle: "Choose the book you want to browse its hadiths",
+                bukhariTitle: "Sahih al-Bukhari",
+                bukhariDesc: "The most authentic book after the Book of Allah, compiled by Imam Muhammad ibn Ismail al-Bukhari",
+                muslimTitle: "Sahih Muslim",
+                muslimDesc: "The second most authentic book after al-Bukhari, compiled by Imam Muslim ibn al-Hajjaj al-Naysaburi",
+                tirmidhiTitle: "Sunan al-Tirmidhi",
+                tirmidhiDesc: "Jami al-Tirmidhi or Sunan al-Tirmidhi, compiled by Imam Muhammad ibn Isa al-Tirmidhi",
+                abudawudTitle: "Sunan Abi Dawud",
+                abudawudDesc: "Compiled by Imam Abu Dawud Sulayman ibn al-Ash'ath al-Sijistani",
+                nasaiTitle: "Sunan al-Nasa'i",
+                nasaiDesc: "Al-Mujtaba min al-Sunan by al-Nasa'i, compiled by Imam Ahmad ibn Shu'ayb al-Nasa'i",
+                ibnmajahTitle: "Sunan Ibn Majah",
+                ibnmajahDesc: "Compiled by Imam Muhammad ibn Yazid Ibn Majah al-Qazwini",
+                loadMoreText: "Load More Hadiths",
+                backToCategories: "Back to Hadith Books",
+                hadithInfoTitle: "Hadith Information",
+                shareText: "Share Hadith",
+                copyLinkText: "Copy Link",
+                backToList: "Back to Hadiths List",
                 quickLinks: "Quick Links",
+                libraryText: "DEENWAY Library",
+                footerTagline: "Prophetic Hadiths classified according to approved books",
                 contactUs: "Contact Us",
-                contactText: "To contribute or for inquiries:",
-                hadithNum: "Hadith Number",
-                book: "Book",
-                source: "Source",
-                grade: "Grade",
-                searchPlaceholder: "Search...",
+                contactDesc: "To contribute in adding hadiths or for inquiries:",
+                footerBottomText: "If I am correct, it is from Allah, and if I am mistaken, it is from myself and Satan",
+                searchPlaceholder: "Search in hadiths...",
+                noResults: "No results found",
                 searchResults: "Search Results",
-                noResults: "No results found"
+                narrator: "Narrator",
+                book: "Book",
+                chapter: "Chapter",
+                hadithNumber: "Hadith Number",
+                grade: "Grade",
+                copySuccess: "Link copied successfully",
+                copyError: "Failed to copy link",
+                shareSuccess: "Hadith shared successfully",
+                shareError: "Failed to share hadith"
             }
         };
 
-        const BOOK_FILES = {
-            'bukhari': 'bukh.json',
-            'muslim': 'mus.json',
-            'tirmidhi': 'tir.json',
-            'abu-dawud': 'daw.json',
-            'nasai': 'nis.json',
-            'ibn-majah': 'majah.json'
+        // متغيرات حالة
+        let currentLanguage = 'ar';
+        let currentCategory = '';
+        let visibleHadiths = 10;
+        let allHadiths = {};
+        let searchResults = [];
+
+        // تحميل بيانات JSON من GitHub
+        const jsonFiles = {
+            'bukhari': 'https://raw.githubusercontent.com/your-username/your-repo/main/bukh.json',
+            'muslim': 'https://raw.githubusercontent.com/your-username/your-repo/main/mus.json',
+            'tirmidhi': 'https://raw.githubusercontent.com/your-username/your-repo/main/tir.json',
+            'abu-dawud': 'https://raw.githubusercontent.com/your-username/your-repo/main/daw.json',
+            'nasai': 'https://raw.githubusercontent.com/your-username/your-repo/main/nis.json',
+            'ibn-majah': 'https://raw.githubusercontent.com/your-username/your-repo/main/majah.json'
         };
 
-        const BOOK_NAMES = {
-            'bukhari': { ar: "صحيح البخاري", en: "Sahih al-Bukhari" },
-            'muslim': { ar: "صحيح مسلم", en: "Sahih Muslim" },
-            'tirmidhi': { ar: "سنن الترمذي", en: "Jami` at-Tirmidhi" },
-            'abu-dawud': { ar: "سنن أبي داود", en: "Sunan Abi Dawud" },
-            'nasai': { ar: "سنن النسائي", en: "Sunan an-Nasa'i" },
-            'ibn-majah': { ar: "سنن ابن ماجه", en: "Sunan Ibn Majah" }
-        };
-
-        const app = {
-            lang: 'ar',
-            state: {
-                currentBookSlug: null,
-                rawData: [],
-                booksMap: {},
-                sortedBooks: [],
-                currentInternalBook: null
-            },
-
-            init: function() {
-                this.setupUI();
-                this.handleRouting();
-                window.addEventListener('hashchange', () => this.handleRouting());
-                this.loadRandomHadith();
-            },
-
-            toggleLanguage: function() {
-                this.lang = this.lang === 'ar' ? 'en' : 'ar';
-                document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
-                document.documentElement.lang = this.lang;
-                document.getElementById('langText').textContent = this.lang === 'ar' ? 'English' : 'العربية';
-                
-                // Update all text elements with data-key
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (TRANSLATIONS[this.lang][key]) {
-                        el.textContent = TRANSLATIONS[this.lang][key];
-                    }
-                });
-
-                document.getElementById('globalSearch').placeholder = TRANSLATIONS[this.lang].searchPlaceholder;
-                this.loadRandomHadith(); // Reload random hadith in new language
-                
-                // If viewing a detail page, refresh content
-                if(document.getElementById('hadith-detail-view').style.display === 'block') {
-                    const hash = window.location.hash;
-                    const parts = hash.split('/');
-                    this.loadHadithDetail(parseInt(parts[1]), parseInt(parts[2]));
-                }
-            },
-
-            t: function(key) {
-                return TRANSLATIONS[this.lang][key] || key;
-            },
-
-            setupUI: function() {
-                const header = document.getElementById('mainHeader');
-                window.addEventListener('scroll', () => {
-                    header.classList.toggle('scrolled', window.scrollY > 50);
-                    document.getElementById('backToTop').classList.toggle('show', window.scrollY > 300);
-                });
-                document.getElementById('backToTop').onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-                
-                document.getElementById('exploreBtn').onclick = (e) => {
-                    e.preventDefault();
-                    document.getElementById('categories').scrollIntoView({behavior: 'smooth'});
-                };
-
-                // Search Functionality
-                const searchInput = document.getElementById('globalSearch');
-                searchInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.performSearch(searchInput.value);
-                });
-            },
-
-            handleRouting: function() {
-                const hash = window.location.hash;
-                ['heroSection', 'categories', 'internal-books-view', 'hadiths-view', 'hadith-detail-view', 'random-hadith'].forEach(id => {
-                    document.getElementById(id).style.display = 'none';
-                });
-
-                if (!hash || hash === '#home') {
-                    document.getElementById('heroSection').style.display = 'flex';
-                    document.getElementById('categories').style.display = 'block';
-                    document.getElementById('random-hadith').style.display = 'block';
-                    window.scrollTo(0, 0);
-                    return;
-                }
-
-                if (hash.startsWith('#book/')) {
-                    const slug = hash.split('/')[1];
-                    this.loadMainBook(slug);
-                } else if (hash.startsWith('#internal/')) {
-                    const idx = parseInt(hash.split('/')[1]);
-                    this.loadInternalBook(idx);
-                } else if (hash.startsWith('#hadith/')) {
-                    const parts = hash.split('/');
-                    this.loadHadithDetail(parseInt(parts[1]), parseInt(parts[2]));
-                } else if (hash === '#categories') {
-                    document.getElementById('heroSection').style.display = 'none';
-                    document.getElementById('categories').style.display = 'block';
-                } else if (hash === '#random') {
-                     this.loadRandomHadith();
-                     window.location.hash = '#home';
-                }
-            },
-
-            loadMainBook: async function(bookSlug) {
-                if (!BOOK_FILES[bookSlug]) return;
-                this.state.currentBookSlug = bookSlug;
-
-                document.getElementById('internal-books-view').style.display = 'block';
-                document.getElementById('current-book-title').textContent = BOOK_NAMES[bookSlug][this.lang];
-                document.getElementById('loading-books').style.display = 'block';
-                document.getElementById('internal-books-grid').innerHTML = '';
-                window.scrollTo(0, 0);
-
-                try {
-                    const res = await fetch(BOOK_FILES[bookSlug]);
-                    const data = await res.json();
-                    this.state.rawData = Array.isArray(data) ? data : [];
-                    this.processBooksData();
-                    this.renderBooks();
-                    document.getElementById('loading-books').style.display = 'none';
-                } catch (e) {
-                    document.getElementById('loading-books').innerHTML = `<p style="color:red">Error loading ${BOOK_FILES[bookSlug]}</p>`;
-                }
-            },
-
-            processBooksData: function() {
-                this.state.booksMap = {};
-                this.state.sortedBooks = [];
-                const seen = new Set();
-
-                this.state.rawData.forEach(h => {
-                    const bookName = h.Book;
-                    if (!bookName) return;
-                    if (!seen.has(bookName)) {
-                        seen.add(bookName);
-                        this.state.booksMap[bookName] = [];
-                        this.state.sortedBooks.push(bookName);
-                    }
-                    this.state.booksMap[bookName].push(h);
-                });
-            },
-
-            renderBooks: function() {
-                const grid = document.getElementById('internal-books-grid');
-                grid.innerHTML = '';
-                this.state.sortedBooks.forEach((name, idx) => {
-                    const hadiths = this.state.booksMap[name];
-                    const first = this.extractNum(hadiths[0]);
-                    const last = this.extractNum(hadiths[hadiths.length-1]);
-                    const range = (first && last) ? `${first} - ${last}` : `${hadiths.length} Hadiths`;
-                    
-                    const card = document.createElement('div');
-                    card.className = 'internal-book-card';
-                    card.onclick = () => window.location.hash = `#internal/${idx}`;
-                    card.innerHTML = `
-                        <div class="internal-book-title">${name}</div>
-                        <div class="internal-book-meta">
-                            <span class="range-badge">${range}</span>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            },
-
-            loadInternalBook: function(idx) {
-                const name = this.state.sortedBooks[idx];
-                this.state.currentInternalBook = name;
-                const hadiths = this.state.booksMap[name];
-
-                document.getElementById('hadiths-view').style.display = 'block';
-                document.getElementById('internal-book-title').textContent = name;
-                document.getElementById('parent-book-name').textContent = BOOK_NAMES[this.state.currentBookSlug][this.lang];
-                document.getElementById('back-to-books').href = `#book/${this.state.currentBookSlug}`;
-
-                const list = document.getElementById('hadiths-list');
-                list.innerHTML = '';
-
-                hadiths.forEach((h, hIdx) => {
-                    const text = this.lang === 'ar' ? h.Arabic_Text : h.English_Text;
-                    const div = document.createElement('div');
-                    div.className = 'hadith-item';
-                    div.innerHTML = `
-                        <div class="hadith-meta">
-                            <span class="hadith-grade ${this.getGradeClass(h.Grade)}">${h.Grade || ''}</span>
-                            <span>${this.t('hadithNum')}: ${this.extractNum(h) || (hIdx+1)}</span>
-                        </div>
-                        <h3>${h.Chapter_Title_Arabic || h.Chapter_Title_English || ''}</h3>
-                        <p class="hadith-excerpt">${text.substring(0, 150)}...</p>
-                        <a href="#hadith/${idx}/${hIdx}" class="read-more">${this.t('readMore')}</a>
-                    `;
-                    list.appendChild(div);
-                });
-                window.scrollTo(0,0);
-            },
-
-            loadHadithDetail: function(internalIdx, hIdx) {
-                const name = this.state.sortedBooks[internalIdx];
-                const h = this.state.booksMap[name][hIdx];
-                const text = this.lang === 'ar' ? h.Arabic_Text : h.English_Text;
-                
-                document.getElementById('hadith-detail-view').style.display = 'block';
-                document.getElementById('hadith-detail-title').textContent = h.Chapter_Title_Arabic || h.Chapter_Title_English || '';
-                
-                document.getElementById('hadith-meta-detail').innerHTML = `
-                    <span><strong>${this.t('book')}:</strong> ${h.Book}</span>
-                    <span><strong>${this.t('source')}:</strong> ${h["In-book reference"] || ''}</span>
-                `;
-
-                document.getElementById('hadith-chain-content').textContent = ""; 
-                document.getElementById('hadith-text-content').textContent = text;
-
-                document.getElementById('hadith-info-content').innerHTML = `
-                    <p><strong>${this.t('grade')}:</strong> <span class="${this.getGradeClass(h.Grade)}">${h.Grade || ''}</span></p>
-                    ${h.Reference ? `<a href="${h.Reference}" target="_blank" style="color:var(--primary-color)">Sunnah.com Link</a>` : ''}
-                `;
-
-                document.getElementById('back-to-list').href = `#internal/${internalIdx}`;
-                window.scrollTo(0,0);
-            },
-
-            shareHadith: function() {
-                const text = document.getElementById('hadith-text-content').textContent;
-                const url = window.location.href;
-                const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text.substring(0, 100) + '... ' + url)}`;
-                window.open(shareUrl, '_blank');
-            },
-
-            loadRandomHadith: async function() {
-                const container = document.getElementById('rh-content');
-                const meta = document.getElementById('rh-meta');
-                container.innerHTML = '<p class="rh-loader"><i class="fas fa-spinner fa-spin"></i> Loading...</p>';
-                
-                try {
-                    // Fetch a random book first
-                    const books = Object.keys(BOOK_FILES);
-                    const randomBook = books[Math.floor(Math.random() * books.length)];
-                    const res = await fetch(BOOK_FILES[randomBook]);
-                    const data = await res.json();
-                    
-                    if(data && data.length > 0) {
-                        const randomHadith = data[Math.floor(Math.random() * data.length)];
-                        const text = this.lang === 'ar' ? randomHadith.Arabic_Text : randomHadith.English_Text;
-                        container.innerHTML = `<p class="rh-text">${text}</p>`;
-                        meta.textContent = `${BOOK_NAMES[randomBook][this.lang]} - Hadith ${this.extractNum(randomHadith)}`;
-                    }
-                } catch(e) {
-                    container.innerHTML = '<p class="rh-text">Could not load hadith.</p>';
-                }
-            },
-
-            performSearch: function(query) {
-                if(!query) return;
-                // Simple alert for now as implementing full search requires loading all books which is heavy
-                // Or search within current loaded book
-                if(this.state.rawData.length > 0) {
-                    // Search current book
-                    const results = this.state.rawData.filter(h => {
-                        const t = this.lang === 'ar' ? h.Arabic_Text : h.English_Text;
-                        return t.includes(query);
-                    });
-                    
-                    if(results.length > 0) {
-                        // Show first result
-                        const idx = this.state.sortedBooks.indexOf(results[0].Book);
-                        if(idx > -1) {
-                            const hIdx = this.state.booksMap[results[0].Book].indexOf(results[0]);
-                            window.location.hash = `#hadith/${idx}/${hIdx}`;
-                        }
-                    } else {
-                        alert(this.t('noResults'));
-                    }
-                } else {
-                    alert("Please select a book first to search within it.");
-                }
-            },
-
-            extractNum: function(h) {
-                if(!h["In-book reference"]) return null;
-                const m = h["In-book reference"].match(/Hadith\s*(\d+)/i);
-                return m ? m[1] : null;
-            },
-
-            getGradeClass: function(g) {
-                if(!g) return '';
-                g = g.toLowerCase();
-                if(g.includes("sahih") || g.includes("صحيح")) return 'grade-sahih';
-                if(g.includes("hasan") || g.includes("حسن")) return 'grade-hasan';
-                if(g.includes("da'if") || g.includes("ضعيف")) return 'grade-daif';
-                return '';
+        // تهيئة الموقع
+        document.addEventListener('DOMContentLoaded', async function() {
+            // التحقق مما إذا كان المستخدم يطلب sitemap.xml
+            if (window.location.pathname === '/sitemap.xml' || window.location.href.includes('/sitemap.xml')) {
+                showSitemap();
+                return;
             }
-        };
-
-        // Define translation for readMore dynamically inside object or simple check
-        app.t('readMore'); // Init translation strings
-        
-        // Manual fix for "Read More" translation
-        const getReadMoreText = () => app.lang === 'ar' ? 'قراءة الحديث' : 'Read Hadith';
-        
-        // Monkey patch for loadInternalBook to use dynamic text
-        const originalLoad = app.loadInternalBook.bind(app);
-        app.loadInternalBook = function(idx) {
-            // We need to inject text after the app object is ready or use a placeholder
-            // Updating the innerHTML in the original function handles this if we call getReadMoreText
-            // But original function used this.t('readMore') which is undefined.
-            // Let's fix the app object:
-            app.t = (k) => {
-                if(k === 'readMore') return app.lang === 'ar' ? 'قراءة الحديث' : 'Read Hadith';
-                return TRANSLATIONS[app.lang][k] || k;
-            };
-            originalLoad(idx);
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            app.init();
+            
+            // إعداد زر العودة للأعلى
+            setupBackToTop();
+            
+            // إعداد تأثير التمرير على الهيدر
+            setupHeaderScroll();
+            
+            // إعداد زر الاستكشاف
+            setupExploreButton();
+            
+            // إعداد زر عرض المزيد
+            setupLoadMoreButton();
+            
+            // إعداد تغيير اللغة
+            setupLanguageSwitcher();
+            
+            // إعداد البحث
+            setupSearch();
+            
+            // تحميل البيانات
+            await loadAllData();
+            
+            // معالجة الروابط الأولية
+            processHash();
+            
+            // إضافة حدث لتغيير الهاش
+            window.addEventListener('hashchange', processHash);
         });
 
+        // تحميل جميع البيانات
+        async function loadAllData() {
+            try {
+                const promises = Object.keys(jsonFiles).map(async (key) => {
+                    try {
+                        const response = await fetch(jsonFiles[key]);
+                        if (!response.ok) throw new Error(`Failed to load ${key}`);
+                        const data = await response.json();
+                        
+                        // تحديد الكتاب بناءً على المفتاح
+                        let bookName = '';
+                        switch(key) {
+                            case 'bukhari': bookName = currentLanguage === 'ar' ? 'صحيح البخاري' : 'Sahih al-Bukhari'; break;
+                            case 'muslim': bookName = currentLanguage === 'ar' ? 'صحيح مسلم' : 'Sahih Muslim'; break;
+                            case 'tirmidhi': bookName = currentLanguage === 'ar' ? 'سنن الترمذي' : 'Sunan al-Tirmidhi'; break;
+                            case 'abu-dawud': bookName = currentLanguage === 'ar' ? 'سنن أبي داود' : 'Sunan Abi Dawud'; break;
+                            case 'nasai': bookName = currentLanguage === 'ar' ? 'سنن النسائي' : 'Sunan al-Nasa\'i'; break;
+                            case 'ibn-majah': bookName = currentLanguage === 'ar' ? 'سنن ابن ماجه' : 'Sunan Ibn Majah'; break;
+                        }
+                        
+                        // معالجة البيانات
+                        const processedHadiths = data.map(item => ({
+                            id: item.id || Math.random().toString(36).substr(2, 9),
+                            number: item.hadith_number || item.id || 0,
+                            text: currentLanguage === 'ar' ? item.Arabic_Text : item.English_Text,
+                            narrator: item.narrator || 'Unknown',
+                            chain: currentLanguage === 'ar' ? (item.chain || '') : '',
+                            book: bookName,
+                            chapter: currentLanguage === 'ar' ? item.Chapter_Title_Arabic : item.Chapter_Title_English,
+                            grade: item.Grade || (currentLanguage === 'ar' ? 'صحيح' : 'Sahih'),
+                            reference: item.Reference || ''
+                        }));
+                        
+                        allHadiths[key] = {
+                            title: bookName,
+                            description: translations[currentLanguage][`${key.replace('-', '')}Desc`],
+                            hadiths: processedHadiths
+                        };
+                        
+                        // تحديث عدد الأحاديث
+                        updateHadithCount(key, processedHadiths.length);
+                        
+                    } catch (error) {
+                        console.error(`Error loading ${key}:`, error);
+                        // استخدام بيانات افتراضية في حالة الفشل
+                        allHadiths[key] = {
+                            title: translations[currentLanguage][`${key.replace('-', '')}Title`],
+                            description: translations[currentLanguage][`${key.replace('-', '')}Desc`],
+                            hadiths: []
+                        };
+                        updateHadithCount(key, 0);
+                    }
+                });
+                
+                await Promise.all(promises);
+                
+                // عرض حديث عشوائي
+                showRandomHadith();
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // تحديث عدد الأحاديث
+        function updateHadithCount(bookKey, count) {
+            const countElement = document.getElementById(`${bookKey.replace('-', '')}-count`);
+            if (countElement) {
+                countElement.textContent = count;
+            }
+        }
+
+        // إظهار حديث عشوائي
+        function showRandomHadith() {
+            // جمع جميع الأحاديث من جميع الكتب
+            let allHadithsArray = [];
+            Object.keys(allHadiths).forEach(bookKey => {
+                if (allHadiths[bookKey] && allHadiths[bookKey].hadiths) {
+                    allHadiths[bookKey].hadiths.forEach(hadith => {
+                        allHadithsArray.push({
+                            ...hadith,
+                            sourceBook: bookKey
+                        });
+                    });
+                }
+            });
+            
+            if (allHadithsArray.length > 0) {
+                const randomHadith = allHadithsArray[Math.floor(Math.random() * allHadithsArray.length)];
+                document.getElementById('featured-hadith-text').textContent = randomHadith.text;
+                document.getElementById('featured-hadith-narrator').textContent = 
+                    `${translations[currentLanguage].narrator}: ${randomHadith.narrator} | ${translations[currentLanguage].book}: ${randomHadith.book}`;
+            } else {
+                document.getElementById('featured-hadith-text').textContent = 
+                    currentLanguage === 'ar' 
+                    ? "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى"
+                    : "Actions are judged by intentions, and each person will be rewarded according to what they intended";
+                document.getElementById('featured-hadith-narrator').textContent = 
+                    currentLanguage === 'ar'
+                    ? "الراوي: عمر بن الخطاب | الكتاب: صحيح البخاري"
+                    : "Narrator: Umar ibn al-Khattab | Book: Sahih al-Bukhari";
+            }
+        }
+
+        // إعداد تغيير اللغة
+        function setupLanguageSwitcher() {
+            const languageBtns = document.querySelectorAll('.language-btn');
+            languageBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    if (lang !== currentLanguage) {
+                        changeLanguage(lang);
+                    }
+                });
+            });
+            
+            // زر تحديث الحديث
+            document.getElementById('refresh-hadith').addEventListener('click', showRandomHadith);
+        }
+
+        // تغيير اللغة
+        async function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // تحديث الزر النشط
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // تغيير اتجاه الصفحة
+            if (lang === 'ar') {
+                document.body.classList.remove('english');
+                document.documentElement.dir = 'rtl';
+                document.documentElement.lang = 'ar';
+            } else {
+                document.body.classList.add('english');
+                document.documentElement.dir = 'ltr';
+                document.documentElement.lang = 'en';
+            }
+            
+            // تحديث النصوص
+            updateTexts();
+            
+            // إعادة تحميل البيانات مع اللغة الجديدة
+            await reloadDataForNewLanguage();
+            
+            // إعادة معالجة الهاش الحالي
+            processHash();
+        }
+
+        // تحديث النصوص
+        function updateTexts() {
+            const t = translations[currentLanguage];
+            
+            // تحديث العنوان
+            document.title = t.siteTitle;
+            
+            // تحديث النصوص في الصفحة
+            document.getElementById('hero-title').textContent = t.heroTitle;
+            document.getElementById('exploreBtn').textContent = t.exploreBtn;
+            document.getElementById('featured-title').textContent = t.featuredTitle;
+            document.getElementById('featured-subtitle').textContent = t.featuredSubtitle;
+            document.getElementById('refresh-text').textContent = t.refreshText;
+            document.getElementById('categories-title').textContent = t.categoriesTitle;
+            document.getElementById('categories-subtitle').textContent = t.categoriesSubtitle;
+            document.getElementById('load-more-text').textContent = t.loadMoreText;
+            document.getElementById('back-to-categories').textContent = t.backToCategories;
+            document.getElementById('hadith-info-title').textContent = t.hadithInfoTitle;
+            document.getElementById('share-text').textContent = t.shareText;
+            document.getElementById('copy-link-text').textContent = t.copyLinkText;
+            document.getElementById('back-to-list').textContent = t.backToList;
+            document.getElementById('quick-links').textContent = t.quickLinks;
+            document.getElementById('library-text').textContent = t.libraryText;
+            document.getElementById('footer-tagline').textContent = t.footerTagline;
+            document.getElementById('contact-us').textContent = t.contactUs;
+            document.getElementById('contact-desc').textContent = t.contactDesc;
+            document.getElementById('footer-bottom-text').textContent = t.footerBottomText;
+            document.getElementById('search-input').placeholder = t.searchPlaceholder;
+            
+            // تحديث عناوين الكتب
+            document.getElementById('bukhari-title').textContent = t.bukhariTitle;
+            document.getElementById('bukhari-desc').textContent = t.bukhariDesc;
+            document.getElementById('muslim-title').textContent = t.muslimTitle;
+            document.getElementById('muslim-desc').textContent = t.muslimDesc;
+            document.getElementById('tirmidhi-title').textContent = t.tirmidhiTitle;
+            document.getElementById('tirmidhi-desc').textContent = t.tirmidhiDesc;
+            document.getElementById('abudawud-title').textContent = t.abudawudTitle;
+            document.getElementById('abudawud-desc').textContent = t.abudawudDesc;
+            document.getElementById('nasai-title').textContent = t.nasaiTitle;
+            document.getElementById('nasai-desc').textContent = t.nasaiDesc;
+            document.getElementById('ibnmajah-title').textContent = t.ibnmajahTitle;
+            document.getElementById('ibnmajah-desc').textContent = t.ibnmajahDesc;
+        }
+
+        // إعادة تحميل البيانات للغة الجديدة
+        async function reloadDataForNewLanguage() {
+            // مسح البيانات القديمة
+            allHadiths = {};
+            
+            // إعادة تحميل البيانات
+            const promises = Object.keys(jsonFiles).map(async (key) => {
+                try {
+                    const response = await fetch(jsonFiles[key]);
+                    if (!response.ok) throw new Error(`Failed to load ${key}`);
+                    const data = await response.json();
+                    
+                    // تحديد الكتاب بناءً على المفتاح
+                    let bookName = '';
+                    switch(key) {
+                        case 'bukhari': bookName = currentLanguage === 'ar' ? 'صحيح البخاري' : 'Sahih al-Bukhari'; break;
+                        case 'muslim': bookName = currentLanguage === 'ar' ? 'صحيح مسلم' : 'Sahih Muslim'; break;
+                        case 'tirmidhi': bookName = currentLanguage === 'ar' ? 'سنن الترمذي' : 'Sunan al-Tirmidhi'; break;
+                        case 'abu-dawud': bookName = currentLanguage === 'ar' ? 'سنن أبي داود' : 'Sunan Abi Dawud'; break;
+                        case 'nasai': bookName = currentLanguage === 'ar' ? 'سنن النسائي' : 'Sunan al-Nasa\'i'; break;
+                        case 'ibn-majah': bookName = currentLanguage === 'ar' ? 'سنن ابن ماجه' : 'Sunan Ibn Majah'; break;
+                    }
+                    
+                    // معالجة البيانات
+                    const processedHadiths = data.map(item => ({
+                        id: item.id || Math.random().toString(36).substr(2, 9),
+                        number: item.hadith_number || item.id || 0,
+                        text: currentLanguage === 'ar' ? item.Arabic_Text : item.English_Text,
+                        narrator: item.narrator || 'Unknown',
+                        chain: currentLanguage === 'ar' ? (item.chain || '') : '',
+                        book: bookName,
+                        chapter: currentLanguage === 'ar' ? item.Chapter_Title_Arabic : item.Chapter_Title_English,
+                        grade: item.Grade || (currentLanguage === 'ar' ? 'صحيح' : 'Sahih'),
+                        reference: item.Reference || ''
+                    }));
+                    
+                    allHadiths[key] = {
+                        title: bookName,
+                        description: translations[currentLanguage][`${key.replace('-', '')}Desc`],
+                        hadiths: processedHadiths
+                    };
+                    
+                } catch (error) {
+                    console.error(`Error loading ${key}:`, error);
+                    allHadiths[key] = {
+                        title: translations[currentLanguage][`${key.replace('-', '')}Title`],
+                        description: translations[currentLanguage][`${key.replace('-', '')}Desc`],
+                        hadiths: []
+                    };
+                }
+            });
+            
+            await Promise.all(promises);
+            
+            // تحديث الحديث العشوائي
+            showRandomHadith();
+        }
+
+        // إعداد البحث
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const searchResults = document.getElementById('search-results');
+            
+            // بحث عند الكتابة
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                if (query.length >= 2) {
+                    performSearch(query);
+                } else {
+                    hideSearchResults();
+                }
+            });
+            
+            // بحث عند الضغط على زر البحث
+            searchBtn.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (query.length >= 1) {
+                    performSearch(query);
+                }
+            });
+            
+            // إغلاق نتائج البحث عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                if (!searchResults.contains(event.target) && event.target !== searchInput && event.target !== searchBtn) {
+                    hideSearchResults();
+                }
+            });
+        }
+
+        // تنفيذ البحث
+        function performSearch(query) {
+            searchResults = [];
+            const lowerQuery = query.toLowerCase();
+            
+            // البحث في جميع الأحاديث
+            Object.keys(allHadiths).forEach(bookKey => {
+                if (allHadiths[bookKey] && allHadiths[bookKey].hadiths) {
+                    allHadiths[bookKey].hadiths.forEach(hadith => {
+                        const searchText = `${hadith.text} ${hadith.narrator} ${hadith.chapter}`.toLowerCase();
+                        if (searchText.includes(lowerQuery)) {
+                            searchResults.push({
+                                ...hadith,
+                                sourceBook: bookKey
+                            });
+                        }
+                    });
+                }
+            });
+            
+            displaySearchResults();
+        }
+
+        // عرض نتائج البحث
+        function displaySearchResults() {
+            const searchResultsContainer = document.getElementById('search-results');
+            searchResultsContainer.innerHTML = '';
+            
+            if (searchResults.length === 0) {
+                searchResultsContainer.innerHTML = `<div class="search-result-item">${translations[currentLanguage].noResults}</div>`;
+            } else {
+                searchResults.slice(0, 10).forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result-item';
+                    item.innerHTML = `
+                        <h4>${result.text.substring(0, 100)}...</h4>
+                        <p><strong>${translations[currentLanguage].narrator}:</strong> ${result.narrator}</p>
+                        <p><strong>${translations[currentLanguage].book}:</strong> ${result.book}</p>
+                    `;
+                    item.addEventListener('click', function() {
+                        window.location.hash = `#hadith/${result.sourceBook}/${result.id}`;
+                        hideSearchResults();
+                        document.getElementById('search-input').value = '';
+                    });
+                    searchResultsContainer.appendChild(item);
+                });
+                
+                if (searchResults.length > 10) {
+                    const moreItem = document.createElement('div');
+                    moreItem.className = 'search-result-item';
+                    moreItem.innerHTML = `<em>${searchResults.length - 10} ${currentLanguage === 'ar' ? 'نتيجة إضافية' : 'more results'}...</em>`;
+                    searchResultsContainer.appendChild(moreItem);
+                }
+            }
+            
+            searchResultsContainer.classList.add('active');
+        }
+
+        // إخفاء نتائج البحث
+        function hideSearchResults() {
+            document.getElementById('search-results').classList.remove('active');
+        }
+
+        // مشاركة الحديث
+        function shareHadith() {
+            const hadithText = document.getElementById('hadith-text-content').textContent;
+            const hadithNarrator = document.querySelector('#hadith-meta-detail span:first-child').textContent;
+            const shareText = `${hadithText}\n\n${hadithNarrator}\n\n${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: translations[currentLanguage].siteTitle,
+                    text: shareText,
+                    url: window.location.href
+                }).then(() => {
+                    alert(translations[currentLanguage].shareSuccess);
+                }).catch(error => {
+                    console.error('Error sharing:', error);
+                    copyToClipboard(shareText);
+                });
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        // نسخ رابط الحديث
+        function copyHadithLink() {
+            copyToClipboard(window.location.href);
+        }
+
+        // نسخ إلى الحافظة
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(translations[currentLanguage].copySuccess);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert(translations[currentLanguage].copyError);
+            });
+        }
+
+        // إظهار Sitemap
+        function showSitemap() {
+            const sitemapContent = document.getElementById('sitemapContent').textContent;
+            document.open();
+            document.write(sitemapContent);
+            document.close();
+        }
+        
+        // إعداد زر العودة للأعلى
+        function setupBackToTop() {
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        
+        // إعداد تأثير التمرير على الهيدر
+        function setupHeaderScroll() {
+            const header = document.getElementById('mainHeader');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+        
+        // إعداد زر الاستكشاف
+        function setupExploreButton() {
+            const exploreBtn = document.getElementById('exploreBtn');
+            
+            exploreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetSection = document.getElementById('categories');
+                
+                // التمرير إلى قسم الأقسام
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // إعداد زر عرض المزيد
+        function setupLoadMoreButton() {
+            document.getElementById('load-more-btn').addEventListener('click', function() {
+                visibleHadiths += 10;
+                loadCategoryHadiths(currentCategory, visibleHadiths);
+            });
+        }
+        
+        // معالجة الهاش وتحميل المحتوى المناسب
+        function processHash() {
+            const hash = window.location.hash;
+            
+            if (!hash || hash === '#') {
+                showMainPage();
+                return;
+            }
+            
+            if (hash === '#categories') {
+                showMainPage();
+                scrollToSection('categories');
+                return;
+            }
+            
+            if (hash === '#featured-hadith') {
+                showMainPage();
+                scrollToSection('featured-hadith');
+                return;
+            }
+            
+            if (hash === '#contact') {
+                showMainPage();
+                scrollToSection('contact');
+                return;
+            }
+            
+            // معالجة روابط الأقسام
+            if (hash.startsWith('#category/')) {
+                const categorySlug = hash.split('/')[1];
+                loadCategory(categorySlug);
+                return;
+            }
+            
+            // معالجة روابط الأحاديث
+            if (hash.startsWith('#hadith/')) {
+                const parts = hash.split('/');
+                if (parts.length === 3) {
+                    const categorySlug = parts[1];
+                    const hadithId = parts[2];
+                    loadHadithDetail(categorySlug, hadithId);
+                } else {
+                    showMainPage();
+                }
+                return;
+            }
+            
+            // إذا كان الهاش يشير إلى قسم معين
+            const section = document.querySelector(hash);
+            if (section) {
+                showMainPage();
+                scrollToSection(hash.substring(1));
+            } else {
+                showMainPage();
+            }
+        }
+        
+        // تحميل قسم معين
+        function loadCategory(categorySlug) {
+            if (!allHadiths[categorySlug]) {
+                alert(currentLanguage === 'ar' ? 'هذا القسم غير متوفر حالياً.' : 'This section is currently unavailable.');
+                window.location.hash = '#categories';
+                return;
+            }
+            
+            const categoryData = allHadiths[categorySlug];
+            currentCategory = categorySlug;
+            visibleHadiths = 10;
+            
+            // تحديث العنوان والوصف
+            document.getElementById('category-title').textContent = categoryData.title;
+            document.getElementById('category-description').textContent = categoryData.description;
+            
+            // إخفاء الأقسام الأخرى وإظهار قائمة الأحاديث
+            document.querySelector('.categories-section').style.display = 'none';
+            document.querySelector('.featured-hadith').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('hadith-detail-container').style.display = 'none';
+            document.getElementById('hadiths-container').style.display = 'block';
+            
+            // تحميل الأحاديث
+            loadCategoryHadiths(categorySlug, visibleHadiths);
+            
+            // التمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // تحميل أحاديث القسم
+        function loadCategoryHadiths(categorySlug, count) {
+            const categoryData = allHadiths[categorySlug];
+            if (!categoryData) return;
+            
+            const hadithsList = document.getElementById('hadiths-list');
+            const loadMoreContainer = document.getElementById('load-more-container');
+            
+            // إعادة تعيين القائمة
+            if (count === 10) {
+                hadithsList.innerHTML = '';
+            }
+            
+            // إضافة الأحاديث
+            const hadithsToShow = categoryData.hadiths.slice(0, count);
+            
+            hadithsToShow.forEach(hadith => {
+                // التحقق من عدم إضافة الحديث مسبقاً
+                if (!document.getElementById(`hadith-${hadith.id}`)) {
+                    const gradeClass = `grade-${hadith.grade === 'صحيح' || hadith.grade === 'Sahih' ? 'sahih' : hadith.grade === 'حسن' || hadith.grade === 'Hasan' ? 'hasan' : 'daif'}`;
+                    
+                    const hadithItem = document.createElement('div');
+                    hadithItem.className = 'hadith-item';
+                    hadithItem.id = `hadith-${hadith.id}`;
+                    hadithItem.innerHTML = `
+                        <div class="hadith-meta">
+                            <span class="hadith-grade ${gradeClass}">${hadith.grade}</span>
+                            <span>${translations[currentLanguage].hadithNumber}: ${hadith.number}</span>
+                        </div>
+                        <h3>${hadith.chapter}</h3>
+                        <p class="hadith-excerpt">${hadith.text.substring(0, 150)}...</p>
+                        <a href="#hadith/${categorySlug}/${hadith.id}" class="read-more">
+                            ${currentLanguage === 'ar' ? 'قراءة الحديث' : 'Read Hadith'} <i class="fas fa-arrow-left"></i>
+                        </a>
+                    `;
+                    hadithsList.appendChild(hadithItem);
+                }
+            });
+            
+            // إظهار أو إخفاء زر "عرض المزيد"
+            if (categoryData.hadiths.length > count) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+        
+        // تحميل حديث مفصل
+        function loadHadithDetail(categorySlug, hadithId) {
+            const categoryData = allHadiths[categorySlug];
+            if (!categoryData) {
+                window.location.hash = '#categories';
+                return;
+            }
+            
+            const hadith = categoryData.hadiths.find(h => h.id === hadithId);
+            if (!hadith) {
+                window.location.hash = `#category/${categorySlug}`;
+                return;
+            }
+            
+            // تحديث محتوى الحديث
+            document.getElementById('hadith-detail-title').textContent = hadith.chapter;
+            document.getElementById('hadith-meta-detail').innerHTML = `
+                <span><strong>${translations[currentLanguage].narrator}:</strong> ${hadith.narrator}</span>
+                <span><strong>${translations[currentLanguage].book}:</strong> ${hadith.book}</span>
+                <span><strong>${translations[currentLanguage].chapter}:</strong> ${hadith.chapter}</span>
+                <span><strong>${translations[currentLanguage].hadithNumber}:</strong> ${hadith.number}</span>
+                <span><strong>${translations[currentLanguage].grade}:</strong> ${hadith.grade}</span>
+            `;
+            
+            // تحديث سلسلة الرواة والنص
+            document.getElementById('hadith-chain-content').textContent = hadith.chain;
+            document.getElementById('hadith-text-content').textContent = hadith.text;
+            
+            // تحديث معلومات الحديث
+            document.getElementById('hadith-info-content').innerHTML = `
+                <p><strong>${translations[currentLanguage].narrator}:</strong> ${hadith.narrator}</p>
+                <p><strong>${translations[currentLanguage].book}:</strong> ${hadith.book}</p>
+                <p><strong>${translations[currentLanguage].chapter}:</strong> ${hadith.chapter}</p>
+                <p><strong>${translations[currentLanguage].hadithNumber}:</strong> ${hadith.number}</p>
+                <p><strong>${translations[currentLanguage].grade}:</strong> ${hadith.grade}</p>
+                ${hadith.reference ? `<p><strong>${currentLanguage === 'ar' ? 'المرجع' : 'Reference'}:</strong> <a href="${hadith.reference}" target="_blank">${hadith.reference}</a></p>` : ''}
+            `;
+            
+            // إعداد زر العودة
+            document.getElementById('back-to-hadiths').href = `#category/${categorySlug}`;
+            
+            // إخفاء الأقسام الأخرى وإظهار التفاصيل
+            document.querySelector('.categories-section').style.display = 'none';
+            document.querySelector('.featured-hadith').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('hadiths-container').style.display = 'none';
+            document.getElementById('hadith-detail-container').style.display = 'block';
+            
+            // التمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // عرض الصفحة الرئيسية
+        function showMainPage() {
+            document.querySelector('.categories-section').style.display = 'block';
+            document.querySelector('.featured-hadith').style.display = 'block';
+            document.getElementById('heroSection').style.display = 'block';
+            document.getElementById('hadiths-container').style.display = 'none';
+            document.getElementById('hadith-detail-container').style.display = 'none';
+            
+            // التمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // التمرير إلى قسم معين
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
     </script>
 </body>
 </html>
