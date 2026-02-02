@@ -88,7 +88,6 @@
             margin: 0 auto;
             line-height: 1.6;
         }
-        .highlight { color: var(--primary-color); font-weight: 700; }
         .btn {
             display: inline-block;
             padding: 14px 35px;
@@ -152,40 +151,6 @@
             font-weight: 600;
             line-height: 1.4;
             padding: 0 20px;
-        }
-        /* About */
-        .about-content { max-width: 900px; margin: 0 auto; font-size: 1.15rem; }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
-            margin-top: 60px;
-        }
-        .feature-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 35px;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            border: 1px solid var(--light-gray);
-            height: 100%;
-        }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-            border-color: var(--primary-color);
-        }
-        .feature-icon {
-            background: linear-gradient(135deg, rgba(44, 120, 108, 0.1) 0%, rgba(0, 68, 69, 0.1) 100%);
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-            font-size: 2rem;
         }
         /* Categories */
         .categories-section { background-color: var(--light-gray); }
@@ -279,6 +244,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             margin-left: 15px;
+            font-weight: bold;
         }
         .chapter-icon-toggle {
             color: var(--primary-color);
@@ -406,23 +372,6 @@
             transition: var(--transition);
         }
         .back-link:hover { background-color: var(--primary-color); color: white; transform: translateX(-5px); }
-        /* Load More */
-        .load-more-container { text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--light-gray); }
-        .load-more-btn {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .load-more-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3); }
         
         /* Footer */
         .main-footer { background-color: var(--dark-color); color: white; padding: 80px 0 30px; }
@@ -433,8 +382,8 @@
             margin-bottom: 40px;
         }
         .footer-logo h3 { color: white; margin-bottom: 10px; font-size: 1.8rem; }
-        .footer-logo .tagline { color: rgba(255, 255, 255, 0.7); }
-        .footer-section p { color: rgba(255, 255, 255, 0.8); line-height: 1.6; }
+        .footer-logo .tagline { color: rgba(255,255,255, 0.7); }
+        .footer-section p { color: rgba(255,255,255, 0.8); line-height: 1.6; }
         .footer-section h4 {
             color: white;
             font-size: 1.4rem;
@@ -452,11 +401,11 @@
             right: 0;
         }
         .footer-links li { margin-bottom: 15px; }
-        .footer-links a { color: rgba(255, 255, 255, 0.8); display: flex; align-items: center; gap: 10px; transition: var(--transition); }
+        .footer-links a { color: rgba(255,255,255, 0.8); display: flex; align-items: center; gap: 10px; transition: var(--transition); }
         .footer-links a:hover { color: white; padding-right: 10px; }
         .footer-links a i { font-size: 0.9rem; }
         .contact-email {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255,255,255, 0.1);
             padding: 15px 25px;
             border-radius: var(--border-radius);
             display: inline-block;
@@ -467,28 +416,15 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255,255,255, 0.2);
             letter-spacing: 1px;
         }
-        .social-links { display: flex; gap: 15px; margin-top: 25px; }
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-        .social-links a:hover { background-color: var(--primary-color); transform: translateY(-5px); }
         .footer-bottom {
             padding-top: 35px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255,255,255, 0.7);
             font-size: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255, 0.1);
             font-style: italic;
         }
         
@@ -522,17 +458,6 @@
         .loader i { animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .error-message { color: #dc3545; display: none; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero { padding: 150px 0 100px; min-height: 90vh; }
-            .hero-title { font-size: 2.2rem; padding: 0 15px; }
-            .section-title { font-size: 2rem; }
-            .logo h1 { font-size: 1.8rem; }
-            .back-to-top { bottom: 20px; left: 20px; width: 50px; height: 50px; }
-            .hadiths-grid-inner { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; gap: 40px; }
-        }
     </style>
 </head>
 <body>
@@ -608,9 +533,6 @@
             <div id="loader" class="loader"><i class="fas fa-spinner fa-spin"></i> جاري تحميل البيانات...</div>
             <div id="error-message" class="error-message">حدث خطأ في تحميل البيانات.</div>
             <div id="chapters-list"></div>
-            <div id="load-more-container" class="load-more-container" style="display: none;">
-                <button id="load-more-btn" class="load-more-btn"><i class="fas fa-plus"></i> عرض المزيد من الأبواب</button>
-            </div>
             <a href="#categories" class="back-link"><i class="fas fa-arrow-right"></i> العودة إلى كتب الأحاديث</a>
         </div>
     </section>
@@ -671,16 +593,11 @@
         const dataCache = {};
         let currentCategory = '';
         let groupedChapters = []; 
-        let currentChapterIndex = 0; 
-        const CHAPTERS_PER_BATCH = 5;
 
-        // --- Helper: Smart Hadith Number Extractor ---
-        // يحاول جلب أفضل رقم حديث متاح في البيانات
+        // Helper: استخراج رقم الحديث
         function getHadithNumber(hadith) {
             if (hadith.idInBook) return hadith.idInBook;
             if (hadith.hadithnumber) return hadith.hadithnumber;
-            // Fallback to ID if sequential (some datasets use ID as the number)
-            // But we warn if ID is huge (like DB ID)
             return hadith.id; 
         }
 
@@ -723,26 +640,45 @@
                 const response = await fetch(`${JSON_BASE_URL}${fileName}`);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
+                
+                // 1. فرز الأبواب حسب رقمها (ID) لضمان الترتيب الصحيح (1، 2، 3...)
+                let chapters = data.chapters || [];
+                chapters.sort((a, b) => {
+                    return (a.id || 0) - (b.id || 0);
+                });
+
+                // 2. تجميع الأحاديث
                 const grouped = {};
-                const chapters = data.chapters || [];
-                chapters.forEach(ch => { grouped[ch.id] = { title: ch.arabic || ch.english, hadiths: [] }; });
+                chapters.forEach(ch => { grouped[ch.id] = { id: ch.id, title: ch.arabic || ch.english, hadiths: [] }; });
                 const hadiths = data.hadiths || [];
                 hadiths.forEach(h => {
                     if (grouped[h.chapterId]) grouped[h.chapterId].hadiths.push(h);
                 });
                 
-                // Sorting Hadiths using the smart helper
-                for (let key in grouped) {
-                    if (grouped[key].hadiths.length > 0) {
-                        grouped[key].hadiths.sort((a, b) => {
-                            const numA = getHadithNumber(a) || 0;
-                            const numB = getHadithNumber(b) || 0;
-                            return numA - numB;
-                        });
-                    }
-                }
+                // 3. تجهيز البيانات النهائية مع حساب النطاقات
+                const groupedArray = chapters.map((ch, index) => {
+                    const chapterData = grouped[ch.id];
+                    if (!chapterData) return null;
 
-                const groupedArray = chapters.map(ch => grouped[ch.id]).filter(item => item && item.hadiths.length > 0);
+                    // ترتيب الأحاديث داخل الباب
+                    chapterData.hadiths.sort((a, b) => getHadithNumber(a) - getHadithNumber(b));
+
+                    // حساب أول وآخر رقم حديث
+                    let rangeText = '';
+                    if (chapterData.hadiths.length > 0) {
+                        const firstNum = getHadithNumber(chapterData.hadiths[0]);
+                        const lastNum = getHadithNumber(chapterData.hadiths[chapterData.hadiths.length - 1]);
+                        rangeText = `(${firstNum} - ${lastNum})`;
+                    }
+
+                    // إضافة رقم الباب (index + 1)
+                    return {
+                        ...chapterData,
+                        order: index + 1, // رقم الباب في الكتاب (1، 2، 3)
+                        range: rangeText
+                    };
+                }).filter(item => item !== null);
+
                 dataCache[categorySlug] = { metadata: data.metadata, groupedData: groupedArray };
                 return dataCache[categorySlug];
             } catch (error) {
@@ -762,8 +698,7 @@
             listContainer.innerHTML = ''; 
             errorMsg.style.display = 'none';
             loader.style.display = 'block';
-            currentCategory = categorySlug;
-            currentChapterIndex = 0; 
+            currentCategory = categorySlug; 
 
             const processedData = await fetchBookData(categorySlug);
             loader.style.display = 'none';
@@ -780,28 +715,29 @@
             descEl.textContent = `${defaultDescriptions[categorySlug] || ''}`;
 
             groupedChapters = processedData.groupedData;
-            renderNextBatch();
+            
+            // عرض جميع الأبواب دفعة واحدة (بدون زر "عرض المزيد")
+            renderAllChapters();
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function renderNextBatch() {
+        function renderAllChapters() {
             const listContainer = document.getElementById('chapters-list');
-            const loadMoreBtnContainer = document.getElementById('load-more-container');
-            const nextIndex = currentChapterIndex + CHAPTERS_PER_BATCH;
-            const chaptersToRender = groupedChapters.slice(currentChapterIndex, nextIndex);
-
-            if (chaptersToRender.length === 0) return;
-
-            chaptersToRender.forEach(chapter => {
+            
+            groupedChapters.forEach(chapter => {
                 const chapterElement = document.createElement('div');
                 chapterElement.className = 'chapter-accordion';
+
                 const header = document.createElement('div');
                 header.className = 'chapter-accordion-header';
+                // عرض رقم الباب والنطاق
                 header.innerHTML = `
-                    <div class="chapter-title-text">${chapter.title}</div>
-                    <div class="chapter-hadith-count">${chapter.hadiths.length} حديث</div>
+                    <div class="chapter-title-text">الباب ${chapter.order}: ${chapter.title}</div>
+                    <div class="chapter-hadith-count">${chapter.range}</div>
                     <i class="fas fa-chevron-down chapter-icon-toggle"></i>
                 `;
+
                 const body = document.createElement('div');
                 body.className = 'chapter-accordion-body';
                 const contentInner = document.createElement('div');
@@ -832,20 +768,10 @@
 
                 listContainer.appendChild(chapterElement);
             });
-
-            currentChapterIndex = nextIndex;
-            if (currentChapterIndex < groupedChapters.length) {
-                loadMoreBtnContainer.style.display = 'block';
-                document.getElementById('load-more-btn').onclick = renderNextBatch;
-            } else {
-                loadMoreBtnContainer.style.display = 'none';
-            }
         }
 
         function createHadithCard(hadith, categorySlug) {
             const textSnippet = hadith.arabic ? hadith.arabic.substring(0, 100) + '...' : 'نص غير متوفر';
-            
-            // استخدام الدالة الذكية لجلب الرقم
             const displayNumber = getHadithNumber(hadith);
             
             const card = document.createElement('div');
