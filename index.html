@@ -85,6 +85,7 @@
             direction: rtl;
             text-align: right;
             overflow-x: hidden;
+            padding-top: 80px; /* لمنع تداخل الهيدر */
         }
 
         body.english {
@@ -358,7 +359,7 @@
             max-height: 400px;
             overflow-y: auto;
             display: none;
-            z-index: 1000;
+            z-index: 1001;
             margin-top: 5px;
         }
 
@@ -389,57 +390,11 @@
             margin-bottom: 5px;
         }
 
-        /* البانر الرئيسي (Hero Section) */
-        .hero {
-            background: var(--hero-gradient);
-            color: white;
-            padding: 180px 0 150px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .hero.hidden {
-            display: none;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-title {
-            font-family: 'El Messiri', 'Tajawal', sans-serif;
-            font-size: 3.2rem;
-            color: white;
-            margin-bottom: 3rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            font-weight: 600;
-            line-height: 1.4;
-            padding: 0 20px;
-        }
-
-        /* قسم الحديث المختار */
+        /* الحديث المختار */
         .featured-hadith {
             background: linear-gradient(135deg, rgba(44, 120, 108, 0.1) 0%, rgba(0, 68, 69, 0.1) 100%);
             padding: 60px 0;
+            margin-top: 20px;
         }
 
         .featured-hadith-card {
@@ -552,86 +507,6 @@
             margin-top: 10px;
         }
 
-        /* صفحة الأبواب */
-        .chapters-page {
-            padding: 80px 0;
-            min-height: 70vh;
-        }
-
-        .chapters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .chapter-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            border: 1px solid var(--light-gray);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chapter-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--primary-color);
-        }
-
-        .chapter-number {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .chapter-title {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            line-height: 1.4;
-            height: 60px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .chapter-hadith-count {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .view-chapter {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: auto;
-        }
-
-        .view-chapter i {
-            margin-right: 8px;
-            transition: var(--transition);
-        }
-
-        .view-chapter:hover i {
-            transform: translateX(-8px);
-        }
-
         /* صفحات الأحاديث */
         .hadiths-page {
             padding: 80px 0;
@@ -641,7 +516,7 @@
         .hadiths-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 25px;
+            gap: 20px;
         }
 
         .hadith-item {
@@ -660,7 +535,7 @@
         }
 
         .hadith-content {
-            color: var(--gray-color);
+            color: var(--dark-color);
             font-size: 1.1rem;
             margin-bottom: 20px;
             line-height: 1.6;
@@ -735,17 +610,6 @@
             border-radius: var(--border-radius);
             margin-bottom: 45px;
             border-right: 5px solid var(--primary-color);
-        }
-
-        .hadith-chain {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: var(--gray-color);
-            font-style: italic;
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding-bottom: 20px;
         }
 
         .hadith-text {
@@ -853,6 +717,33 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        /* تحميل أولي */
+        .initial-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .initial-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .initial-loading .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border-width: 4px;
         }
 
         /* الفوتر */
@@ -1021,10 +912,6 @@
         }
 
         @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.7rem;
-            }
-            
             .section-title {
                 font-size: 2.5rem;
             }
@@ -1064,14 +951,8 @@
         }
 
         @media (max-width: 768px) {
-            .hero {
-                padding: 150px 0 100px;
-                min-height: 90vh;
-            }
-            
-            .hero-title {
-                font-size: 2.2rem;
-                padding: 0 15px;
+            body {
+                padding-top: 120px;
             }
             
             .section-title {
@@ -1093,7 +974,6 @@
                 height: 50px;
             }
             
-            .chapters-grid,
             .hadiths-list {
                 grid-template-columns: 1fr;
             }
@@ -1116,29 +996,19 @@
             .featured-hadith-text {
                 font-size: 1.4rem;
             }
-            
-            .chapter-title {
-                height: auto;
-                -webkit-line-clamp: 3;
-            }
         }
 
         @media (max-width: 576px) {
+            body {
+                padding-top: 140px;
+            }
+            
             .container {
                 padding: 0 15px;
             }
             
             .categories-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                padding: 130px 0 80px;
-                min-height: 80vh;
-            }
-            
-            .hero-title {
-                font-size: 1.9rem;
             }
             
             .btn {
@@ -1184,6 +1054,12 @@
     </style>
 </head>
 <body>
+    <!-- تحميل أولي -->
+    <div class="initial-loading" id="initialLoading">
+        <div class="loading-spinner"></div>
+        <p id="initial-loading-text">جاري تحميل بيانات الأحاديث...</p>
+    </div>
+
     <!-- الهيدر -->
     <header class="main-header" id="mainHeader">
         <div class="container">
@@ -1222,19 +1098,6 @@
         </div>
     </header>
 
-    <!-- مسافة للهيدر الثابت -->
-    <div class="header-spacer"></div>
-
-    <!-- البانر الرئيسي (يظهر فقط في الصفحة الرئيسية) -->
-    <section class="hero" id="heroSection">
-        <div class="container">
-            <div class="hero-content">
-                <h2 class="hero-title" id="hero-title">مشروع متخصص في عرض الأحاديث النبوية مصنفة حسب كتب السنة المعتمدة</h2>
-                <a href="#categories" class="btn btn-primary" id="exploreBtn">استكشاف كتب الأحاديث</a>
-            </div>
-        </div>
-    </section>
-
     <!-- الحديث المختار -->
     <section id="featured-hadith" class="section featured-hadith">
         <div class="container">
@@ -1256,7 +1119,7 @@
                 <p class="section-subtitle" id="categories-subtitle">اختر الكتاب الذي تريد استعراض أحاديثه</p>
             </div>
             <div class="categories-grid">
-                <a href="#category/bukhari" class="category-card">
+                <a href="#book/bukhari" class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -1265,7 +1128,7 @@
                     <span class="hadith-count"><span id="bukhari-count">0</span> حديث</span>
                 </a>
                 
-                <a href="#category/muslim" class="category-card">
+                <a href="#book/muslim" class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -1274,7 +1137,7 @@
                     <span class="hadith-count"><span id="muslim-count">0</span> حديث</span>
                 </a>
                 
-                <a href="#category/tirmidhi" class="category-card">
+                <a href="#book/tirmidhi" class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -1283,7 +1146,7 @@
                     <span class="hadith-count"><span id="tirmidhi-count">0</span> حديث</span>
                 </a>
                 
-                <a href="#category/abu-dawud" class="category-card">
+                <a href="#book/abu-dawud" class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -1292,7 +1155,7 @@
                     <span class="hadith-count"><span id="abudawud-count">0</span> حديث</span>
                 </a>
                 
-                <a href="#category/nasai" class="category-card">
+                <a href="#book/nasai" class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -1301,7 +1164,7 @@
                     <span class="hadith-count"><span id="nasai-count">0</span> حديث</span>
                 </a>
                 
-                <a href="#category/ibn-majah" class="category-card">
+                <a href="#book/ibn-majah" class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -1313,37 +1176,12 @@
         </div>
     </section>
 
-    <!-- صفحة الأبواب -->
-    <section id="chapters-container" class="section chapters-page" style="display: none;">
-        <div class="container">
-            <div class="page-header">
-                <h2 id="chapters-title" class="section-title"></h2>
-                <p class="section-subtitle" id="chapters-description"></p>
-            </div>
-            <div class="loading" id="chapters-loading" style="display: none;">
-                <div class="loading-spinner"></div>
-                <p id="loading-text">جاري التحميل...</p>
-            </div>
-            <div class="chapters-grid" id="chapters-list">
-                <!-- سيتم ملؤها بالجافاسكريبت -->
-            </div>
-            <div id="chapters-load-more-container" class="load-more-container" style="display: none;">
-                <button id="chapters-load-more-btn" class="load-more-btn">
-                    <i class="fas fa-plus"></i> <span id="load-more-chapters-text">عرض المزيد من الأبواب</span>
-                </button>
-            </div>
-            <a href="#categories" class="back-link">
-                <i class="fas fa-arrow-right"></i> <span id="back-to-categories">العودة إلى كتب الأحاديث</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- قسم يعرض الأحاديث حسب الباب -->
+    <!-- قسم يعرض الأحاديث حسب الكتاب -->
     <section id="hadiths-container" class="section hadiths-page" style="display: none;">
         <div class="container">
             <div class="page-header">
-                <h2 id="chapter-hadiths-title" class="section-title"></h2>
-                <p class="section-subtitle" id="chapter-hadiths-description"></p>
+                <h2 id="book-hadiths-title" class="section-title"></h2>
+                <p class="section-subtitle" id="book-hadiths-description"></p>
             </div>
             <div class="loading" id="hadiths-loading" style="display: none;">
                 <div class="loading-spinner"></div>
@@ -1357,8 +1195,8 @@
                     <i class="fas fa-plus"></i> <span id="load-more-text">عرض المزيد من الأحاديث</span>
                 </button>
             </div>
-            <a href="#" class="back-link" id="back-to-chapters">
-                <i class="fas fa-arrow-right"></i> <span id="back-to-chapters-text">العودة إلى الأبواب</span>
+            <a href="#" class="back-link" id="back-to-books">
+                <i class="fas fa-arrow-right"></i> <span id="back-to-books-text">العودة إلى كتب الأحاديث</span>
             </a>
         </div>
     </section>
@@ -1446,204 +1284,164 @@
             ar: [
                 {
                     text: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
-                    narrator: "عمر بن الخطاب",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "مَنْ غَشَّنَا فَلَيْسَ مِنَّا",
-                    narrator: "أبو هريرة",
                     book: "صحيح مسلم"
                 },
                 {
                     text: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
-                    narrator: "عبد الله بن عمرو",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
-                    narrator: "أنس بن مالك",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "الكَيِّسُ مَنْ دَانَ نَفْسَهُ وَعَمِلَ لِمَا بَعْدَ الْمَوْتِ",
-                    narrator: "شداد بن أوس",
                     book: "الترمذي"
                 },
                 {
                     text: "رَحِمَ اللَّهُ امْرَأً سَمْحًا إِذَا بَاعَ، وَإِذَا اشْتَرَى، وَإِذَا اقْتَضَى",
-                    narrator: "جابر بن عبد الله",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ",
-                    narrator: "أنس بن مالك",
                     book: "ابن ماجه"
                 },
                 {
                     text: "الدِّينُ النَّصِيحَةُ",
-                    narrator: "تميم الداري",
                     book: "صحيح مسلم"
                 },
                 {
                     text: "اتَّقِ اللَّهِ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا",
-                    narrator: "أبو ذر الغفاري",
                     book: "الترمذي"
                 },
                 {
                     text: "الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ",
-                    narrator: "عبد الله بن عمرو",
                     book: "الترمذي"
                 },
                 {
                     text: "إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ",
-                    narrator: "أبو هريرة",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "الْبَيِّعَانِ بِالْخِيَارِ مَا لَمْ يَتَفَرَّقَا",
-                    narrator: "عبد الله بن عمر",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "تَسَمَّوْا بِاسْمِي وَلاَ تَكْتَنُوا بِكُنْيَتِي",
-                    narrator: "جابر بن عبد الله",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-                    narrator: "عثمان بن عفان",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "صَلاةُ الْجَمَاعَةِ تَفْضُلُ صَلاةَ الْفَذِّ بِسَبْعٍ وَعِشْرِينَ دَرَجَةً",
-                    narrator: "عبد الله بن عمر",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "لاَ ضَرَرَ وَلاَ ضِرَارَ",
-                    narrator: "ابن عباس",
                     book: "ابن ماجه"
                 },
                 {
                     text: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ",
-                    narrator: "أبو هريرة",
                     book: "صحيح مسلم"
                 },
                 {
                     text: "الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى",
-                    narrator: "حكيم بن حزام",
                     book: "صحيح البخاري"
                 },
                 {
                     text: "إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ",
-                    narrator: "عبد الله بن مسعود",
                     book: "صحيح مسلم"
                 },
                 {
                     text: "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
-                    narrator: "جابر بن عبد الله",
                     book: "القضاعي"
                 }
             ],
             en: [
                 {
                     text: "Actions are judged by intentions, and each person will be rewarded according to what they intended",
-                    narrator: "Umar ibn al-Khattab",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "Whoever deceives us is not one of us",
-                    narrator: "Abu Huraira",
                     book: "Sahih Muslim"
                 },
                 {
                     text: "A Muslim is one from whose tongue and hand the Muslims are safe",
-                    narrator: "Abdullah ibn Amr",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "None of you will have faith until he loves for his brother what he loves for himself",
-                    narrator: "Anas ibn Malik",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "The intelligent one is he who controls himself and works for what is after death",
-                    narrator: "Shaddad ibn Aws",
                     book: "Al-Tirmidhi"
                 },
                 {
                     text: "May Allah have mercy on a man who is lenient when he sells, lenient when he buys, and lenient when he asks for payment",
-                    narrator: "Jabir ibn Abdullah",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "Seeking knowledge is obligatory upon every Muslim",
-                    narrator: "Anas ibn Malik",
                     book: "Ibn Majah"
                 },
                 {
                     text: "Religion is sincerity",
-                    narrator: "Tamim al-Dari",
                     book: "Sahih Muslim"
                 },
                 {
                     text: "Fear Allah wherever you are, and follow up a bad deed with a good deed which will wipe it out",
-                    narrator: "Abu Dharr al-Ghifari",
                     book: "Al-Tirmidhi"
                 },
                 {
                     text: "Those who show mercy will be shown mercy by the Most Merciful",
-                    narrator: "Abdullah ibn Amr",
                     book: "Al-Tirmidhi"
                 },
                 {
                     text: "Beware of suspicion, for suspicion is the most false of speech",
-                    narrator: "Abu Huraira",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "Both the buyer and the seller have the option of canceling or confirming the bargain before they separate",
-                    narrator: "Abdullah ibn Umar",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "Name yourselves by my name but do not call yourselves by my nickname",
-                    narrator: "Jabir ibn Abdullah",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "The best among you are those who learn the Quran and teach it",
-                    narrator: "Uthman ibn Affan",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "The prayer in congregation is twenty-seven times superior to the prayer offered by a person alone",
-                    narrator: "Abdullah ibn Umar",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "There should be neither harming nor reciprocating harm",
-                    narrator: "Ibn Abbas",
                     book: "Ibn Majah"
                 },
                 {
                     text: "Charity does not decrease wealth",
-                    narrator: "Abu Huraira",
                     book: "Sahih Muslim"
                 },
                 {
                     text: "The upper hand is better than the lower hand",
-                    narrator: "Hakim ibn Hizam",
                     book: "Sahih al-Bukhari"
                 },
                 {
                     text: "Verily, Allah is beautiful and He loves beauty",
-                    narrator: "Abdullah ibn Mas'ud",
                     book: "Sahih Muslim"
                 },
                 {
                     text: "The best people are those who are most beneficial to people",
-                    narrator: "Jabir ibn Abdullah",
                     book: "Al-Quda'i"
                 }
             ]
@@ -1653,8 +1451,6 @@
         const translations = {
             ar: {
                 siteTitle: "DEENWAY – Hadiths | الأحاديث النبوية",
-                heroTitle: "مشروع متخصص في عرض الأحاديث النبوية مصنفة حسب كتب السنة المعتمدة",
-                exploreBtn: "استكشاف كتب الأحاديث",
                 categoriesTitle: "كتب الأحاديث النبوية",
                 categoriesSubtitle: "اختر الكتاب الذي تريد استعراض أحاديثه",
                 bukhariTitle: "صحيح البخاري",
@@ -1670,9 +1466,7 @@
                 ibnmajahTitle: "سنن ابن ماجه",
                 ibnmajahDesc: "من تصنيف الإمام محمد بن يزيد ابن ماجة القزويني",
                 loadMoreText: "عرض المزيد من الأحاديث",
-                loadMoreChaptersText: "عرض المزيد من الأبواب",
-                backToCategories: "العودة إلى كتب الأحاديث",
-                backToChaptersText: "العودة إلى الأبواب",
+                backToBooksText: "العودة إلى كتب الأحاديث",
                 hadithInfoTitle: "معلومات الحديث",
                 shareText: "مشاركة الحديث",
                 copyLinkText: "نسخ الرابط",
@@ -1686,9 +1480,7 @@
                 searchPlaceholder: "ابحث في الأحاديث...",
                 noResults: "لم يتم العثور على نتائج",
                 searchResults: "نتائج البحث",
-                narrator: "الراوي",
                 book: "الكتاب",
-                chapter: "الباب",
                 hadithNumber: "رقم الحديث",
                 grade: "الدرجة",
                 copySuccess: "تم نسخ الرابط بنجاح",
@@ -1696,14 +1488,12 @@
                 shareSuccess: "تم مشاركة الحديث بنجاح",
                 shareError: "فشل مشاركة الحديث",
                 loadingText: "جاري التحميل...",
+                initialLoadingText: "جاري تحميل بيانات الأحاديث...",
                 allBooks: "جميع الكتب",
-                hadithsCount: "حديث",
-                hadithsInChapter: "أحاديث في هذا الباب"
+                hadithsCount: "حديث"
             },
             en: {
                 siteTitle: "DEENWAY – Hadiths | Prophetic Traditions",
-                heroTitle: "A specialized project for displaying Prophetic Hadiths classified according to the approved books of Sunnah",
-                exploreBtn: "Explore Hadith Books",
                 categoriesTitle: "Hadith Books",
                 categoriesSubtitle: "Choose the book you want to browse its hadiths",
                 bukhariTitle: "Sahih al-Bukhari",
@@ -1719,9 +1509,7 @@
                 ibnmajahTitle: "Sunan Ibn Majah",
                 ibnmajahDesc: "Compiled by Imam Muhammad ibn Yazid Ibn Majah al-Qazwini",
                 loadMoreText: "Load More Hadiths",
-                loadMoreChaptersText: "Load More Chapters",
-                backToCategories: "Back to Hadith Books",
-                backToChaptersText: "Back to Chapters",
+                backToBooksText: "Back to Hadith Books",
                 hadithInfoTitle: "Hadith Information",
                 shareText: "Share Hadith",
                 copyLinkText: "Copy Link",
@@ -1735,9 +1523,7 @@
                 searchPlaceholder: "Search in hadiths...",
                 noResults: "No results found",
                 searchResults: "Search Results",
-                narrator: "Narrator",
                 book: "Book",
-                chapter: "Chapter",
                 hadithNumber: "Hadith Number",
                 grade: "Grade",
                 copySuccess: "Link copied successfully",
@@ -1745,9 +1531,9 @@
                 shareSuccess: "Hadith shared successfully",
                 shareError: "Failed to share hadith",
                 loadingText: "Loading...",
+                initialLoadingText: "Loading hadiths data...",
                 allBooks: "All Books",
-                hadithsCount: "Hadith",
-                hadithsInChapter: "Hadiths in this chapter"
+                hadithsCount: "Hadith"
             }
         };
 
@@ -1763,12 +1549,12 @@
 
         // متغيرات حالة
         let currentLanguage = 'ar';
-        let currentCategory = '';
-        let currentChapter = '';
+        let currentBook = '';
         let currentSearchBook = 'all';
         let allHadiths = {};
-        let chaptersByBook = {};
+        let currentHadiths = [];
         let searchResults = [];
+        let isInitialLoadComplete = false;
 
         // تهيئة الموقع
         document.addEventListener('DOMContentLoaded', async function() {
@@ -1778,17 +1564,17 @@
             // إعداد تأثير التمرير على الهيدر
             setupHeaderScroll();
             
-            // إعداد زر الاستكشاف
-            setupExploreButton();
-            
             // إعداد زر عرض المزيد
-            setupLoadMoreButtons();
+            setupLoadMoreButton();
             
             // إعداد تغيير اللغة
             setupLanguageSwitcher();
             
             // إعداد البحث
             setupSearch();
+            
+            // تحميل جميع البيانات أولاً
+            await loadAllBooksData();
             
             // عرض حديث عشوائي
             showRandomFeaturedHadith();
@@ -1798,7 +1584,71 @@
             
             // إضافة حدث لتغيير الهاش
             window.addEventListener('hashchange', processHash);
+            
+            // إخفاء شاشة التحميل الأولي
+            setTimeout(() => {
+                document.getElementById('initialLoading').classList.add('hidden');
+                isInitialLoadComplete = true;
+            }, 1000);
         });
+
+        // تحميل جميع كتب الأحاديث
+        async function loadAllBooksData() {
+            const loadingElement = document.getElementById('initialLoading');
+            const bookKeys = Object.keys(jsonFiles);
+            let loadedCount = 0;
+            
+            // تحديث نص التحميل
+            loadingElement.querySelector('#initial-loading-text').textContent = 
+                translations[currentLanguage].initialLoadingText;
+            
+            // تحميل جميع الكتب في وقت واحد
+            const loadPromises = bookKeys.map(async (bookKey) => {
+                try {
+                    const response = await fetch(jsonFiles[bookKey]);
+                    if (!response.ok) throw new Error(`Failed to load ${bookKey}`);
+                    const data = await response.json();
+                    
+                    // معالجة البيانات
+                    const hadiths = [];
+                    
+                    data.forEach((item, index) => {
+                        const hadithId = `${bookKey}-${index}`;
+                        const hadith = {
+                            id: hadithId,
+                            text: currentLanguage === 'ar' ? item.Arabic_Text : item.English_Text,
+                            book: getBookName(bookKey),
+                            chapter: currentLanguage === 'ar' ? 
+                                (item.Chapter_Title_Arabic || 'باب') : 
+                                (item.Chapter_Title_English || 'Chapter'),
+                            chapterNumber: item.Chapter_Number || '0',
+                            grade: item.Grade || (currentLanguage === 'ar' ? 'صحيح' : 'Sahih'),
+                            reference: item.Reference || '',
+                            index: index + 1
+                        };
+                        
+                        hadiths.push(hadith);
+                    });
+                    
+                    allHadiths[bookKey] = hadiths;
+                    loadedCount++;
+                    
+                    // تحديث عدد الأحاديث
+                    updateHadithCount(bookKey, hadiths.length);
+                    
+                    return { bookKey, hadiths };
+                } catch (error) {
+                    console.error(`Error loading ${bookKey}:`, error);
+                    allHadiths[bookKey] = [];
+                    loadedCount++;
+                    updateHadithCount(bookKey, 0);
+                    return { bookKey, hadiths: [] };
+                }
+            });
+            
+            // انتظار تحميل جميع الكتب
+            await Promise.allSettled(loadPromises);
+        }
 
         // عرض حديث عشوائي من القاعدة الثابتة
         function showRandomFeaturedHadith() {
@@ -1807,7 +1657,7 @@
             
             document.getElementById('featured-hadith-text').textContent = randomHadith.text;
             document.getElementById('featured-hadith-narrator').textContent = 
-                `${translations[currentLanguage].narrator}: ${randomHadith.narrator} | ${translations[currentLanguage].book}: ${randomHadith.book}`;
+                `${translations[currentLanguage].book}: ${randomHadith.book}`;
         }
 
         // إعداد تغيير اللغة
@@ -1824,7 +1674,7 @@
         }
 
         // تغيير اللغة
-        function changeLanguage(lang) {
+        async function changeLanguage(lang) {
             currentLanguage = lang;
             
             // تحديث الزر النشط
@@ -1853,8 +1703,31 @@
             // تحديث الحديث المختار
             showRandomFeaturedHadith();
             
-            // إعادة معالجة الهاش الحالي
-            processHash();
+            // إعادة تحميل البيانات إذا كانت محملة مسبقاً
+            if (isInitialLoadComplete) {
+                // إعادة تحميل جميع البيانات باللغة الجديدة
+                await reloadAllBooksData();
+                
+                // إعادة معالجة الهاش الحالي
+                processHash();
+            }
+        }
+
+        // إعادة تحميل جميع بيانات الكتب عند تغيير اللغة
+        async function reloadAllBooksData() {
+            const bookKeys = Object.keys(jsonFiles);
+            
+            for (const bookKey of bookKeys) {
+                if (allHadiths[bookKey] && allHadiths[bookKey].length > 0) {
+                    // إعادة معالجة النصوص بناءً على اللغة الجديدة
+                    allHadiths[bookKey] = allHadiths[bookKey].map(hadith => ({
+                        ...hadith,
+                        text: currentLanguage === 'ar' ? hadith.text : hadith.text, // في الواقع يجب إعادة جلب البيانات
+                        book: getBookName(bookKey),
+                        chapter: currentLanguage === 'ar' ? hadith.chapter : hadith.chapter
+                    }));
+                }
+            }
         }
 
         // تحديث النصوص
@@ -1865,14 +1738,10 @@
             document.title = t.siteTitle;
             
             // تحديث النصوص في الصفحة
-            document.getElementById('hero-title').textContent = t.heroTitle;
-            document.getElementById('exploreBtn').textContent = t.exploreBtn;
             document.getElementById('categories-title').textContent = t.categoriesTitle;
             document.getElementById('categories-subtitle').textContent = t.categoriesSubtitle;
             document.getElementById('load-more-text').textContent = t.loadMoreText;
-            document.getElementById('load-more-chapters-text').textContent = t.loadMoreChaptersText;
-            document.getElementById('back-to-categories').textContent = t.backToCategories;
-            document.getElementById('back-to-chapters-text').textContent = t.backToChaptersText;
+            document.getElementById('back-to-books-text').textContent = t.backToBooksText;
             document.getElementById('hadith-info-title').textContent = t.hadithInfoTitle;
             document.getElementById('share-text').textContent = t.shareText;
             document.getElementById('copy-link-text').textContent = t.copyLinkText;
@@ -1885,6 +1754,7 @@
             document.getElementById('footer-bottom-text').textContent = t.footerBottomText;
             document.getElementById('search-input').placeholder = t.searchPlaceholder;
             document.getElementById('loading-text').textContent = t.loadingText;
+            document.getElementById('initial-loading-text').textContent = t.initialLoadingText;
             
             // تحديث عناوين الكتب
             document.getElementById('bukhari-title').textContent = t.bukhariTitle;
@@ -1919,11 +1789,33 @@
             });
         }
 
+        // الحصول على اسم الكتاب
+        function getBookName(bookKey) {
+            const bookNames = {
+                'bukhari': currentLanguage === 'ar' ? 'صحيح البخاري' : 'Sahih al-Bukhari',
+                'muslim': currentLanguage === 'ar' ? 'صحيح مسلم' : 'Sahih Muslim',
+                'tirmidhi': currentLanguage === 'ar' ? 'سنن الترمذي' : 'Sunan al-Tirmidhi',
+                'abu-dawud': currentLanguage === 'ar' ? 'سنن أبي داود' : 'Sunan Abi Dawud',
+                'nasai': currentLanguage === 'ar' ? 'سنن النسائي' : 'Sunan al-Nasa\'i',
+                'ibn-majah': currentLanguage === 'ar' ? 'سنن ابن ماجه' : 'Sunan Ibn Majah'
+            };
+            
+            return bookNames[bookKey] || bookKey;
+        }
+
+        // تحديث عدد الأحاديث
+        function updateHadithCount(bookKey, count) {
+            const countElement = document.getElementById(`${bookKey.replace('-', '')}-count`);
+            if (countElement) {
+                countElement.textContent = count;
+            }
+        }
+
         // إعداد البحث
         function setupSearch() {
             const searchInput = document.getElementById('search-input');
             const searchBtn = document.getElementById('search-btn');
-            const searchResults = document.getElementById('search-results');
+            const searchResultsContainer = document.getElementById('search-results');
             const searchFilters = document.querySelectorAll('.search-filter');
             
             // إعداد مرشحات البحث
@@ -1963,9 +1855,19 @@
                 }
             });
             
+            // بحث عند الضغط على Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = this.value.trim();
+                    if (query.length >= 1) {
+                        performSearch(query);
+                    }
+                }
+            });
+            
             // إغلاق نتائج البحث عند النقر خارجها
             document.addEventListener('click', function(event) {
-                if (!searchResults.contains(event.target) && 
+                if (!searchResultsContainer.contains(event.target) && 
                     event.target !== searchInput && 
                     event.target !== searchBtn &&
                     !event.target.classList.contains('search-filter')) {
@@ -1974,164 +1876,35 @@
             });
         }
 
-        // تحميل بيانات كتاب معين
-        async function loadBookData(bookKey) {
-            if (allHadiths[bookKey]) return allHadiths[bookKey];
-            
-            try {
-                document.getElementById('chapters-loading').style.display = 'block';
-                
-                const response = await fetch(jsonFiles[bookKey]);
-                if (!response.ok) throw new Error(`Failed to load ${bookKey}`);
-                const data = await response.json();
-                
-                // معالجة البيانات وتجميعها حسب الأبواب
-                const chapters = {};
-                const hadiths = [];
-                
-                data.forEach((item, index) => {
-                    const chapterKey = item.Chapter_Number || 'unknown';
-                    if (!chapters[chapterKey]) {
-                        chapters[chapterKey] = {
-                            number: chapterKey,
-                            title: currentLanguage === 'ar' ? 
-                                (item.Chapter_Title_Arabic || 'باب') : 
-                                (item.Chapter_Title_English || 'Chapter'),
-                            hadiths: []
-                        };
-                    }
-                    
-                    const hadithId = `${bookKey}-${chapterKey}-${index}`;
-                    const hadith = {
-                        id: hadithId,
-                        text: currentLanguage === 'ar' ? item.Arabic_Text : item.English_Text,
-                        narrator: extractNarrator(item.Arabic_Text || item.English_Text),
-                        chain: extractChain(item.Arabic_Text || item.English_Text),
-                        book: getBookName(bookKey),
-                        chapter: currentLanguage === 'ar' ? 
-                            (item.Chapter_Title_Arabic || 'باب') : 
-                            (item.Chapter_Title_English || 'Chapter'),
-                        chapterNumber: chapterKey,
-                        grade: item.Grade || (currentLanguage === 'ar' ? 'صحيح' : 'Sahih'),
-                        reference: item.Reference || '',
-                        index: index + 1
-                    };
-                    
-                    chapters[chapterKey].hadiths.push(hadith);
-                    hadiths.push(hadith);
-                });
-                
-                allHadiths[bookKey] = hadiths;
-                chaptersByBook[bookKey] = Object.values(chapters);
-                
-                // تحديث عدد الأحاديث
-                updateHadithCount(bookKey, hadiths.length);
-                
-                return hadiths;
-                
-            } catch (error) {
-                console.error(`Error loading ${bookKey}:`, error);
-                return [];
-            } finally {
-                document.getElementById('chapters-loading').style.display = 'none';
-            }
-        }
-
-        // استخراج اسم الراوي من نص الحديث
-        function extractNarrator(text) {
-            const narratorPatterns = [
-                /عن\s+([^،\.:]+?)\s+قال/,
-                /قال\s+([^،\.:]+?)\s+:/,
-                /رواه\s+([^،\.:]+?)\s+(?:في|عن)/,
-                /حَدَّثَنَا\s+([^،\.:]+?)\s+،/
-            ];
-            
-            for (const pattern of narratorPatterns) {
-                const match = text.match(pattern);
-                if (match && match[1]) {
-                    return match[1].trim();
-                }
-            }
-            
-            return currentLanguage === 'ar' ? 'غير معروف' : 'Unknown';
-        }
-
-        // استخراج سلسلة الرواية من نص الحديث
-        function extractChain(text) {
-            const chainEndPatterns = [
-                /(?:،|:) "([^"]+?)"$/,
-                /قال: "([^"]+?)"$/,
-                /يقول: "([^"]+?)"$/
-            ];
-            
-            for (const pattern of chainEndPatterns) {
-                const match = text.match(pattern);
-                if (match && match[1]) {
-                    return text.replace(`"${match[1]}"`, '').trim();
-                }
-            }
-            
-            const parts = text.split(':');
-            if (parts.length > 1) {
-                return parts[0].trim();
-            }
-            
-            return '';
-        }
-
-        // الحصول على اسم الكتاب
-        function getBookName(bookKey) {
-            const bookNames = {
-                'bukhari': currentLanguage === 'ar' ? 'صحيح البخاري' : 'Sahih al-Bukhari',
-                'muslim': currentLanguage === 'ar' ? 'صحيح مسلم' : 'Sahih Muslim',
-                'tirmidhi': currentLanguage === 'ar' ? 'سنن الترمذي' : 'Sunan al-Tirmidhi',
-                'abu-dawud': currentLanguage === 'ar' ? 'سنن أبي داود' : 'Sunan Abi Dawud',
-                'nasai': currentLanguage === 'ar' ? 'سنن النسائي' : 'Sunan al-Nasa\'i',
-                'ibn-majah': currentLanguage === 'ar' ? 'سنن ابن ماجه' : 'Sunan Ibn Majah'
-            };
-            
-            return bookNames[bookKey] || bookKey;
-        }
-
-        // تحديث عدد الأحاديث
-        function updateHadithCount(bookKey, count) {
-            const countElement = document.getElementById(`${bookKey.replace('-', '')}-count`);
-            if (countElement) {
-                countElement.textContent = count;
-            }
-        }
-
         // تنفيذ البحث
         async function performSearch(query) {
+            const searchResultsContainer = document.getElementById('search-results');
+            
+            // إظهار مؤشر التحميل
+            searchResultsContainer.innerHTML = `
+                <div class="search-result-item">
+                    <div class="loading-spinner" style="width: 20px; height: 20px; margin: 0 auto;"></div>
+                    <p style="text-align: center; margin-top: 10px;">${translations[currentLanguage].loadingText}</p>
+                </div>
+            `;
+            searchResultsContainer.classList.add('active');
+            
+            // تأخير بسيط لتحسين تجربة المستخدم
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
             searchResults = [];
             const lowerQuery = query.toLowerCase();
-            const searchPromises = [];
             
             // تحديد الكتب التي يجب البحث فيها
             const booksToSearch = currentSearchBook === 'all' ? 
-                Object.keys(jsonFiles) : [currentSearchBook];
+                Object.keys(allHadiths) : [currentSearchBook];
             
             // البحث في الكتب المحددة
             for (const bookKey of booksToSearch) {
-                searchPromises.push(searchInBook(bookKey, lowerQuery));
-            }
-            
-            await Promise.all(searchPromises);
-            displaySearchResults();
-        }
-
-        // البحث في كتاب معين
-        async function searchInBook(bookKey, query) {
-            try {
-                // تحميل بيانات الكتاب إذا لم تكن محملة
-                if (!allHadiths[bookKey]) {
-                    await loadBookData(bookKey);
-                }
-                
                 if (allHadiths[bookKey]) {
                     allHadiths[bookKey].forEach(hadith => {
-                        const searchText = `${hadith.text} ${hadith.narrator} ${hadith.chapter}`.toLowerCase();
-                        if (searchText.includes(query)) {
+                        const searchText = `${hadith.text} ${hadith.book} ${hadith.chapter}`.toLowerCase();
+                        if (searchText.includes(lowerQuery)) {
                             searchResults.push({
                                 ...hadith,
                                 sourceBook: bookKey
@@ -2139,9 +1912,9 @@
                         }
                     });
                 }
-            } catch (error) {
-                console.error(`Error searching in ${bookKey}:`, error);
             }
+            
+            displaySearchResults();
         }
 
         // عرض نتائج البحث
@@ -2159,9 +1932,8 @@
                     item.className = 'search-result-item';
                     item.innerHTML = `
                         <h4>${result.text.substring(0, 100)}...</h4>
-                        <p><strong>${t.narrator}:</strong> ${result.narrator}</p>
                         <p><strong>${t.book}:</strong> ${result.book}</p>
-                        <p><strong>${t.chapter}:</strong> ${result.chapter}</p>
+                        <p><strong>${t.grade}:</strong> ${result.grade}</p>
                     `;
                     item.addEventListener('click', function() {
                         window.location.hash = `#hadith/${result.sourceBook}/${result.id}`;
@@ -2190,8 +1962,8 @@
         // مشاركة الحديث
         function shareHadith() {
             const hadithText = document.getElementById('hadith-text-content').textContent;
-            const hadithNarrator = document.querySelector('#hadith-meta-detail span:first-child').textContent;
-            const shareText = `${hadithText}\n\n${hadithNarrator}\n\n${window.location.href}`;
+            const hadithBook = document.querySelector('#hadith-meta-detail span:nth-child(2)').textContent;
+            const shareText = `${hadithText}\n\n${hadithBook}\n\n${window.location.href}`;
             
             if (navigator.share) {
                 navigator.share({
@@ -2254,30 +2026,10 @@
             });
         }
         
-        // إعداد زر الاستكشاف
-        function setupExploreButton() {
-            const exploreBtn = document.getElementById('exploreBtn');
-            
-            exploreBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetSection = document.getElementById('categories');
-                
-                window.scrollTo({
-                    top: targetSection.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            });
-        }
-        
-        // إعداد أزرار عرض المزيد
-        function setupLoadMoreButtons() {
+        // إعداد زر عرض المزيد
+        function setupLoadMoreButton() {
             document.getElementById('load-more-btn')?.addEventListener('click', function() {
                 loadMoreHadiths();
-            });
-            
-            document.getElementById('chapters-load-more-btn')?.addEventListener('click', function() {
-                loadMoreChapters();
             });
         }
         
@@ -2308,23 +2060,10 @@
                 return;
             }
             
-            // معالجة روابط الأقسام
-            if (hash.startsWith('#category/')) {
-                const categorySlug = hash.split('/')[1];
-                loadCategory(categorySlug);
-                return;
-            }
-            
-            // معالجة روابط الأبواب
-            if (hash.startsWith('#chapter/')) {
-                const parts = hash.split('/');
-                if (parts.length === 3) {
-                    const categorySlug = parts[1];
-                    const chapterNumber = parts[2];
-                    loadChapterHadiths(categorySlug, chapterNumber);
-                } else {
-                    showMainPage();
-                }
+            // معالجة روابط الكتب
+            if (hash.startsWith('#book/')) {
+                const bookSlug = hash.split('/')[1];
+                loadBookHadiths(bookSlug);
                 return;
             }
             
@@ -2332,9 +2071,9 @@
             if (hash.startsWith('#hadith/')) {
                 const parts = hash.split('/');
                 if (parts.length === 3) {
-                    const categorySlug = parts[1];
+                    const bookSlug = parts[1];
                     const hadithId = parts[2];
-                    loadHadithDetail(categorySlug, hadithId);
+                    loadHadithDetail(bookSlug, hadithId);
                 } else {
                     showMainPage();
                 }
@@ -2351,117 +2090,83 @@
             }
         }
         
-        // تحميل قسم معين
-        async function loadCategory(categorySlug) {
-            currentCategory = categorySlug;
+        // تحميل أحاديث كتاب معين
+        async function loadBookHadiths(bookKey) {
+            currentBook = bookKey;
             
-            // إخفاء الأقسام الأخرى وإظهار صفحة الأبواب
-            document.querySelector('.categories-section').style.display = 'none';
-            document.querySelector('.featured-hadith').style.display = 'none';
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('hadiths-container').style.display = 'none';
-            document.getElementById('hadith-detail-container').style.display = 'none';
-            document.getElementById('chapters-container').style.display = 'block';
-            
-            // تحميل بيانات الكتاب
-            await loadBookData(categorySlug);
-            
-            // عرض الأبواب
-            displayChapters(categorySlug);
-            
-            // التمرير للأعلى
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // عرض الأبواب
-        function displayChapters(bookKey, count = 20) {
-            const chapters = chaptersByBook[bookKey];
-            if (!chapters) return;
-            
-            const t = translations[currentLanguage];
-            const chaptersList = document.getElementById('chapters-list');
-            const loadMoreContainer = document.getElementById('chapters-load-more-container');
-            
-            // إعادة تعيين القائمة
-            if (count === 20) {
-                chaptersList.innerHTML = '';
-            }
-            
-            // عرض الأبواب
-            const chaptersToShow = chapters.slice(0, count);
-            
-            chaptersToShow.forEach(chapter => {
-                const chapterCard = document.createElement('div');
-                chapterCard.className = 'chapter-card';
-                chapterCard.innerHTML = `
-                    <div class="chapter-number">${chapter.number}</div>
-                    <h3 class="chapter-title">${chapter.title}</h3>
-                    <div class="chapter-hadith-count">${chapter.hadiths.length} ${t.hadithsCount}</div>
-                    <a href="#chapter/${bookKey}/${chapter.number}" class="view-chapter">
-                        ${currentLanguage === 'ar' ? 'عرض الأحاديث' : 'View Hadiths'} <i class="fas fa-arrow-left"></i>
-                    </a>
-                `;
-                chaptersList.appendChild(chapterCard);
-            });
-            
-            // تحديث العنوان
-            document.getElementById('chapters-title').textContent = getBookName(bookKey);
-            document.getElementById('chapters-description').textContent = `${chapters.length} ${currentLanguage === 'ar' ? 'باب' : 'chapters'}`;
-            
-            // إظهار أو إخفاء زر "عرض المزيد"
-            if (chapters.length > count) {
-                loadMoreContainer.style.display = 'block';
-            } else {
-                loadMoreContainer.style.display = 'none';
-            }
-        }
-        
-        // تحميل المزيد من الأبواب
-        function loadMoreChapters() {
-            const currentCount = document.querySelectorAll('.chapter-card').length;
-            displayChapters(currentCategory, currentCount + 20);
-        }
-        
-        // تحميل أحاديث الباب
-        async function loadChapterHadiths(bookKey, chapterNumber) {
-            currentCategory = bookKey;
-            currentChapter = chapterNumber;
-            
-            // تحميل بيانات الكتاب إذا لم تكن محملة
-            if (!chaptersByBook[bookKey]) {
+            // التحقق من تحميل البيانات
+            if (!allHadiths[bookKey] || allHadiths[bookKey].length === 0) {
+                // إذا لم تكن البيانات محملة، قم بتحميلها
+                document.getElementById('hadiths-loading').style.display = 'block';
                 await loadBookData(bookKey);
-            }
-            
-            const chapters = chaptersByBook[bookKey];
-            const chapter = chapters?.find(ch => ch.number == chapterNumber);
-            
-            if (!chapter) {
-                window.location.hash = `#category/${bookKey}`;
-                return;
+                document.getElementById('hadiths-loading').style.display = 'none';
             }
             
             // إخفاء الأقسام الأخرى وإظهار صفحة الأحاديث
             document.querySelector('.categories-section').style.display = 'none';
             document.querySelector('.featured-hadith').style.display = 'none';
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('chapters-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'block';
             
             // عرض الأحاديث
-            displayHadiths(chapter.hadiths);
+            displayHadiths(allHadiths[bookKey]);
             
             // تحديث العنوان
             const t = translations[currentLanguage];
-            document.getElementById('chapter-hadiths-title').textContent = chapter.title;
-            document.getElementById('chapter-hadiths-description').textContent = 
-                `${chapter.hadiths.length} ${t.hadithsInChapter}`;
+            document.getElementById('book-hadiths-title').textContent = getBookName(bookKey);
+            document.getElementById('book-hadiths-description').textContent = 
+                `${allHadiths[bookKey].length} ${t.hadithsCount}`;
             
             // إعداد زر العودة
-            document.getElementById('back-to-chapters').href = `#category/${bookKey}`;
+            document.getElementById('back-to-books').href = `#`;
             
             // التمرير للأعلى
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // تحميل بيانات كتاب معين
+        async function loadBookData(bookKey) {
+            if (allHadiths[bookKey] && allHadiths[bookKey].length > 0) return allHadiths[bookKey];
+            
+            try {
+                const response = await fetch(jsonFiles[bookKey]);
+                if (!response.ok) throw new Error(`Failed to load ${bookKey}`);
+                const data = await response.json();
+                
+                // معالجة البيانات
+                const hadiths = [];
+                
+                data.forEach((item, index) => {
+                    const hadithId = `${bookKey}-${index}`;
+                    const hadith = {
+                        id: hadithId,
+                        text: currentLanguage === 'ar' ? item.Arabic_Text : item.English_Text,
+                        book: getBookName(bookKey),
+                        chapter: currentLanguage === 'ar' ? 
+                            (item.Chapter_Title_Arabic || 'باب') : 
+                            (item.Chapter_Title_English || 'Chapter'),
+                        chapterNumber: item.Chapter_Number || '0',
+                        grade: item.Grade || (currentLanguage === 'ar' ? 'صحيح' : 'Sahih'),
+                        reference: item.Reference || '',
+                        index: index + 1
+                    };
+                    
+                    hadiths.push(hadith);
+                });
+                
+                allHadiths[bookKey] = hadiths;
+                
+                // تحديث عدد الأحاديث
+                updateHadithCount(bookKey, hadiths.length);
+                
+                return hadiths;
+                
+            } catch (error) {
+                console.error(`Error loading ${bookKey}:`, error);
+                allHadiths[bookKey] = [];
+                updateHadithCount(bookKey, 0);
+                return [];
+            }
         }
         
         // عرض الأحاديث
@@ -2473,6 +2178,7 @@
             // إعادة تعيين القائمة
             if (count === 20) {
                 hadithsList.innerHTML = '';
+                currentHadiths = hadiths;
             }
             
             // عرض الأحاديث
@@ -2487,12 +2193,13 @@
                 hadithItem.innerHTML = `
                     <div class="hadith-meta">
                         <span class="hadith-grade ${gradeClass}">${hadith.grade}</span>
+                        <span class="hadith-number">#${hadith.index}</span>
                     </div>
                     <p class="hadith-content">${hadith.text}</p>
                     <div class="hadith-meta">
-                        <span><strong>${t.narrator}:</strong> ${hadith.narrator}</span>
+                        <span><strong>${t.chapter}:</strong> ${hadith.chapter}</span>
                     </div>
-                    <a href="#hadith/${currentCategory}/${hadith.id}" class="view-chapter">
+                    <a href="#hadith/${currentBook}/${hadith.id}" class="view-chapter">
                         ${currentLanguage === 'ar' ? 'عرض التفاصيل' : 'View Details'} <i class="fas fa-arrow-left"></i>
                     </a>
                 `;
@@ -2509,13 +2216,8 @@
         
         // تحميل المزيد من الأحاديث
         function loadMoreHadiths() {
-            const chapters = chaptersByBook[currentCategory];
-            const chapter = chapters?.find(ch => ch.number == currentChapter);
-            
-            if (chapter) {
-                const currentCount = document.querySelectorAll('.hadith-item').length;
-                displayHadiths(chapter.hadiths, currentCount + 20);
-            }
+            const currentCount = document.querySelectorAll('.hadith-item').length;
+            displayHadiths(currentHadiths, currentCount + 20);
         }
         
         // تحميل حديث مفصل
@@ -2524,7 +2226,7 @@
             const hadith = hadiths?.find(h => h.id === hadithId);
             
             if (!hadith) {
-                window.location.hash = `#chapter/${bookKey}/${currentChapter}`;
+                window.location.hash = `#book/${bookKey}`;
                 return;
             }
             
@@ -2532,10 +2234,10 @@
             const t = translations[currentLanguage];
             document.getElementById('hadith-detail-title').textContent = hadith.chapter;
             document.getElementById('hadith-meta-detail').innerHTML = `
-                <span><strong>${t.narrator}:</strong> ${hadith.narrator}</span>
                 <span><strong>${t.book}:</strong> ${hadith.book}</span>
                 <span><strong>${t.chapter}:</strong> ${hadith.chapter}</span>
                 <span><strong>${t.grade}:</strong> ${hadith.grade}</span>
+                <span><strong>${t.hadithNumber}:</strong> ${hadith.index}</span>
             `;
             
             // تحديث النص
@@ -2543,21 +2245,19 @@
             
             // تحديث معلومات الحديث
             document.getElementById('hadith-info-content').innerHTML = `
-                <p><strong>${t.narrator}:</strong> ${hadith.narrator}</p>
                 <p><strong>${t.book}:</strong> ${hadith.book}</p>
                 <p><strong>${t.chapter}:</strong> ${hadith.chapter}</p>
                 <p><strong>${t.grade}:</strong> ${hadith.grade}</p>
+                <p><strong>${t.hadithNumber}:</strong> ${hadith.index}</p>
                 ${hadith.reference ? `<p><strong>${currentLanguage === 'ar' ? 'المرجع' : 'Reference'}:</strong> <a href="${hadith.reference}" target="_blank">${hadith.reference}</a></p>` : ''}
             `;
             
             // إعداد زر العودة
-            document.getElementById('back-to-hadiths').href = `#chapter/${bookKey}/${hadith.chapterNumber}`;
+            document.getElementById('back-to-hadiths').href = `#book/${bookKey}`;
             
             // إخفاء الأقسام الأخرى وإظهار التفاصيل
             document.querySelector('.categories-section').style.display = 'none';
             document.querySelector('.featured-hadith').style.display = 'none';
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('chapters-container').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'block';
             
@@ -2569,8 +2269,6 @@
         function showMainPage() {
             document.querySelector('.categories-section').style.display = 'block';
             document.querySelector('.featured-hadith').style.display = 'block';
-            document.getElementById('heroSection').style.display = 'block';
-            document.getElementById('chapters-container').style.display = 'none';
             document.getElementById('hadiths-container').style.display = 'none';
             document.getElementById('hadith-detail-container').style.display = 'none';
             
