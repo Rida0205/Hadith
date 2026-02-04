@@ -626,6 +626,37 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* رسائل الأخطاء المهنية */
+        .error-message {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 50px 40px;
+            box-shadow: var(--box-shadow);
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            border-top: 5px solid #dc3545;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .error-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+
+        .error-text {
+            color: var(--gray-color);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
         /* === العودة للصفحة الرئيسية === */
         .back-home-link {
             display: inline-flex;
@@ -1060,76 +1091,54 @@
 
     <script>
         // =============== متغيرات النظام ===============
-        let hadithsData = []; // سيتم تعبئتها من ملف JSON
+        let hadithsData = [];
         let currentPage = 1;
-        const itemsPerPage = 6; // عرض 6 أحاديث في كل صفحة
+        const itemsPerPage = 6;
+        let dataLoaded = false;
 
         // =============== تهيئة الموقع ===============
-        document.addEventListener('DOMContentLoaded', async function() {
-            // إعداد زر العودة للأعلى
+        document.addEventListener('DOMContentLoaded', function() {
             setupBackToTop();
-            
-            // تحميل البيانات من ملف hadiths.json
-            await loadHadithsData();
-            
-            // التحقق من وجود معرف في الرابط
             checkUrlForHadithId();
-            
-            // إعداد التنقل
             setupNavigation();
+            
+            // تحميل البيانات بشكل صامت
+            loadHadithsDataSilently();
         });
 
-        // =============== تحميل البيانات من ملف JSON ===============
-        async function loadHadithsData() {
+        // =============== تحميل البيانات بشكل صامت ===============
+        async function loadHadithsDataSilently() {
             try {
-                console.log('جاري تحميل البيانات من hadiths.json...');
                 const response = await fetch('hadiths.json');
                 
                 if (!response.ok) {
-                    throw new Error(`فشل تحميل الملف: ${response.status} ${response.statusText}`);
+                    throw new Error('فشل تحميل البيانات');
                 }
                 
                 hadithsData = await response.json();
                 
-                // التحقق من بنية البيانات
                 if (!Array.isArray(hadithsData)) {
-                    throw new Error('ملف JSON غير صالح: يجب أن يحتوي على مصفوفة');
+                    throw new Error('بيانات غير صالحة');
                 }
                 
-                console.log(`✅ تم تحميل ${hadithsData.length} حديث بنجاح من ملف hadiths.json`);
-                
-                // إضافة معرف فريد لكل حديث إذا لم يكن موجوداً
+                // تحسين البيانات
                 hadithsData = hadithsData.map((hadith, index) => ({
                     ...hadith,
                     id: hadith.id || index + 1,
-                    hadith_text_ar: hadith.hadith_text_ar || 'نص الحديث غير متوفر',
-                    explanation_ar: hadith.explanation_ar || 'لا يوجد شرح متوفر',
-                    benefits_ar: hadith.benefits_ar || 'لا يوجد فوائد مستخلصة',
+                    hadith_text_ar: hadith.hadith_text_ar || '',
+                    explanation_ar: hadith.explanation_ar || '',
+                    benefits_ar: hadith.benefits_ar || '',
                     grade_ar: hadith.grade_ar || 'غير محدد',
-                    takhrij_ar: hadith.takhrij_ar || 'بدون تخريج'
+                    takhrij_ar: hadith.takhrij_ar || 'غير محدد'
                 }));
                 
+                dataLoaded = true;
+                console.log('تم تحميل البيانات بنجاح');
+                
             } catch (error) {
-                console.error('❌ خطأ في تحميل البيانات:', error);
-                
-                // عرض رسالة للمستخدم
-                const errorMsg = `حدث خطأ في تحميل البيانات: ${error.message}\n\nتأكد من:\n1- وجود ملف hadiths.json في نفس المجلد\n2- أن الملف يحتوي على بيانات JSON صحيحة\n3- أن الملف غير فارغ`;
-                
-                // عرض رسالة في قسم الأحاديث المشروحة
-                const container = document.getElementById('explained-list');
-                if (container) {
-                    container.innerHTML = `
-                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #dc3545;">
-                            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                            <h3>خطأ في تحميل البيانات</h3>
-                            <p>${error.message}</p>
-                            <p style="font-size: 0.9rem; margin-top: 20px;">تأكد من وجود ملف hadiths.json في نفس المجلد</p>
-                        </div>
-                    `;
-                }
-                
-                alert(errorMsg);
-                hadithsData = []; // تعيين مصفوفة فارغة
+                console.error('خطأ في تحميل البيانات:', error);
+                dataLoaded = false;
+                hadithsData = [];
             }
         }
 
@@ -1199,15 +1208,36 @@
         }
 
         function showHadithDetail(hadithId) {
-            // التحقق من تحميل البيانات أولاً
-            if (hadithsData.length === 0) {
-                alert('جاري تحميل البيانات، الرجاء المحاولة مرة أخرى');
+            if (!dataLoaded || hadithsData.length === 0) {
+                document.getElementById('hadith-detail-content').innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3 class="error-title">عذراً، لا يمكن عرض التفاصيل حالياً</h3>
+                        <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
+                        <button class="btn-daily" onclick="showHome()">
+                            <i class="fas fa-home"></i> العودة للرئيسية
+                        </button>
+                    </div>
+                `;
                 return;
             }
             
             const hadith = hadithsData.find(h => h.id === hadithId);
             if (!hadith) {
-                alert('الحديث غير موجود في قاعدة البيانات');
+                document.getElementById('hadith-detail-content').innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="error-title">الحديث غير موجود</h3>
+                        <p class="error-text">عذراً، لا يمكن العثور على الحديث المطلوب</p>
+                        <button class="btn-daily" onclick="showHome()">
+                            <i class="fas fa-home"></i> العودة للرئيسية
+                        </button>
+                    </div>
+                `;
                 return;
             }
             
@@ -1290,15 +1320,15 @@
         function loadDailyHadith() {
             const container = document.getElementById('daily-content');
             
-            if (hadithsData.length === 0) {
+            if (!dataLoaded || hadithsData.length === 0) {
                 container.innerHTML = `
                     <div class="daily-hadith-container">
-                        <div class="loading-container">
-                            <div class="loading-spinner"></div>
-                            <p>جاري تحميل البيانات من ملف hadiths.json...</p>
-                            <p style="font-size: 0.9rem; color: var(--gray-color); margin-top: 10px;">
-                                تأكد من وجود الملف في نفس المجلد
-                            </p>
+                        <div class="error-message">
+                            <div class="error-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <h3 class="error-title">عذراً، لا يمكن تحميل الحديث اليومي</h3>
+                            <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
                         </div>
                     </div>
                 `;
@@ -1354,30 +1384,20 @@
             const container = document.getElementById('explained-list');
             const loadMoreBtn = document.getElementById('btn-load-more');
             
-            // إذا لم يتم تحميل البيانات بعد
-            if (hadithsData.length === 0) {
+            if (!dataLoaded || hadithsData.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                        <div class="loading-container">
-                            <div class="loading-spinner"></div>
-                            <p>جاري تحميل البيانات من ملف hadiths.json...</p>
-                            <p style="font-size: 0.9rem; color: var(--gray-color); margin-top: 10px;">
-                                قد تستغرق العملية بضع ثوانٍ
-                            </p>
+                        <div class="error-message">
+                            <div class="error-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <h3 class="error-title">عذراً، لا يمكن تحميل الأحاديث حالياً</h3>
+                            <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
                         </div>
                     </div>
                 `;
                 
                 if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-                
-                // محاولة تحميل البيانات مرة أخرى بعد ثانية
-                setTimeout(async () => {
-                    await loadHadithsData();
-                    if (hadithsData.length > 0) {
-                        loadExplainedHadiths(reset);
-                    }
-                }, 1000);
-                
                 return;
             }
             
@@ -1393,10 +1413,13 @@
             if (hadithsToShow.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                        <p>لا توجد أحاديث لعرضها</p>
-                        <p style="font-size: 0.9rem; color: var(--gray-color); margin-top: 10px;">
-                            تم تحميل ${hadithsData.length} حديث من قاعدة البيانات
-                        </p>
+                        <div class="error-message">
+                            <div class="error-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="error-title">لا توجد أحاديث لعرضها</h3>
+                            <p class="error-text">تم عرض جميع الأحاديث المتاحة</p>
+                        </div>
                     </div>
                 `;
                 if (loadMoreBtn) loadMoreBtn.style.display = 'none';
@@ -1453,6 +1476,11 @@
         }
 
         function shareHadith(hadithId) {
+            if (!dataLoaded || hadithsData.length === 0) {
+                alert('عذراً، لا يمكن مشاركة الحديث حالياً');
+                return;
+            }
+            
             const hadith = hadithsData.find(h => h.id == hadithId);
             if (!hadith) {
                 alert('الحديث غير موجود');
@@ -1469,8 +1497,7 @@
                     url: shareUrl
                 })
                 .then(() => console.log('تمت المشاركة بنجاح'))
-                .catch((error) => {
-                    console.log('خطأ في المشاركة:', error);
+                .catch(() => {
                     copyToClipboard(shareText);
                 });
             } else {
@@ -1481,8 +1508,7 @@
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text)
                 .then(() => alert('تم نسخ الحديث بنجاح'))
-                .catch((err) => {
-                    console.error('فشل النسخ:', err);
+                .catch(() => {
                     alert('فشل نسخ الحديث');
                 });
         }
