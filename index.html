@@ -30,6 +30,8 @@
             --box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
             --hero-gradient: linear-gradient(135deg, #2c786c 0%, #004445 100%);
+            --button-gradient: linear-gradient(135deg, #2c786c 0%, #004445 100%);
+            --button-hover-gradient: linear-gradient(135deg, #004445 0%, #2c786c 100%);
         }
 
         html { scroll-behavior: smooth; }
@@ -99,30 +101,125 @@
 
         .highlight { color: var(--primary-color); font-weight: 700; }
 
+        /* === تصميم الأزرار المحسن === */
         .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            border-radius: var(--border-radius);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
             border: none;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(100%);
+            transition: transform 0.6s;
+        }
+
+        .btn:hover::before {
+            transform: translateX(-100%);
         }
 
         .btn-primary {
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--button-gradient);
             color: white;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(44, 120, 108, 0.3);
+            border: none;
         }
 
         .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.25);
+            background: var(--button-hover-gradient);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(44, 120, 108, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(44, 120, 108, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark-color);
+            border: 2px solid var(--light-gray);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            padding: 10px 22px;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+
+        .btn-large {
+            padding: 16px 35px;
+            font-size: 1.1rem;
+            min-width: 160px;
+        }
+
+        .btn-icon {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        /* زر البحث في الشريط */
+        .btn-search {
+            background: var(--button-gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(44, 120, 108, 0.3);
+        }
+
+        .btn-search:hover {
+            background: var(--button-hover-gradient);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 120, 108, 0.4);
         }
 
         /* === الهيدر === */
@@ -244,7 +341,7 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 30px;
             font-size: 0.95rem;
             font-family: 'Cairo', sans-serif;
@@ -257,6 +354,7 @@
             background: rgba(255, 255, 255, 0.25);
             transform: translateY(-3px);
             border-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .mini-nav-btn i { font-size: 1rem; }
@@ -524,41 +622,6 @@
             margin-top: 30px;
         }
 
-        .btn-daily {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-daily:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--light-gray);
-            color: var(--dark-color);
-            padding: 12px 30px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-secondary:hover {
-            background: #e9ecef;
-        }
-
         /* === شبكة الكتب والأبواب === */
         .books-grid, .chapters-grid {
             display: grid;
@@ -570,7 +633,7 @@
         .book-card, .chapter-card {
             background: white;
             border-radius: var(--border-radius);
-            padding: 25px;
+            padding: 30px;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
             border: 2px solid transparent;
@@ -592,8 +655,8 @@
         }
 
         .book-card:hover, .chapter-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-color: var(--light-gray);
         }
 
@@ -601,13 +664,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 10px;
         }
 
         .book-title, .chapter-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--primary-color);
             font-weight: 700;
             margin: 0;
@@ -615,9 +678,12 @@
         }
 
         .book-author, .chapter-count {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--gray-color);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .book-stats {
@@ -642,7 +708,7 @@
         .book-description {
             color: var(--dark-color);
             font-size: 1rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.6;
             flex-grow: 1;
             display: -webkit-box;
@@ -653,9 +719,9 @@
 
         .book-actions, .chapter-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            margin-top: 20px;
+            margin-top: auto;
             padding-top: 20px;
             border-top: 1px solid var(--light-gray);
         }
@@ -671,7 +737,7 @@
         .hadith-card {
             background: white;
             border-radius: var(--border-radius);
-            padding: 25px;
+            padding: 30px;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
             border: 2px solid transparent;
@@ -693,8 +759,8 @@
         }
 
         .hadith-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-color: var(--light-gray);
         }
 
@@ -702,7 +768,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 10px;
         }
@@ -721,7 +787,7 @@
         .hadith-content {
             color: var(--dark-color);
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.7;
             font-style: italic;
             display: -webkit-box;
@@ -734,9 +800,9 @@
 
         .hadith-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            margin-top: 20px;
+            margin-top: auto;
             padding-top: 20px;
             border-top: 1px solid var(--light-gray);
         }
@@ -900,10 +966,13 @@
             font-size: 0.95rem;
             margin-bottom: 20px;
             transition: var(--transition);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
         }
 
         .back-home-link:hover {
             color: var(--primary-color);
+            background-color: rgba(44, 120, 108, 0.05);
         }
 
         /* === الفوتر === */
@@ -1028,21 +1097,22 @@
             position: fixed;
             bottom: 25px;
             left: 25px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background: var(--button-gradient);
             color: white;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: var(--transition);
             opacity: 0;
             visibility: hidden;
             z-index: 999;
             box-shadow: 0 5px 20px rgba(44, 120, 108, 0.3);
+            border: none;
         }
         
         .back-to-top-btn.show { 
@@ -1053,6 +1123,36 @@
         .back-to-top-btn:hover { 
             transform: translateY(-5px); 
             box-shadow: 0 8px 25px rgba(44, 120, 108, 0.4); 
+        }
+
+        /* === زر تحميل المزيد === */
+        .btn-load-more-container {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .btn-load-more {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-load-more:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3);
         }
 
         /* === التجاوب مع الشاشات === */
@@ -1085,6 +1185,11 @@
             .hadith-content { min-height: 80px; -webkit-line-clamp: 3; }
             .breadcrumb { flex-direction: column; align-items: flex-start; gap: 5px; }
             .search-options { grid-template-columns: 1fr; }
+            .daily-actions, .book-actions, .chapter-actions, .hadith-actions { 
+                flex-direction: column; 
+                align-items: stretch; 
+            }
+            .btn { width: 100%; }
         }
 
         @media (max-width: 576px) {
@@ -1096,7 +1201,8 @@
             .meta-item { width: 100%; max-width: 300px; }
             .daily-actions { flex-direction: column; }
             .btn-daily, .btn-secondary { width: 100%; max-width: 250px; margin: 0 auto; }
-            .back-to-top-btn { bottom: 20px; left: 20px; width: 40px; height: 40px; }
+            .back-to-top-btn { bottom: 20px; left: 20px; width: 45px; height: 45px; }
+            .book-card, .chapter-card, .hadith-card { padding: 20px; }
         }
     </style>
 </head>
@@ -1163,7 +1269,7 @@
                         <div style="display: flex; gap: 10px;">
                             <input type="text" class="form-control" id="searchQuery" 
                                    placeholder="اكتب كلمة أو عبارة من الحديث..." autocomplete="off">
-                            <button type="submit" class="btn-daily" style="white-space: nowrap;">
+                            <button type="submit" class="btn-search">
                                 <i class="fas fa-search"></i> بحث
                             </button>
                         </div>
@@ -1822,7 +1928,7 @@
                             </div>
                             <p class="book-description">${book.description}</p>
                             <div class="book-actions">
-                                <button class="btn-read-more" onclick="showBookChapters('${book.file}', '${book.name}')">
+                                <button class="btn btn-primary btn-small" onclick="showBookChapters('${book.file}', '${book.name}')">
                                     <i class="fas fa-folder-open"></i> تصفح الأبواب
                                 </button>
                             </div>
@@ -1866,7 +1972,7 @@
                         </div>
                         <h3 class="error-title">عذراً، لا يمكن تحميل الكتاب</h3>
                         <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
-                        <button class="btn-daily" onclick="loadBooks()">
+                        <button class="btn btn-primary" onclick="loadBooks()">
                             <i class="fas fa-arrow-right"></i> العودة للكتب
                         </button>
                     </div>
@@ -1888,7 +1994,7 @@
                         </div>
                         <h3 class="error-title">لا توجد أبواب في هذا الكتاب</h3>
                         <p class="error-text">الكتاب لا يحتوي على أبواب مصنفة</p>
-                        <button class="btn-daily" onclick="loadBooks()">
+                        <button class="btn btn-primary" onclick="loadBooks()">
                             <i class="fas fa-arrow-right"></i> العودة للكتب
                         </button>
                     </div>
@@ -1914,7 +2020,7 @@
                             <h3 class="chapter-title">${chapter.arabic}</h3>
                         </div>
                         <div class="chapter-actions">
-                            <button class="btn-read-more" onclick="showChapterHadiths(${chapter.id}, '${bookName}', '${chapter.arabic}')">
+                            <button class="btn btn-primary btn-small" onclick="showChapterHadiths(${chapter.id}, '${bookName}', '${chapter.arabic}')">
                                 <i class="fas fa-book-open"></i> عرض الأحاديث
                             </button>
                         </div>
@@ -1966,7 +2072,7 @@
                         </div>
                         <h3 class="error-title">عذراً، لا يمكن تحميل الأحاديث</h3>
                         <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
-                        <button class="btn-daily" onclick="showBookChapters('${getBookFile(currentBook.metadata.id)}', '${bookName}')">
+                        <button class="btn btn-primary" onclick="showBookChapters('${getBookFile(currentBook.metadata.id)}', '${bookName}')">
                             <i class="fas fa-arrow-right"></i> العودة للأبواب
                         </button>
                     </div>
@@ -1985,7 +2091,7 @@
                         </div>
                         <h3 class="error-title">لا توجد أحاديث في هذا الباب</h3>
                         <p class="error-text">هذا الباب لا يحتوي على أحاديث</p>
-                        <button class="btn-daily" onclick="showBookChapters('${getBookFile(currentBook.metadata.id)}', '${bookName}')">
+                        <button class="btn btn-primary" onclick="showBookChapters('${getBookFile(currentBook.metadata.id)}', '${bookName}')">
                             <i class="fas fa-arrow-right"></i> العودة للأبواب
                         </button>
                     </div>
@@ -2009,7 +2115,7 @@
                         </div>
                         <p class="hadith-content">${hadith.arabic}</p>
                         <div class="hadith-actions">
-                            <button class="btn-read-more" onclick="showBookHadithDetail(${hadith.id})">
+                            <button class="btn btn-primary btn-small" onclick="showBookHadithDetail(${hadith.id})">
                                 <i class="fas fa-book-reader"></i> قراءة الحديث
                             </button>
                         </div>
@@ -2061,10 +2167,10 @@
                     </div>
                     
                     <div class="daily-actions">
-                        <button class="btn-daily" onclick="shareBookHadith(${hadith.id})">
+                        <button class="btn btn-primary" onclick="shareBookHadith(${hadith.id})">
                             <i class="fas fa-share-alt"></i> مشاركة الحديث
                         </button>
-                        <button class="btn-secondary" onclick="showChapterHadiths(${hadith.chapterId}, '${currentBook.metadata.arabic.title}', '${chapter ? chapter.arabic : ''}')">
+                        <button class="btn btn-secondary" onclick="showChapterHadiths(${hadith.chapterId}, '${currentBook.metadata.arabic.title}', '${chapter ? chapter.arabic : ''}')">
                             <i class="fas fa-arrow-right"></i> العودة للباب
                         </button>
                     </div>
@@ -2112,7 +2218,7 @@
                         </div>
                         <h3 class="error-title">عذراً، لا يمكن عرض التفاصيل حالياً</h3>
                         <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
-                        <button class="btn-daily" onclick="showHome()">
+                        <button class="btn btn-primary" onclick="showHome()">
                             <i class="fas fa-home"></i> العودة للرئيسية
                         </button>
                     </div>
@@ -2129,7 +2235,7 @@
                         </div>
                         <h3 class="error-title">الحديث غير موجود</h3>
                         <p class="error-text">عذراً، لا يمكن العثور على الحديث المطلوب</p>
-                        <button class="btn-daily" onclick="showHome()">
+                        <button class="btn btn-primary" onclick="showHome()">
                             <i class="fas fa-home"></i> العودة للرئيسية
                         </button>
                     </div>
@@ -2189,10 +2295,10 @@
                     ` : ''}
                     
                     <div class="daily-actions">
-                        <button class="btn-daily" onclick="shareHadith(${hadith.id})">
+                        <button class="btn btn-primary" onclick="shareHadith(${hadith.id})">
                             <i class="fas fa-share-alt"></i> مشاركة الحديث
                         </button>
-                        <button class="btn-secondary" onclick="showHome()">
+                        <button class="btn btn-secondary" onclick="showHome()">
                             <i class="fas fa-home"></i> العودة للرئيسية
                         </button>
                     </div>
@@ -2262,13 +2368,13 @@
                     </div>
                     
                     <div class="daily-actions">
-                        <button class="btn-daily" onclick="showHadithDetail(${dailyHadith.id})">
+                        <button class="btn btn-primary" onclick="showHadithDetail(${dailyHadith.id})">
                             <i class="fas fa-book-reader"></i> قراءة الشرح
                         </button>
-                        <button class="btn-daily" onclick="shareHadith(${dailyHadith.id})">
+                        <button class="btn btn-primary" onclick="shareHadith(${dailyHadith.id})">
                             <i class="fas fa-share-alt"></i> مشاركة الحديث
                         </button>
-                        <button class="btn-secondary" onclick="loadNewDailyHadith()">
+                        <button class="btn btn-secondary" onclick="loadNewDailyHadith()">
                             <i class="fas fa-sync-alt"></i> حديث آخر
                         </button>
                     </div>
@@ -2338,7 +2444,7 @@
                     </div>
                     <p class="hadith-content">${hadith.hadith_text_ar}</p>
                     <div class="hadith-actions">
-                        <button class="btn-read-more" onclick="showHadithDetail(${hadith.id})">
+                        <button class="btn btn-primary btn-small" onclick="showHadithDetail(${hadith.id})">
                             <i class="fas fa-book-reader"></i> اقرأ الشرح
                         </button>
                     </div>
