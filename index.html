@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEENWAY – Hadiths | الأحاديث النبوية</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://blogger.googleusercontent.com/img/a/AVvXsEiqV8QiI-kiTFfd7Aqm5-JjxGOrxYPRJ568gGkeMVQ5pe6EJLyQb77iaztmC7pFSTa0UglxZeKunFA-nlk6kpw1U8_GICQTG6096qeCqxTG3PdBtg5Jdt67b7e2NrgDglKyQE-CzdSLkDQk2PP6Vp1hmcf8nB1ICh4GgYhNAFtl8nbAbKZcV54UpjHwfbVB">
+    
     <!-- الخطوط -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1185,8 +1188,8 @@
         // تحميل بيانات الأحاديث من ملف JSON
         async function loadHadithsData() {
             try {
-                // هنا يجب وضع رابط ملف JSON الخاص بك على GitHub Pages
-                const dataUrl = 'hadiths.json'; // اسم الملف: hadiths.json
+                // اسم الملف: hadiths.json (يجب أن يكون في نفس المجلد)
+                const dataUrl = 'hadiths.json';
                 
                 console.log('جاري تحميل البيانات من:', dataUrl);
                 
@@ -1198,10 +1201,25 @@
                 
                 hadithsData = await response.json();
                 
-                // إضافة معرف فريد لكل حديث
+                // التحقق من بنية البيانات
+                if (!Array.isArray(hadithsData)) {
+                    throw new Error('بيانات غير صالحة: يجب أن تكون مصفوفة');
+                }
+                
+                // إضافة معرف فريد لكل حديث إذا لم يكن موجوداً
                 hadithsData = hadithsData.map((hadith, index) => ({
                     ...hadith,
-                    id: index + 1
+                    id: hadith.id || index + 1
+                }));
+                
+                // التحقق من وجود الحقول الأساسية
+                hadithsData = hadithsData.map(hadith => ({
+                    id: hadith.id,
+                    hadith_text_ar: hadith.hadith_text_ar || 'نص الحديث غير متوفر',
+                    explanation_ar: hadith.explanation_ar || 'لا يوجد شرح متوفر',
+                    benefits_ar: hadith.benefits_ar || 'لا يوجد فوائد مستخلصة',
+                    grade_ar: hadith.grade_ar || 'غير محدد',
+                    takhrij_ar: hadith.takhrij_ar || 'بدون تخريج'
                 }));
                 
                 console.log(`تم تحميل ${hadithsData.length} حديث بنجاح`);
@@ -1209,69 +1227,12 @@
             } catch (error) {
                 console.error('خطأ في تحميل البيانات:', error);
                 
-                // استخدام بيانات تجريبية إذا فشل التحميل
-                hadithsData = generateSampleData();
+                // عرض رسالة للمستخدم
+                alert(`حدث خطأ في تحميل البيانات: ${error.message}\n\nتأكد من وجود ملف hadiths.json في نفس المجلد.`);
                 
-                alert('تم تحميل بيانات تجريبية. تأكد من وجود ملف hadiths.json في نفس المجلد.');
+                // تعيين مصفوفة فارغة
+                hadithsData = [];
             }
-        }
-
-        // إنشاء بيانات تجريبية
-        function generateSampleData() {
-            const sampleHadiths = [
-                {
-                    hadith_text_ar: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها فهجرته إلى ما هاجر إليه.",
-                    explanation_ar: "هذا الحديث أصل عظيم في الأعمال، وهو من الأحاديث التي يدور الدين عليها. النية شرط لصحة العمل وقبوله، والإخلاص أساس كل عبادة.",
-                    benefits_ar: "1. عظم شأن النية في الإسلام\n2. الأعمال بحسب المقاصد\n3. وجوب إخلاص العمل لله تعالى\n4. النية تحول العادات إلى عبادات",
-                    grade_ar: "صحيح",
-                    takhrij_ar: "رواه البخاري ومسلم"
-                },
-                {
-                    hadith_text_ar: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه.",
-                    explanation_ar: "المسلم الحقيقي هو الذي يأمن الناس شره وعدوانه، سواء باللسان أو باليد. والمهاجر الحقيقي هو الذي يترك ما حرم الله عليه.",
-                    benefits_ar: "1. حرمة دم المسلم وماله وعرضه\n2. وجوب حفظ اللسان من السب والشتيمة\n3. الهجرة الحقيقية هي هجرة الذنوب\n4. الأمن من ضرر المسلم من حقوق الأخوة الإسلامية",
-                    grade_ar: "صحيح",
-                    takhrij_ar: "متفق عليه"
-                },
-                {
-                    hadith_text_ar: "من حسن إسلام المرء تركه ما لا يعنيه.",
-                    explanation_ar: "من كمال إسلام المرء أن يترك ما لا يعنيه من الأقوال والأفعال، وهذا يدل على حفظ اللسان والوقت والجهد، وترك الفضول والتدخل فيما لا يعني.",
-                    benefits_ar: "1. حفظ الوقت والجهد في المفيد\n2. ترك الفضول والتدخل في شؤون الآخرين\n3. التركيز على ما يفيد في الدنيا والآخرة\n4. من علامات كمال الإسلام وحسن الخلق",
-                    grade_ar: "حسن",
-                    takhrij_ar: "رواه الترمذي"
-                },
-                {
-                    hadith_text_ar: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.",
-                    explanation_ar: "حب الخير للمسلمين من كمال الإيمان، والمسلم الحق يفرح لفرح أخيه ويحزن لحزنه، ويتمنى له ما يتمنى لنفسه من الخير.",
-                    benefits_ar: "1. المحبة في الله من أوثق عرى الإيمان\n2. تقوية الروابط الاجتماعية بين المسلمين\n3. تحقيق الأخوة الإسلامية الحقيقية\n4. التخلص من الحسد والحقد",
-                    grade_ar: "صحيح",
-                    takhrij_ar: "رواه البخاري ومسلم"
-                },
-                {
-                    hadith_text_ar: "الكلمة الطيبة صدقة.",
-                    explanation_ar: "الكلمة الطيبة لها أجر الصدقة، وهي تدخل السرور على الآخرين وتقوي الروابط الاجتماعية، وتزيل الضغائن من القلوب.",
-                    benefits_ar: "1. الكلمة الطيبة لها أجر عظيم\n2. تؤلف بين القلوب وتزيل الضغائن\n3. سهلة التنفيذ عظيمة الأجر\n4. من أسباب دخول الجنة",
-                    grade_ar: "صحيح",
-                    takhrij_ar: "رواه البخاري ومسلم"
-                }
-            ];
-            
-            // إضافة 15 حديث إضافي للبيانات التجريبية
-            for (let i = 5; i < 50; i++) {
-                const randomText = "هذا حديث تجريبي رقم " + i + " للاختبار. وقد ورد في الحديث الشريف عن النبي صلى الله عليه وسلم.";
-                sampleHadiths.push({
-                    hadith_text_ar: randomText,
-                    explanation_ar: "شرح مفصل للحديث التجريبي رقم " + i + " يوضح المعاني والمقاصد والفوائد المستخلصة منه.",
-                    benefits_ar: "1. فائدة أولى من الحديث\n2. فائدة ثانية من الحديث\n3. فائدة ثالثة من الحديث",
-                    grade_ar: i % 3 === 0 ? "صحيح" : i % 3 === 1 ? "حسن" : "ضعيف",
-                    takhrij_ar: i % 5 === 0 ? "رواه البخاري" : i % 5 === 1 ? "رواه مسلم" : i % 5 === 2 ? "رواه الترمذي" : i % 5 === 3 ? "رواه أبو داود" : "رواه النسائي"
-                });
-            }
-            
-            return sampleHadiths.map((hadith, index) => ({
-                ...hadith,
-                id: index + 1
-            }));
         }
 
         // إعداد زر العودة للأعلى
@@ -1353,7 +1314,7 @@
                     <div class="daily-hadith-container">
                         <div class="loading-container">
                             <div class="loading-spinner"></div>
-                            <p>جاري تحميل البيانات...</p>
+                            <p>لا توجد بيانات للأحاديث. تأكد من وجود ملف hadiths.json</p>
                         </div>
                     </div>
                 `;
@@ -1386,7 +1347,7 @@
                         </div>
                         <div class="meta-item">
                             <span class="meta-label">التخريج:</span>
-                            <span class="meta-value">${currentDailyHadith.takhrij_ar || 'غير محدد'}</span>
+                            <span class="meta-value">${currentDailyHadith.takhrij_ar}</span>
                         </div>
                     </div>
                     
@@ -1419,10 +1380,11 @@
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                         <div class="loading-container">
                             <div class="loading-spinner"></div>
-                            <p>جاري تحميل البيانات...</p>
+                            <p>لا توجد بيانات للأحاديث. تأكد من وجود ملف hadiths.json</p>
                         </div>
                     </div>
                 `;
+                loadMoreBtn.style.display = 'none';
                 return;
             }
             
@@ -1436,6 +1398,16 @@
             const endIndex = startIndex + itemsPerPage;
             const hadithsToShow = hadithsData.slice(startIndex, endIndex);
             
+            if (hadithsToShow.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <p>لا توجد أحاديث لعرضها</p>
+                    </div>
+                `;
+                loadMoreBtn.style.display = 'none';
+                return;
+            }
+            
             // عرض الأحاديث
             hadithsToShow.forEach(hadith => {
                 const gradeClass = getGradeClass(hadith.grade_ar);
@@ -1448,7 +1420,7 @@
                     </div>
                     <p class="hadith-content">${hadith.hadith_text_ar}</p>
                     <div class="hadith-actions">
-                        <span class="takhrij-text">${hadith.takhrij_ar || 'غير محدد'}</span>
+                        <span class="takhrij-text">${hadith.takhrij_ar}</span>
                         <button class="btn-read-more" onclick="openHadithModal(${hadith.id})">
                             <i class="fas fa-book-reader"></i> اقرأ الشرح
                         </button>
@@ -1483,7 +1455,10 @@
         // فتح نافذة الشرح
         function openHadithModal(hadithId) {
             const hadith = hadithsData.find(h => h.id === hadithId);
-            if (!hadith) return;
+            if (!hadith) {
+                alert('الحديث غير موجود');
+                return;
+            }
             
             const gradeClass = getGradeClass(hadith.grade_ar);
             
@@ -1502,14 +1477,14 @@
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">التخريج:</span>
-                    <span class="meta-value">${hadith.takhrij_ar || 'غير محدد'}</span>
+                    <span class="meta-value">${hadith.takhrij_ar}</span>
                 </div>
             `;
             document.getElementById('modal-meta').innerHTML = metaHtml;
             
             // تعبئة الشرح والفوائد
-            document.getElementById('modal-explanation').textContent = hadith.explanation_ar || 'لا يوجد شرح متوفر';
-            document.getElementById('modal-benefits').textContent = hadith.benefits_ar || 'لا يوجد فوائد مستخلصة';
+            document.getElementById('modal-explanation').textContent = hadith.explanation_ar;
+            document.getElementById('modal-benefits').textContent = hadith.benefits_ar;
             
             // تخزين الحديث الحالي للمشاركة
             currentDailyHadith = hadith;
@@ -1540,7 +1515,7 @@
         function shareDailyHadith() {
             if (!currentDailyHadith) return;
             
-            const shareText = `${currentDailyHadith.hadith_text_ar}\n\nدرجة الحديث: ${currentDailyHadith.grade_ar}\n${currentDailyHadith.takhrij_ar || ''}`;
+            const shareText = `${currentDailyHadith.hadith_text_ar}\n\nدرجة الحديث: ${currentDailyHadith.grade_ar}\n${currentDailyHadith.takhrij_ar}`;
             shareContent(shareText);
         }
 
@@ -1548,7 +1523,7 @@
         function shareHadith() {
             if (!currentDailyHadith) return;
             
-            const shareText = `${currentDailyHadith.hadith_text_ar}\n\nدرجة الحديث: ${currentDailyHadith.grade_ar}\n${currentDailyHadith.takhrij_ar || ''}\n\nمن موقع DEENWAY Hadiths`;
+            const shareText = `${currentDailyHadith.hadith_text_ar}\n\nدرجة الحديث: ${currentDailyHadith.grade_ar}\n${currentDailyHadith.takhrij_ar}\n\nمن موقع DEENWAY Hadiths`;
             shareContent(shareText);
         }
 
