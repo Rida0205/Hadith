@@ -406,6 +406,107 @@
             background: #e9ecef;
         }
 
+        /* === شبكة الكتب والأبواب === */
+        .books-grid, .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .book-card, .chapter-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card::before, .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .book-card:hover, .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            border-color: var(--light-gray);
+        }
+
+        .book-header, .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .book-title, .chapter-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .book-author, .chapter-count {
+            font-size: 0.95rem;
+            color: var(--gray-color);
+            margin-bottom: 15px;
+        }
+
+        .book-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+        }
+
+        .stat-item i {
+            color: var(--primary-color);
+        }
+
+        .book-description {
+            color: var(--dark-color);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .book-actions, .chapter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
         /* === الأحاديث المشروحة === */
         .explained-grid {
             display: grid;
@@ -514,6 +615,25 @@
             box-shadow: 0 8px 25px rgba(44, 120, 108, 0.3);
         }
 
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-color);
+            background-color: rgba(44, 120, 108, 0.05);
+        }
+
         .btn-load-more-container {
             text-align: center;
             margin-top: 40px;
@@ -600,6 +720,41 @@
             color: var(--dark-color);
             white-space: pre-line;
             font-size: 1.1rem;
+        }
+
+        /* === التنقل بين الصفحات === */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-color);
+            transition: var(--transition);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .breadcrumb-item:not(.active):hover {
+            color: var(--secondary-color);
+        }
+
+        .breadcrumb-separator {
+            color: var(--light-gray);
+            margin: 0 5px;
         }
 
         /* === التحميل === */
@@ -826,7 +981,9 @@
             .hero-title { font-size: 2rem; }
             .section-title { font-size: 2rem; }
             .daily-text, .hadith-detail-text { font-size: 1.4rem; }
-            .explained-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+            .explained-grid, .books-grid, .chapters-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            }
         }
 
         @media (max-width: 768px) {
@@ -845,8 +1002,9 @@
                 font-size: 1.3rem; 
                 padding: 20px; 
             }
-            .explained-grid { grid-template-columns: 1fr; }
+            .explained-grid, .books-grid, .chapters-grid { grid-template-columns: 1fr; }
             .hadith-content { min-height: 80px; -webkit-line-clamp: 3; }
+            .breadcrumb { flex-direction: column; align-items: flex-start; gap: 5px; }
         }
 
         @media (max-width: 576px) {
@@ -890,7 +1048,7 @@
                     <a href="#section-search" class="mini-nav-btn" onclick="navigateTo('search'); return false;">
                         <i class="fas fa-search"></i> بحث متقدم
                     </a>
-                    <a href="#section-books" class="mini-nav-btn" onclick="navigateTo('books'); return false;">
+                    <a href="#section-books" class="mini-nav-btn" onclick="loadBooks(); navigateTo('books'); return false;">
                         <i class="fas fa-book"></i> كتب الأحاديث
                     </a>
                     <a href="#section-daily" class="mini-nav-btn" onclick="loadDailyHadith(); navigateTo('daily'); return false;">
@@ -930,45 +1088,48 @@
     <!-- قسم كتب الأحاديث -->
     <section id="section-books" class="section content-section">
         <div class="container">
-            <a href="#" onclick="showHome(); return false;" class="back-home-link">
-                <i class="fas fa-arrow-right"></i> العودة للرئيسية
-            </a>
+            <div id="books-breadcrumb" class="breadcrumb">
+                <span class="breadcrumb-item active" onclick="loadBooks()">
+                    <i class="fas fa-books"></i> كتب الأحاديث
+                </span>
+            </div>
             
             <div class="section-header">
                 <h2 class="section-title">كتب الأحاديث النبوية</h2>
                 <p class="section-subtitle">اختر الكتاب الذي تريد استعراض أحاديثه</p>
             </div>
             
-            <div class="explained-grid">
-                <div class="hadith-card">
-                    <div class="hadith-header">
-                        <span class="hadith-grade grade-sahih">أصح الكتب</span>
-                    </div>
-                    <div class="hadith-content">
-                        أصح كتاب بعد كتاب الله تعالى، جمعه الإمام محمد بن إسماعيل البخاري
-                    </div>
-                    <div class="hadith-actions">
-                        <span class="takhrij-text">7563 حديثاً</span>
-                        <button class="btn-read-more" onclick="alert('سيتم تفعيل هذا القسم قريباً')">
-                            <i class="fas fa-book-open"></i> تصفح الأحاديث
-                        </button>
-                    </div>
+            <div id="books-content">
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>جاري تحميل الكتب...</p>
                 </div>
-                
-                <div class="hadith-card">
-                    <div class="hadith-header">
-                        <span class="hadith-grade grade-sahih">ثاني الصحيحين</span>
-                    </div>
-                    <div class="hadith-content">
-                        ثاني أصح الكتب بعد البخاري، جمعه الإمام مسلم بن الحجاج النيسابوري
-                    </div>
-                    <div class="hadith-actions">
-                        <span class="takhrij-text">5362 حديثاً</span>
-                        <button class="btn-read-more" onclick="alert('سيتم تفعيل هذا القسم قريباً')">
-                            <i class="fas fa-book-open"></i> تصفح الأحاديث
-                        </button>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم أبواب الكتاب -->
+    <section id="section-chapters" class="section content-section">
+        <div class="container">
+            <div id="chapters-breadcrumb" class="breadcrumb">
+                <!-- سيتم تعبئتها بالجافاسكريبت -->
+            </div>
+            
+            <div id="chapters-content">
+                <!-- سيتم تعبئتها بالجافاسكريبت -->
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم أحاديث الباب -->
+    <section id="section-book-hadiths" class="section content-section">
+        <div class="container">
+            <div id="hadiths-breadcrumb" class="breadcrumb">
+                <!-- سيتم تعبئتها بالجافاسكريبت -->
+            </div>
+            
+            <div id="book-hadiths-content">
+                <!-- سيتم تعبئتها بالجافاسكريبت -->
             </div>
         </div>
     </section>
@@ -1065,7 +1226,7 @@
                         <li><a href="#section-explained" onclick="loadExplainedHadiths(); navigateTo('explained'); return false;">
                             <i class="fas fa-lightbulb"></i> أحاديث مشروحة
                         </a></li>
-                        <li><a href="#section-books" onclick="navigateTo('books'); return false;">
+                        <li><a href="#section-books" onclick="loadBooks(); navigateTo('books'); return false;">
                             <i class="fas fa-book"></i> كتب الأحاديث
                         </a></li>
                     </ul>
@@ -1096,17 +1257,34 @@
         const itemsPerPage = 6;
         let dataLoaded = false;
 
+        // بيانات الكتب
+        const booksData = [
+            { id: 1, file: 'bukhari.json', name: 'صحيح البخاري', author: 'الإمام محمد بن إسماعيل البخاري', description: 'أصح كتاب بعد كتاب الله تعالى' },
+            { id: 2, file: 'muslim.json', name: 'صحيح مسلم', author: 'الإمام مسلم بن الحجاج النيسابوري', description: 'ثاني أصح الكتب بعد البخاري' },
+            { id: 3, file: 'abudawud.json', name: 'سنن أبي داود', author: 'الإمام أبو داود السجستاني', description: 'أحد الكتب الستة المشهورة' },
+            { id: 4, file: 'tirmidhi.json', name: 'جامع الترمذي', author: 'الإمام الترمذي', description: 'من أهم كتب الحديث' },
+            { id: 5, file: 'nasai.json', name: 'سنن النسائي', author: 'الإمام النسائي', description: 'أحد الكتب الستة' },
+            { id: 6, file: 'ibnmajah.json', name: 'سنن ابن ماجه', author: 'الإمام ابن ماجه', description: 'أحد الكتب الستة' },
+            { id: 7, file: 'malik.json', name: 'موطأ مالك', author: 'الإمام مالك بن أنس', description: 'أقدم كتاب حديث موجود' },
+            { id: 8, file: 'darimi.json', name: 'مسند الدارمي', author: 'الإمام الدارمي', description: 'من كتب الحديث المعتمدة' },
+            { id: 9, file: 'ahmed.json', name: 'مسند أحمد', author: 'الإمام أحمد بن حنبل', description: 'أكبر مسند في الإسلام' }
+        ];
+
+        // متغيرات للتنقل بين الكتب
+        let currentBook = null;
+        let currentChapters = [];
+        let currentChapter = null;
+        let currentBookHadiths = [];
+
         // =============== تهيئة الموقع ===============
         document.addEventListener('DOMContentLoaded', function() {
             setupBackToTop();
             checkUrlForHadithId();
             setupNavigation();
-            
-            // تحميل البيانات بشكل صامت
             loadHadithsDataSilently();
         });
 
-        // =============== تحميل البيانات بشكل صامت ===============
+        // =============== تحميل البيانات ===============
         async function loadHadithsDataSilently() {
             try {
                 const response = await fetch('hadiths.json');
@@ -1121,7 +1299,6 @@
                     throw new Error('بيانات غير صالحة');
                 }
                 
-                // تحسين البيانات
                 hadithsData = hadithsData.map((hadith, index) => ({
                     ...hadith,
                     id: hadith.id || index + 1,
@@ -1133,12 +1310,28 @@
                 }));
                 
                 dataLoaded = true;
-                console.log('تم تحميل البيانات بنجاح');
                 
             } catch (error) {
                 console.error('خطأ في تحميل البيانات:', error);
                 dataLoaded = false;
                 hadithsData = [];
+            }
+        }
+
+        // =============== تحميل كتاب معين ===============
+        async function loadBook(bookFile) {
+            try {
+                const response = await fetch(bookFile);
+                
+                if (!response.ok) {
+                    throw new Error('فشل تحميل الكتاب');
+                }
+                
+                return await response.json();
+                
+            } catch (error) {
+                console.error('خطأ في تحميل الكتاب:', error);
+                return null;
             }
         }
 
@@ -1179,6 +1372,8 @@
             
             document.getElementById('heroSection').style.display = 'block';
             document.getElementById('section-detail').style.display = 'none';
+            document.getElementById('section-chapters').style.display = 'none';
+            document.getElementById('section-book-hadiths').style.display = 'none';
         }
 
         function navigateTo(sectionId) {
@@ -1190,6 +1385,8 @@
             });
             
             document.getElementById('section-detail').style.display = 'none';
+            document.getElementById('section-chapters').style.display = 'none';
+            document.getElementById('section-book-hadiths').style.display = 'none';
             
             const targetSection = document.getElementById('section-' + sectionId);
             if (targetSection) {
@@ -1206,6 +1403,350 @@
                 }, 100);
             }
         }
+
+        // =============== نظام الكتب ===============
+
+        async function loadBooks() {
+            const container = document.getElementById('books-content');
+            
+            container.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>جاري تحميل الكتب...</p>
+                </div>
+            `;
+            
+            // إعادة تعيين متغيرات التنقل
+            currentBook = null;
+            currentChapters = [];
+            currentChapter = null;
+            currentBookHadiths = [];
+            
+            // تحديث الخبز المفتت
+            document.getElementById('books-breadcrumb').innerHTML = `
+                <span class="breadcrumb-item active" onclick="loadBooks()">
+                    <i class="fas fa-books"></i> كتب الأحاديث
+                </span>
+            `;
+            
+            let html = '<div class="books-grid">';
+            
+            for (const book of booksData) {
+                html += `
+                    <div class="book-card">
+                        <div class="book-header">
+                            <h3 class="book-title">${book.name}</h3>
+                            <span class="hadith-grade grade-sahih">${book.id <= 2 ? 'الصحيحان' : 'من الكتب الستة'}</span>
+                        </div>
+                        <p class="book-author"><i class="fas fa-user"></i> ${book.author}</p>
+                        <div class="book-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-book"></i> <span>كتاب حديث</span>
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-star"></i> <span>${book.id <= 2 ? 'أعلى الدرجات' : 'معتمد'}</span>
+                            </span>
+                        </div>
+                        <p class="book-description">${book.description}</p>
+                        <div class="book-actions">
+                            <span class="takhrij-text">من مصادر السنة المعتمدة</span>
+                            <button class="btn-read-more" onclick="showBookChapters('${book.file}', '${book.name}')">
+                                <i class="fas fa-folder-open"></i> تصفح الأبواب
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            
+            setTimeout(() => {
+                container.innerHTML = html;
+            }, 500);
+        }
+
+        async function showBookChapters(bookFile, bookName) {
+            const container = document.getElementById('chapters-content');
+            
+            container.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>جاري تحميل أبواب الكتاب...</p>
+                </div>
+            `;
+            
+            // تحديث الخبز المفتت
+            document.getElementById('chapters-breadcrumb').innerHTML = `
+                <span class="breadcrumb-item" onclick="loadBooks()">
+                    <i class="fas fa-books"></i> كتب الأحاديث
+                </span>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-left"></i></span>
+                <span class="breadcrumb-item active">
+                    <i class="fas fa-book"></i> ${bookName}
+                </span>
+            `;
+            
+            const bookData = await loadBook(bookFile);
+            
+            if (!bookData) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3 class="error-title">عذراً، لا يمكن تحميل الكتاب</h3>
+                        <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
+                        <button class="btn-daily" onclick="loadBooks()">
+                            <i class="fas fa-arrow-right"></i> العودة للكتب
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // حفظ البيانات الحالية
+            currentBook = bookData;
+            currentChapters = bookData.chapters || [];
+            currentBookHadiths = bookData.hadiths || [];
+            
+            // عرض الأبواب
+            if (currentChapters.length === 0) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">
+                            <i class="fas fa-folder-open"></i>
+                        </div>
+                        <h3 class="error-title">لا توجد أبواب في هذا الكتاب</h3>
+                        <p class="error-text">الكتاب لا يحتوي على أبواب مصنفة</p>
+                        <button class="btn-daily" onclick="loadBooks()">
+                            <i class="fas fa-arrow-right"></i> العودة للكتب
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <div class="section-header">
+                    <h2 class="section-title">${bookName}</h2>
+                    <p class="section-subtitle">اختر الباب الذي تريد استعراض أحاديثه</p>
+                </div>
+                <div class="chapters-grid">
+            `;
+            
+            currentChapters.forEach(chapter => {
+                // حساب عدد الأحاديث في هذا الباب
+                const hadithsInChapter = currentBookHadiths.filter(h => h.chapterId === chapter.id);
+                
+                html += `
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <h3 class="chapter-title">${chapter.arabic}</h3>
+                        </div>
+                        <p class="chapter-count">
+                            <i class="fas fa-hadith"></i> يحتوي على ${hadithsInChapter.length} حديث
+                        </p>
+                        <div class="chapter-actions">
+                            <span class="takhrij-text">الباب ${chapter.id}</span>
+                            <button class="btn-read-more" onclick="showChapterHadiths(${chapter.id}, '${bookName}', '${chapter.arabic}')">
+                                <i class="fas fa-book-open"></i> عرض الأحاديث
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            container.innerHTML = html;
+            
+            // إظهار قسم الأبواب
+            navigateTo('chapters');
+        }
+
+        async function showChapterHadiths(chapterId, bookName, chapterName) {
+            const container = document.getElementById('book-hadiths-content');
+            
+            container.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>جاري تحميل أحاديث الباب...</p>
+                </div>
+            `;
+            
+            // تحديث الخبز المفتت
+            document.getElementById('hadiths-breadcrumb').innerHTML = `
+                <span class="breadcrumb-item" onclick="loadBooks()">
+                    <i class="fas fa-books"></i> كتب الأحاديث
+                </span>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-left"></i></span>
+                <span class="breadcrumb-item" onclick="showBookChapters('${currentBook ? getBookFile(currentBook.metadata.id) : ''}', '${bookName}')">
+                    <i class="fas fa-book"></i> ${bookName}
+                </span>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-left"></i></span>
+                <span class="breadcrumb-item active">
+                    <i class="fas fa-folder-open"></i> ${chapterName}
+                </span>
+            `;
+            
+            // البحث عن الباب الحالي
+            currentChapter = currentChapters.find(c => c.id === chapterId);
+            
+            if (!currentChapter || !currentBookHadiths) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3 class="error-title">عذراً، لا يمكن تحميل الأحاديث</h3>
+                        <p class="error-text">الرجاء المحاولة مرة أخرى لاحقاً</p>
+                        <button class="btn-daily" onclick="showBookChapters('${getBookFile(currentBook.metadata.id)}', '${bookName}')">
+                            <i class="fas fa-arrow-right"></i> العودة للأبواب
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // تصفية الأحاديث الخاصة بهذا الباب
+            const chapterHadiths = currentBookHadiths.filter(h => h.chapterId === chapterId);
+            
+            if (chapterHadiths.length === 0) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="error-title">لا توجد أحاديث في هذا الباب</h3>
+                        <p class="error-text">هذا الباب لا يحتوي على أحاديث</p>
+                        <button class="btn-daily" onclick="showBookChapters('${getBookFile(currentBook.metadata.id)}', '${bookName}')">
+                            <i class="fas fa-arrow-right"></i> العودة للأبواب
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <div class="section-header">
+                    <h2 class="section-title">${chapterName}</h2>
+                    <p class="section-subtitle">من كتاب ${bookName}</p>
+                </div>
+                <div class="explained-grid">
+            `;
+            
+            chapterHadiths.forEach(hadith => {
+                html += `
+                    <div class="hadith-card">
+                        <div class="hadith-header">
+                            <span class="hadith-grade grade-sahih">حديث</span>
+                        </div>
+                        <p class="hadith-content">${hadith.arabic}</p>
+                        <div class="hadith-actions">
+                            <span class="takhrij-text">${bookName}</span>
+                            <button class="btn-read-more" onclick="showBookHadithDetail(${hadith.id})">
+                                <i class="fas fa-book-reader"></i> قراءة الحديث
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            container.innerHTML = html;
+            
+            // إظهار قسم أحاديث الباب
+            navigateTo('book-hadiths');
+        }
+
+        function showBookHadithDetail(hadithId) {
+            if (!currentBookHadiths || currentBookHadiths.length === 0) {
+                alert('عذراً، لا يمكن عرض التفاصيل حالياً');
+                return;
+            }
+            
+            const hadith = currentBookHadiths.find(h => h.id === hadithId);
+            if (!hadith) {
+                alert('الحديث غير موجود');
+                return;
+            }
+            
+            // البحث عن الباب الذي ينتمي إليه الحديث
+            const chapter = currentChapters.find(c => c.id === hadith.chapterId);
+            
+            document.getElementById('hadith-detail-content').innerHTML = `
+                <div class="hadith-detail-container">
+                    <div class="hadith-detail-header">
+                        <h2 class="section-title">حديث من ${currentBook.metadata.arabic.title}</h2>
+                        <p class="section-subtitle">${chapter ? chapter.arabic : ''}</p>
+                    </div>
+                    
+                    <p class="hadith-detail-text">${hadith.arabic}</p>
+                    
+                    <div class="daily-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">الكتاب:</span>
+                            <span class="meta-value">${currentBook.metadata.arabic.title}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">الباب:</span>
+                            <span class="meta-value">${chapter ? chapter.arabic : 'غير محدد'}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-block">
+                        <span class="info-label">
+                            <i class="fas fa-info-circle"></i> معلومات الحديث
+                        </span>
+                        <p class="explanation-text">
+                            هذا الحديث من كتاب ${currentBook.metadata.arabic.title} للإمام ${currentBook.metadata.arabic.author}<br>
+                            وهو في الباب: ${chapter ? chapter.arabic : 'غير محدد'}
+                        </p>
+                    </div>
+                    
+                    <div class="daily-actions">
+                        <button class="btn-daily" onclick="shareBookHadith(${hadith.id})">
+                            <i class="fas fa-share-alt"></i> مشاركة الحديث
+                        </button>
+                        <button class="btn-secondary" onclick="showChapterHadiths(${hadith.chapterId}, '${currentBook.metadata.arabic.title}', '${chapter ? chapter.arabic : ''}')">
+                            <i class="fas fa-arrow-right"></i> العودة للباب
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // إظهار قسم التفاصيل
+            navigateTo('detail');
+        }
+
+        function getBookFile(bookId) {
+            const book = booksData.find(b => b.id === bookId);
+            return book ? book.file : '';
+        }
+
+        function shareBookHadith(hadithId) {
+            const hadith = currentBookHadiths.find(h => h.id == hadithId);
+            if (!hadith || !currentBook) {
+                alert('عذراً، لا يمكن مشاركة الحديث حالياً');
+                return;
+            }
+            
+            const chapter = currentChapters.find(c => c.id === hadith.chapterId);
+            const shareText = `${hadith.arabic}\n\nمن كتاب: ${currentBook.metadata.arabic.title}\nالباب: ${chapter ? chapter.arabic : ''}\n\nمن موقع DEENWAY Hadiths`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'حديث نبوي',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        // =============== الوظائف الحالية ===============
 
         function showHadithDetail(hadithId) {
             if (!dataLoaded || hadithsData.length === 0) {
@@ -1312,6 +1853,8 @@
             });
             
             document.getElementById('section-detail').style.display = 'none';
+            document.getElementById('section-chapters').style.display = 'none';
+            document.getElementById('section-book-hadiths').style.display = 'none';
             
             history.pushState(null, null, window.location.pathname);
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1488,17 +2031,12 @@
             }
             
             const shareText = `${hadith.hadith_text_ar}\n\nدرجة الحديث: ${hadith.grade_ar}\n${hadith.takhrij_ar}\n\nمن موقع DEENWAY Hadiths`;
-            const shareUrl = window.location.origin + window.location.pathname + '?id=' + hadithId;
             
             if (navigator.share) {
                 navigator.share({
                     title: 'حديث نبوي',
                     text: shareText,
-                    url: shareUrl
-                })
-                .then(() => console.log('تمت المشاركة بنجاح'))
-                .catch(() => {
-                    copyToClipboard(shareText);
+                    url: window.location.origin + window.location.pathname + '?id=' + hadithId
                 });
             } else {
                 copyToClipboard(shareText);
